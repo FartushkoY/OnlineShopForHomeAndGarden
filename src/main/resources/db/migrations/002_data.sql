@@ -1,3 +1,6 @@
+-- liquibase formatted sql
+-- changeset maria:002
+
 insert into categories (category_id, name)
 values (1, 'Planting material'),
        (2, 'Protective products and septic tanks'),
