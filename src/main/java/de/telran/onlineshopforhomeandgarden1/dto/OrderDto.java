@@ -1,5 +1,6 @@
 package de.telran.onlineshopforhomeandgarden1.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import de.telran.onlineshopforhomeandgarden1.enums.DeliveryMethod;
 import de.telran.onlineshopforhomeandgarden1.enums.Status;
 import jakarta.validation.constraints.NotNull;
@@ -37,6 +38,7 @@ public class OrderDto {
 
     private Instant updatedAt;
 
-//    private UserDto user;
+    @JsonIgnore
+    private UserDto user;
 
 }
