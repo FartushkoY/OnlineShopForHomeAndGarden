@@ -2,9 +2,9 @@ package de.telran.onlineshopforhomeandgarden1.dto;
 
 import de.telran.onlineshopforhomeandgarden1.entity.enums.Role;
 import jakarta.persistence.Column;
-import jakarta.persistence.UniqueConstraint;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
+import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,10 +25,10 @@ public class UserDto {
     private String name;
 
     @NotNull
-    @Length(max =45 , message = "{validation.user.email}")
     @Email
     @Column(unique = true)
-    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$\n", message = "{validation.user.email}")
+    @Pattern(regexp = "^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$", message = "{validation.user.email}")
+    @Size(max =45 , message = "{validation.user.email}")
     private String email;
 
     @NotNull
