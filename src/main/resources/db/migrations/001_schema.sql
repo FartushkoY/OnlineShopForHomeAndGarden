@@ -9,7 +9,6 @@ USE `OnlineApp`;
 CREATE TABLE IF NOT EXISTS `OnlineApp`.`categories` (
 `category_id` INT NOT NULL,
 `name` VARCHAR(45) NOT NULL,
-`image_url` VARCHAR(255) NOT NULL,
  PRIMARY KEY (`category_id`));
 
 CREATE TABLE IF NOT EXISTS `OnlineApp`.`products` (
