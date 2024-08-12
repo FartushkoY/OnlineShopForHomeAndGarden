@@ -1,5 +1,6 @@
 package de.telran.onlineshopforhomeandgarden1.dto;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import de.telran.onlineshopforhomeandgarden1.entity.Cart;
 import de.telran.onlineshopforhomeandgarden1.entity.Product;
@@ -19,7 +20,7 @@ public class CartItemDto {
     @JsonIgnore
     private Cart cart;
 
-    @JsonIgnore
+    @JsonBackReference
     private Product product;
 
     @Min(value = 0, message = "{validation.cartItem.quantity}")

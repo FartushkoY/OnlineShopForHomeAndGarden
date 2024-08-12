@@ -1,6 +1,6 @@
 package de.telran.onlineshopforhomeandgarden1.entity;
 
-import de.telran.onlineshopforhomeandgarden1.entity.enums.Role;
+import de.telran.onlineshopforhomeandgarden1.enums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
