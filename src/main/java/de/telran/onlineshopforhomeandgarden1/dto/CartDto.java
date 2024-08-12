@@ -1,6 +1,6 @@
 package de.telran.onlineshopforhomeandgarden1.dto;
 
-import de.telran.onlineshopforhomeandgarden1.entity.Product;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import de.telran.onlineshopforhomeandgarden1.entity.User;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -11,11 +11,9 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class FavoriteDto {
-
+public class CartDto {
     private Long id;
 
+    @JsonIgnore
     private User user;
-
-    private Product product;
 }

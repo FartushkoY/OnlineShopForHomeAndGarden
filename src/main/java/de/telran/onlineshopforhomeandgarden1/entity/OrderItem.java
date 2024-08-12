@@ -2,7 +2,6 @@ package de.telran.onlineshopforhomeandgarden1.entity;
 
 
 import jakarta.persistence.*;
-import jakarta.persistence.criteria.CriteriaBuilder;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
