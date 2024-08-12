@@ -1,6 +1,7 @@
 package de.telran.onlineshopforhomeandgarden1.entity;
 
 
+import de.telran.onlineshopforhomeandgarden1.enums.DeliveryMethod;
 import de.telran.onlineshopforhomeandgarden1.enums.Status;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -39,7 +40,7 @@ public class Order {
     private String contactPhone;
 
     @Column(name = "delivery_method")
-    private String deliveryMethod;
+    private DeliveryMethod deliveryMethod;
 
     @Column(name = "status")
     @Enumerated(EnumType.STRING)
@@ -52,8 +53,8 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private Set<OrderItem> orderItems = new HashSet<>();
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user;
+//    @ManyToOne(fetch = FetchType.LAZY)
+//    @JoinColumn(name = "user_id")
+//    private User user;
 }
 

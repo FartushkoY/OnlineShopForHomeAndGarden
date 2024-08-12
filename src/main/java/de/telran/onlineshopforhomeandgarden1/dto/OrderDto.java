@@ -38,7 +38,6 @@ public class OrderDto {
 
     private Instant updatedAt;
 
-    @JsonIgnore
-    private UserDto user;
+//    private UserDto user;
 
 }
