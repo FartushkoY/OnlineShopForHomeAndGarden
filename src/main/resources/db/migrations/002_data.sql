@@ -58,7 +58,7 @@ insert into orders (order_id, user_id, created_at, delivery_address, contact_pho
 values (1, 2, current_timestamp(), 'Friedrichstraße 123, 10117, Berlin, Germany', '+491668019467', 'STANDARD', 'PAID', current_timestamp()),
        (2, 1, current_timestamp(), 'Kurfürstendamm 45, 10719, Berlin, Germany', '+491708009466', 'EXPRESS', 'DELIVERED', current_timestamp()),
        (3, 3, current_timestamp(), 'Karl-Marx-Allee 50, 10243, Berlin, Germany', '+491678019468', 'STANDARD', 'CANCELED', current_timestamp()),
-       (4, 7, current_timestamp(), 'Schlossstasse 45, 10719, Berlin, Germany', '+491707709466', 'STANDARD', 'ON THE WAY', current_timestamp()),
+       (4, 7, current_timestamp(), 'Schlossstasse 45, 10719, Berlin, Germany', '+491707709466', 'STANDARD', 'ON_THE_WAY', current_timestamp()),
        (5, 8, current_timestamp(), 'Karslruherstrasse 11, 10243, Schwetzingen, Germany', '+491678044468', 'EXPRESS', 'PENDING', current_timestamp());
 
 insert into order_items (order_item_id, order_id, product_id, quantity, price_at_purchase)

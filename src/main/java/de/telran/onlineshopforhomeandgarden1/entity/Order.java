@@ -1,6 +1,7 @@
 package de.telran.onlineshopforhomeandgarden1.entity;
 
 
+import de.telran.onlineshopforhomeandgarden1.enums.DeliveryMethod;
 import de.telran.onlineshopforhomeandgarden1.enums.Status;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -9,7 +10,6 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
 import java.time.Instant;
 import java.util.HashSet;
 import java.util.Set;
@@ -20,7 +20,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-
+@Table(name = "orders")
 public class Order {
 
     @Id
@@ -39,7 +39,8 @@ public class Order {
     private String contactPhone;
 
     @Column(name = "delivery_method")
-    private String deliveryMethod;
+    @Enumerated(EnumType.STRING)
+    private DeliveryMethod deliveryMethod;
 
     @Column(name = "status")
     @Enumerated(EnumType.STRING)

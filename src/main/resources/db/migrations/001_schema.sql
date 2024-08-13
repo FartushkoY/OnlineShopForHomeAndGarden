@@ -99,7 +99,7 @@ CREATE TABLE IF NOT EXISTS `OnlineApp`.`orders` (
 `contact_phone` VARCHAR(13) NOT NULL,
 `delivery_method` ENUM ('STANDARD', 'EXPRESS') NOT NULL,
 `updated_at` TIMESTAMP NOT NULL,
-`status` ENUM ('PENDING', 'PAID', 'ON THE WAY', 'DELIVERED', 'CANCELED') NOT NULL,
+`status` ENUM ('PENDING', 'PAID', 'ON_THE_WAY', 'DELIVERED', 'CANCELED') NOT NULL,
     PRIMARY KEY (`order_id`),
     INDEX `fk_orders_users1_idx` (`user_id` ASC) VISIBLE,
     CONSTRAINT `fk_orders_users1`
