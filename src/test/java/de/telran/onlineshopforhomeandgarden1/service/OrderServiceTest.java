@@ -1,6 +1,8 @@
 package de.telran.onlineshopforhomeandgarden1.service;
 
+import de.telran.onlineshopforhomeandgarden1.dto.OrderDto;
 import de.telran.onlineshopforhomeandgarden1.entity.Order;
+import de.telran.onlineshopforhomeandgarden1.enums.DeliveryMethod;
 import de.telran.onlineshopforhomeandgarden1.enums.Status;
 import de.telran.onlineshopforhomeandgarden1.mapper.OrderMapper;
 import de.telran.onlineshopforhomeandgarden1.repository.OrderRepository;
@@ -39,12 +41,13 @@ class OrderServiceTest {
         Order order = new Order();
         order.setId(orderId);
         order.setStatus(Status.valueOf("PAID"));
+        order.setDeliveryMethod(DeliveryMethod.EXPRESS);
 
         Mockito.when(repository.findById(orderId)).thenReturn(Optional.of(order));
-       Status result = orderService.getOrderStatus(orderId).get();
+       OrderDto result = orderService.getOrderStatus(orderId).get();
 
         Mockito.verify(repository).findById(orderId);
-        assertEquals(order.getStatus(), result);
+        assertEquals(order.getId(), result.getId());
 
     }
 
@@ -54,9 +57,10 @@ class OrderServiceTest {
         Order order = new Order();
         order.setId(orderId);
         order.setStatus(Status.valueOf("PAID"));
+        order.setDeliveryMethod(DeliveryMethod.EXPRESS);
 
         Mockito.when(repository.findById(orderId)).thenReturn(Optional.empty());
-        Optional<Status> result = orderService.getOrderStatus(orderId);
+        Optional<OrderDto> result = orderService.getOrderStatus(orderId);
 
         Mockito.verify(repository).findById(orderId);
         assertTrue(result.isEmpty());

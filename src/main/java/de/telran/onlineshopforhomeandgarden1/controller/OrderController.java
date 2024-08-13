@@ -34,8 +34,8 @@ public class OrderController {
     }
 
     @GetMapping("/{orderId}")
-    public ResponseEntity<Status> getOrderStatus(@PathVariable Long orderId) {
-        Optional<Status> order = service.getOrderStatus(orderId);
+    public ResponseEntity<OrderDto> getOrderStatus(@PathVariable Long orderId) {
+        Optional<OrderDto> order = service.getOrderStatus(orderId);
         if (order.isPresent()) {
             log.info("Get order by id: {} successfully ", orderId);
             return new ResponseEntity<>(order.get(), HttpStatus.OK);

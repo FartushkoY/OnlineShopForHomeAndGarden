@@ -33,11 +33,11 @@ public class OrderService {
         return orderMapper.entityListToDto(orders);
     }
 
-    public Optional<Status> getOrderStatus(Long id) {
+    public Optional<OrderDto> getOrderStatus(Long id) {
         Optional<Order> order = repository.findById(id);
         logger.debug("Order retrieved from DB: id =  {}", () -> order.orElse(null));
         if(order.isPresent()) {
-            return order.map(Order::getStatus);
+            return order.map(orderMapper::entityToDto);
         }else{
             return Optional.empty();
         }

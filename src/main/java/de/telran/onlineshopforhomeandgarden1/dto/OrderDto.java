@@ -1,6 +1,4 @@
 package de.telran.onlineshopforhomeandgarden1.dto;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import de.telran.onlineshopforhomeandgarden1.enums.DeliveryMethod;
 import de.telran.onlineshopforhomeandgarden1.enums.Status;
 import jakarta.validation.constraints.NotNull;
