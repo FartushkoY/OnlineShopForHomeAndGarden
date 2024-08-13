@@ -47,7 +47,9 @@ class OrderServiceTest {
        OrderDto result = orderService.getOrderStatus(orderId).get();
 
         Mockito.verify(repository).findById(orderId);
-        assertEquals(order.getId(), result.getId());
+        assertEquals(orderId, result.getId());
+        assertEquals(Status.PAID, result.getStatus());
+        assertEquals(DeliveryMethod.EXPRESS, result.getDeliveryMethod());
 
     }
 
