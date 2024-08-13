@@ -37,10 +37,8 @@ public class OrderController {
     public ResponseEntity<OrderDto> getOrderStatus(@PathVariable Long orderId) {
         Optional<OrderDto> order = service.getOrderStatus(orderId);
         if (order.isPresent()) {
-            log.info("Get order by id: {} successfully ", orderId);
             return new ResponseEntity<>(order.get(), HttpStatus.OK);
         } else {
-            log.info("Get book detail by id: {} not found ", orderId);
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }

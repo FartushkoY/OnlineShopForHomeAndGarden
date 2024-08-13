@@ -54,10 +54,7 @@ class OrderServiceTest {
     @Test
     void getOrderStatusNull() {
         Long orderId = 1L;
-        Order order = new Order();
-        order.setId(orderId);
-        order.setStatus(Status.valueOf("PAID"));
-        order.setDeliveryMethod(DeliveryMethod.EXPRESS);
+
 
         Mockito.when(repository.findById(orderId)).thenReturn(Optional.empty());
         Optional<OrderDto> result = orderService.getOrderStatus(orderId);

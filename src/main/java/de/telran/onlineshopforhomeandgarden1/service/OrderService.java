@@ -2,7 +2,6 @@ package de.telran.onlineshopforhomeandgarden1.service;
 
 import de.telran.onlineshopforhomeandgarden1.dto.OrderDto;
 import de.telran.onlineshopforhomeandgarden1.entity.Order;
-import de.telran.onlineshopforhomeandgarden1.enums.Status;
 import de.telran.onlineshopforhomeandgarden1.mapper.OrderMapper;
 import de.telran.onlineshopforhomeandgarden1.repository.OrderRepository;
 import org.apache.logging.log4j.LogManager;
@@ -36,11 +35,7 @@ public class OrderService {
     public Optional<OrderDto> getOrderStatus(Long id) {
         Optional<Order> order = repository.findById(id);
         logger.debug("Order retrieved from DB: id =  {}", () -> order.orElse(null));
-        if(order.isPresent()) {
-            return order.map(orderMapper::entityToDto);
-        }else{
-            return Optional.empty();
-        }
+        return order.map(orderMapper::entityToDto);
 
     }
 
