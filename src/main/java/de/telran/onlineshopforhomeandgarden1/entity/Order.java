@@ -20,7 +20,7 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-
+@Table(name = "orders")
 public class Order {
 
     @Id
@@ -39,6 +39,7 @@ public class Order {
     private String contactPhone;
 
     @Column(name = "delivery_method")
+    @Enumerated(EnumType.STRING)
     private DeliveryMethod deliveryMethod;
 
     @Column(name = "status")
@@ -52,8 +53,8 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private Set<OrderItem> orderItems = new HashSet<>();
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "user_id")
-//    private User user;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 }
 

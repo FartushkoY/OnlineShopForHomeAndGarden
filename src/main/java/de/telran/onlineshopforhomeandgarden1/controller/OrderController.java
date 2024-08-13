@@ -28,7 +28,7 @@ public class OrderController {
     @Autowired
     public OrderController(OrderService service) {this.service = service;}
 
-    @GetMapping("/")
+    @GetMapping
     public List<OrderDto> getAll() {
         return service.getAll();
     }

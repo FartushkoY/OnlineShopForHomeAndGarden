@@ -36,6 +36,6 @@ public class OrderDto {
 
     private Instant updatedAt;
 
-//    private UserDto user;
+    private UserDto user;
 
 }
