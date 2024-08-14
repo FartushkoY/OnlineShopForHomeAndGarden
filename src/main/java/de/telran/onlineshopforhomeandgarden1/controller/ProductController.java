@@ -1,11 +1,17 @@
 package de.telran.onlineshopforhomeandgarden1.controller;
 
+import de.telran.onlineshopforhomeandgarden1.dto.ProductDto;
 import de.telran.onlineshopforhomeandgarden1.service.ProductService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Optional;
 
 @RestController
+@Slf4j
 @RequestMapping("/products")
 public class ProductController {
 
@@ -15,4 +21,15 @@ public class ProductController {
     public ProductController(ProductService service) {
         this.service = service;
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductDto> getProductById(@PathVariable Long id) {
+        Optional<ProductDto> productDto = service.getProductById(id);
+        if (productDto.isPresent()) {
+            return new ResponseEntity<>(productDto.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
 }
