@@ -10,7 +10,7 @@
             <PatternLayout pattern="${LOG_PATTERN}"/>
         </Console>
         <RollingFile name="FileAppender" fileName="logs/onlineShop.log"
-                     filePattern="logs/onlineShopLogs-%d{yyyy-MM-dd}-%i.log">
+                     filePattern="logs/onlineShop-%d{yyyy-MM-dd}-%i.log">
             <PatternLayout>
                 <Pattern>${LOG_PATTERN}</Pattern>
             </PatternLayout>
