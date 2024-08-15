@@ -10,7 +10,6 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
 
 @Service
 public class UserService {
@@ -25,18 +24,12 @@ public class UserService {
         this.mapper = mapper;
     }
 
-    public UserDto addUser(UserDto userDto) {
-        Optional<User> optional = repository.findById(userDto.getId());
-        if (optional.isPresent()){
-            User user = mapper.dtoToEntity(userDto);
-            if (user.getRole() == null) {
-                user.setRole(Role.CUSTOMER);
-            }
-            User saved = repository.save(user);
-            return mapper.entityToDto(saved);
-        }else {
-            return null;
+    public UserDto savedUser(UserDto userDto) {
+        User user = mapper.dtoToEntity(userDto);
+        if (user.getRole() == null){
+            user.setRole(Role.CUSTOMER);
         }
-
+        User saved = repository.save(user);
+        return mapper.entityToDto(saved);
     }
 }

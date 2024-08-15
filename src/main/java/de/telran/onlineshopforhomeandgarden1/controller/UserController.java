@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-
 @RestController
 @RequestMapping("/users")
 @Validated
@@ -24,14 +23,13 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<UserDto> addUser(@RequestBody @Valid UserDto userDto) {
-       UserDto result = service.addUser(userDto);
-        if (result != null) {
+    public ResponseEntity<UserDto> saveUser(@RequestBody @Valid UserDto userDto) {
+        try{
+            UserDto result = service.savedUser(userDto);
             log.info("User with name = {}, email = {}, phoneNumber = {} and passwordHash = {} created",
                     result.getName(), result.getEmail(), result.getPhoneNumber(), result.getPasswordHash());
             return new ResponseEntity<>(result, HttpStatus.CREATED);
-        } else {
-            log.error("User cannot be added");
+        }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
