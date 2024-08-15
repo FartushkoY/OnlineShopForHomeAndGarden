@@ -1,11 +1,12 @@
 package de.telran.onlineshopforhomeandgarden1.service;
 
-import de.telran.onlineshopforhomeandgarden1.dto.OrderDto;
+import de.telran.onlineshopforhomeandgarden1.dto.response.OrderResponseDto;
 import de.telran.onlineshopforhomeandgarden1.entity.Order;
 import de.telran.onlineshopforhomeandgarden1.enums.DeliveryMethod;
 import de.telran.onlineshopforhomeandgarden1.enums.Status;
 import de.telran.onlineshopforhomeandgarden1.mapper.OrderMapper;
 import de.telran.onlineshopforhomeandgarden1.repository.OrderRepository;
+import de.telran.onlineshopforhomeandgarden1.repository.ProductRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
@@ -18,6 +19,7 @@ class OrderServiceTest {
 
     private static OrderService orderService;
     private static OrderRepository repository;
+    private static ProductRepository productRepository;
     private static OrderMapper orderMapper;
 
 
@@ -25,8 +27,9 @@ class OrderServiceTest {
     @BeforeEach
     public void init() {
         repository = Mockito.mock(OrderRepository.class);
+        productRepository = Mockito.mock(ProductRepository.class);
         orderMapper = Mappers.getMapper(OrderMapper.class);
-        orderService = new OrderService(repository, orderMapper);
+        orderService = new OrderService(repository, orderMapper, productRepository);
 
     }
     @Test
@@ -44,7 +47,7 @@ class OrderServiceTest {
         order.setDeliveryMethod(DeliveryMethod.EXPRESS);
 
         Mockito.when(repository.findById(orderId)).thenReturn(Optional.of(order));
-       OrderDto result = orderService.getOrderStatus(orderId).get();
+       OrderResponseDto result = orderService.getOrderStatus(orderId).get();
 
         Mockito.verify(repository).findById(orderId);
         assertEquals(orderId, result.getId());
@@ -59,7 +62,7 @@ class OrderServiceTest {
 
 
         Mockito.when(repository.findById(orderId)).thenReturn(Optional.empty());
-        Optional<OrderDto> result = orderService.getOrderStatus(orderId);
+        Optional<OrderResponseDto> result = orderService.getOrderStatus(orderId);
 
         Mockito.verify(repository).findById(orderId);
         assertTrue(result.isEmpty());

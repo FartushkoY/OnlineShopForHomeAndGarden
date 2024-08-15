@@ -1,6 +1,8 @@
-package de.telran.onlineshopforhomeandgarden1.dto;
+package de.telran.onlineshopforhomeandgarden1.dto.response;
 
-import de.telran.onlineshopforhomeandgarden1.entity.Product;
+import de.telran.onlineshopforhomeandgarden1.entity.Category;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -8,21 +10,23 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 
-import java.util.List;
+import java.math.BigDecimal;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CategoryDto {
+public class ProductResponseDto {
+
 
     private Long id;
 
-    @NotNull(message = "{validation.category.name}")
-    @Length(max = 50, message = "{validation.category.name}")
     private String name;
+
+    private String description;
+
+    private BigDecimal price;
 
     private String imageUrl;
 
-    private List<ProductDto> products;
 }

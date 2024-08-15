@@ -1,7 +1,6 @@
 package de.telran.onlineshopforhomeandgarden1.controller;
 
-import de.telran.onlineshopforhomeandgarden1.dto.OrderDto;
-import de.telran.onlineshopforhomeandgarden1.enums.Status;
+import de.telran.onlineshopforhomeandgarden1.dto.response.OrderResponseDto;
 import de.telran.onlineshopforhomeandgarden1.service.OrderService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,13 +28,13 @@ public class OrderController {
     public OrderController(OrderService service) {this.service = service;}
 
     @GetMapping
-    public List<OrderDto> getAll() {
+    public List<OrderResponseDto> getAll() {
         return service.getAll();
     }
 
     @GetMapping("/{orderId}")
-    public ResponseEntity<OrderDto> getOrderStatus(@PathVariable Long orderId) {
-        Optional<OrderDto> order = service.getOrderStatus(orderId);
+    public ResponseEntity<OrderResponseDto> getOrderStatus(@PathVariable Long orderId) {
+        Optional<OrderResponseDto> order = service.getOrderStatus(orderId);
         if (order.isPresent()) {
             return new ResponseEntity<>(order.get(), HttpStatus.OK);
         } else {
