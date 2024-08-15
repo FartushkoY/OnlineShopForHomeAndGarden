@@ -627,3 +627,97 @@ Identify and stop the process that's listening on port 8080 or configure this ap
 2024-08-14 13:59:26.567  INFO --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2024-08-14 13:59:26.568  INFO --- [ionShutdownHook] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown initiated...
 2024-08-14 13:59:26.573  INFO --- [ionShutdownHook] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown completed.
+2024-08-15 10:29:14.386  INFO --- [kground-preinit] o.h.v.i.u.Version                        : HV000001: Hibernate Validator 8.0.1.Final
+2024-08-15 10:29:14.418  INFO --- [           main] o.OnlineShopForHomeAndGarden1Application : Starting OnlineShopForHomeAndGarden1Application using Java 21.0.1 with PID 37958 (/Users/maria/IdeaProjects/OnlineShopForHomeAndGarden/target/classes started by maria in /Users/maria/IdeaProjects/OnlineShopForHomeAndGarden)
+2024-08-15 10:29:14.422  INFO --- [           main] o.OnlineShopForHomeAndGarden1Application : No active profile set, falling back to 1 default profile: "default"
+2024-08-15 10:29:14.966  INFO --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-08-15 10:29:15.034  INFO --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 60 ms. Found 8 JPA repository interfaces.
+2024-08-15 10:29:15.491  INFO --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port 8080 (http)
+2024-08-15 10:29:15.503  INFO --- [           main] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8080"]
+2024-08-15 10:29:15.504  INFO --- [           main] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2024-08-15 10:29:15.504  INFO --- [           main] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/10.1.26]
+2024-08-15 10:29:15.548  INFO --- [           main] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2024-08-15 10:29:15.549  INFO --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1100 ms
+2024-08-15 10:29:15.704  INFO --- [           main] c.z.h.HikariDataSource                   : HikariPool-1 - Starting...
+2024-08-15 10:29:15.984  INFO --- [           main] c.z.h.p.HikariPool                       : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@74431b9c
+2024-08-15 10:29:15.985  INFO --- [           main] c.z.h.HikariDataSource                   : HikariPool-1 - Start completed.
+2024-08-15 10:29:16.450  INFO --- [           main] l.changelog                              : Reading from OnlineApp.databasechangelog
+2024-08-15 10:29:16.473  INFO --- [           main] l.ui                                     : Database is up to date, no changesets to execute
+2024-08-15 10:29:16.475  INFO --- [           main] l.changelog                              : Reading from OnlineApp.databasechangelog
+2024-08-15 10:29:16.481  INFO --- [           main] l.util                                   : UPDATE SUMMARY
+2024-08-15 10:29:16.482  INFO --- [           main] l.util                                   : Run:                          0
+2024-08-15 10:29:16.482  INFO --- [           main] l.util                                   : Previously run:               2
+2024-08-15 10:29:16.482  INFO --- [           main] l.util                                   : Filtered out:                 0
+2024-08-15 10:29:16.482  INFO --- [           main] l.util                                   : -------------------------------
+2024-08-15 10:29:16.482  INFO --- [           main] l.util                                   : Total change sets:            2
+2024-08-15 10:29:16.483  INFO --- [           main] l.util                                   : Update summary generated
+2024-08-15 10:29:16.498  INFO --- [           main] l.lockservice                            : Successfully released change log lock
+2024-08-15 10:29:16.499  INFO --- [           main] l.command                                : Command execution complete
+2024-08-15 10:29:16.579  INFO --- [           main] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-08-15 10:29:16.658  INFO --- [           main] o.h.Version                              : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-08-15 10:29:16.699  INFO --- [           main] o.h.c.i.RegionFactoryInitiator           : HHH000026: Second-level cache disabled
+2024-08-15 10:29:17.024  INFO --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-08-15 10:29:18.096  INFO --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-08-15 10:29:18.099  INFO --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-08-15 10:29:18.411  WARN --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-08-15 10:29:18.791  INFO --- [           main] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8080"]
+2024-08-15 10:29:18.798  WARN --- [           main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Failed to start bean 'webServerStartStop'
+2024-08-15 10:29:18.799  INFO --- [           main] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-08-15 10:29:18.801  INFO --- [           main] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown initiated...
+2024-08-15 10:29:18.808  INFO --- [           main] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown completed.
+2024-08-15 10:29:18.817  INFO --- [           main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2024-08-15 10:29:18.837 ERROR --- [           main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Web server failed to start. Port 8080 was already in use.
+
+Action:
+
+Identify and stop the process that's listening on port 8080 or configure this application to listen on another port.
+
+2024-08-15 10:31:52.373  INFO --- [kground-preinit] o.h.v.i.u.Version                        : HV000001: Hibernate Validator 8.0.1.Final
+2024-08-15 10:31:52.398  INFO --- [           main] o.OnlineShopForHomeAndGarden1Application : Starting OnlineShopForHomeAndGarden1Application using Java 21.0.1 with PID 38029 (/Users/maria/IdeaProjects/OnlineShopForHomeAndGarden/target/classes started by maria in /Users/maria/IdeaProjects/OnlineShopForHomeAndGarden)
+2024-08-15 10:31:52.401  INFO --- [           main] o.OnlineShopForHomeAndGarden1Application : No active profile set, falling back to 1 default profile: "default"
+2024-08-15 10:31:52.835  INFO --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-08-15 10:31:52.893  INFO --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 52 ms. Found 8 JPA repository interfaces.
+2024-08-15 10:31:53.231  INFO --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port 8080 (http)
+2024-08-15 10:31:53.239  INFO --- [           main] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8080"]
+2024-08-15 10:31:53.241  INFO --- [           main] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2024-08-15 10:31:53.241  INFO --- [           main] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/10.1.26]
+2024-08-15 10:31:53.273  INFO --- [           main] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2024-08-15 10:31:53.274  INFO --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 845 ms
+2024-08-15 10:31:53.376  INFO --- [           main] c.z.h.HikariDataSource                   : HikariPool-1 - Starting...
+2024-08-15 10:31:53.631  INFO --- [           main] c.z.h.p.HikariPool                       : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@52f9e8bb
+2024-08-15 10:31:53.633  INFO --- [           main] c.z.h.HikariDataSource                   : HikariPool-1 - Start completed.
+2024-08-15 10:31:54.018  INFO --- [           main] l.changelog                              : Reading from OnlineApp.databasechangelog
+2024-08-15 10:31:54.038  INFO --- [           main] l.ui                                     : Database is up to date, no changesets to execute
+2024-08-15 10:31:54.039  INFO --- [           main] l.changelog                              : Reading from OnlineApp.databasechangelog
+2024-08-15 10:31:54.045  INFO --- [           main] l.util                                   : UPDATE SUMMARY
+2024-08-15 10:31:54.046  INFO --- [           main] l.util                                   : Run:                          0
+2024-08-15 10:31:54.046  INFO --- [           main] l.util                                   : Previously run:               2
+2024-08-15 10:31:54.046  INFO --- [           main] l.util                                   : Filtered out:                 0
+2024-08-15 10:31:54.046  INFO --- [           main] l.util                                   : -------------------------------
+2024-08-15 10:31:54.046  INFO --- [           main] l.util                                   : Total change sets:            2
+2024-08-15 10:31:54.047  INFO --- [           main] l.util                                   : Update summary generated
+2024-08-15 10:31:54.060  INFO --- [           main] l.lockservice                            : Successfully released change log lock
+2024-08-15 10:31:54.061  INFO --- [           main] l.command                                : Command execution complete
+2024-08-15 10:31:54.118  INFO --- [           main] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-08-15 10:31:54.155  INFO --- [           main] o.h.Version                              : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-08-15 10:31:54.178  INFO --- [           main] o.h.c.i.RegionFactoryInitiator           : HHH000026: Second-level cache disabled
+2024-08-15 10:31:54.408  INFO --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-08-15 10:31:55.201  INFO --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-08-15 10:31:55.203  INFO --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-08-15 10:31:55.429  WARN --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-08-15 10:31:55.713  INFO --- [           main] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8080"]
+2024-08-15 10:31:55.727  INFO --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port 8080 (http) with context path '/'
+2024-08-15 10:31:55.733  INFO --- [           main] o.OnlineShopForHomeAndGarden1Application : Started OnlineShopForHomeAndGarden1Application in 3.53 seconds (process running for 5.422)
+2024-08-15 10:32:10.459  INFO --- [nio-8080-exec-1] o.a.c.c.C.[.[.[/]                        : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-08-15 10:32:10.460  INFO --- [nio-8080-exec-1] o.s.w.s.DispatcherServlet                : Initializing Servlet 'dispatcherServlet'
+2024-08-15 10:32:10.461  INFO --- [nio-8080-exec-1] o.s.w.s.DispatcherServlet                : Completed initialization in 1 ms

@@ -9,21 +9,20 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-
 public class OrderResponseDto {
 
     private Long id;
 
     private Instant createdAt;
 
-    private List<OrderItemResponseDto> orderItems = new ArrayList<>();
+    private Set<OrderItemResponseDto> orderItems;
 
     @NotNull(message = "{validation.order.deliveryAddress.notNull}")
     @Length(max = 100, message = "{validation.order.deliveryAddress.size}")

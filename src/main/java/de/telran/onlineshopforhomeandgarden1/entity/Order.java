@@ -11,9 +11,7 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import java.time.Instant;
-import java.util.ArrayList;
-import java.util.List;
-
+import java.util.Set;
 
 
 @Getter
@@ -34,7 +32,7 @@ public class Order {
     private Instant createdAt;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private List<OrderItem> orderItems = new ArrayList<>();
+    private Set<OrderItem> orderItems;
 
     @Column(name = "delivery_address")
     private String deliveryAddress;
