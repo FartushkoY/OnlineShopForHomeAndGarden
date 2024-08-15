@@ -24,18 +24,12 @@ public class OrderResponseDto {
 
     private Set<OrderItemResponseDto> orderItems;
 
-    @NotNull(message = "{validation.order.deliveryAddress.notNull}")
-    @Length(max = 100, message = "{validation.order.deliveryAddress.size}")
     private String deliveryAddress;
 
-    @NotNull(message = "{validation.order.contactPhone.notNull}")
-    @Length(max = 13, message = "{validation.order.contactPhone.size}")
     private String contactPhone;
 
-    @NotNull(message = "{validation.order.deliveryMethod.notNull}")
     private DeliveryMethod deliveryMethod;
 
-    @NotNull(message = "{validation.order.status.notNull}")
     private Status status;
 
     private Instant updatedAt;
