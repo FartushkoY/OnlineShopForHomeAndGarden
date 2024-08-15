@@ -1,4 +1,5 @@
-package de.telran.onlineshopforhomeandgarden1.dto;
+package de.telran.onlineshopforhomeandgarden1.dto.response;
+import de.telran.onlineshopforhomeandgarden1.entity.OrderItem;
 import de.telran.onlineshopforhomeandgarden1.enums.DeliveryMethod;
 import de.telran.onlineshopforhomeandgarden1.enums.Status;
 import jakarta.validation.constraints.NotNull;
@@ -8,17 +9,21 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 import java.time.Instant;
+import java.util.ArrayList;
+import java.util.List;
 
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
 
-public class OrderDto {
+public class OrderResponseDto {
 
     private Long id;
 
     private Instant createdAt;
+
+    private List<OrderItemResponseDto> orderItems = new ArrayList<>();
 
     @NotNull(message = "{validation.order.deliveryAddress.notNull}")
     @Length(max = 100, message = "{validation.order.deliveryAddress.size}")
@@ -36,6 +41,5 @@ public class OrderDto {
 
     private Instant updatedAt;
 
-    private UserDto user;
 
 }

@@ -1,6 +1,7 @@
 package de.telran.onlineshopforhomeandgarden1.entity;
 
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -15,11 +16,11 @@ import java.math.BigDecimal;
 @Setter
 @NoArgsConstructor
 
-
+@Table(name = "order_items")
 public class OrderItem {
+    @Column(name = "order_item_id")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "order_item_id")
     private Long id;
 
     @Column(name = "quantity")
@@ -30,6 +31,7 @@ public class OrderItem {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "order_id")
+    @JsonBackReference
     private Order order;
 
     @ManyToOne(fetch = FetchType.LAZY)

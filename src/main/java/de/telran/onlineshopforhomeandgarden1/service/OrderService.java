@@ -1,9 +1,10 @@
 package de.telran.onlineshopforhomeandgarden1.service;
 
-import de.telran.onlineshopforhomeandgarden1.dto.OrderDto;
+import de.telran.onlineshopforhomeandgarden1.dto.response.OrderResponseDto;
 import de.telran.onlineshopforhomeandgarden1.entity.Order;
 import de.telran.onlineshopforhomeandgarden1.mapper.OrderMapper;
 import de.telran.onlineshopforhomeandgarden1.repository.OrderRepository;
+import de.telran.onlineshopforhomeandgarden1.repository.ProductRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,20 +20,22 @@ public class OrderService {
 
     private final OrderRepository repository;
     private final OrderMapper orderMapper;
+    private final ProductRepository productRepository;
 
 
     @Autowired
-    public OrderService(OrderRepository repository, OrderMapper orderMapper) {
+    public OrderService(OrderRepository repository, OrderMapper orderMapper, ProductRepository productRepository) {
         this.repository = repository;
         this.orderMapper = orderMapper;
+        this.productRepository = productRepository;
     }
 
-    public List<OrderDto> getAll() {
+    public List<OrderResponseDto> getAll() {
         List<Order> orders = repository.findAll();
         return orderMapper.entityListToDto(orders);
     }
 
-    public Optional<OrderDto> getOrderStatus(Long id) {
+    public Optional<OrderResponseDto> getOrderStatus(Long id) {
         Optional<Order> order = repository.findById(id);
         logger.debug("Order retrieved from DB: id =  {}", () -> order.orElse(null));
         return order.map(orderMapper::entityToDto);
