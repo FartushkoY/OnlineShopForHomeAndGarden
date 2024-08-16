@@ -42,7 +42,7 @@ public class OrderController {
     }
 
     @PostMapping
-    public ResponseEntity<OrderRequestDto> addBook(@RequestBody @Valid OrderRequestDto orderRequestDto) {
+    public ResponseEntity<OrderRequestDto> addOrder(@RequestBody @Valid OrderRequestDto orderRequestDto) {
         OrderRequestDto created = service.addOrder(orderRequestDto);
         return new ResponseEntity<>(created, HttpStatus.CREATED);
     }
