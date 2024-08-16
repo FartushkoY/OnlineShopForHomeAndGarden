@@ -6,6 +6,9 @@
 
     <include file="db/migrations/001_schema.sql"/>
     <include file="db/migrations/002_data.sql"/>
+    <include file="db/migrations/003_fix_products.sql"/>
+    <include file="db/migrations/004_update_data_discount_price_products.sql"/>
+
 
 
 </databaseChangeLog>
