@@ -77,10 +77,9 @@ class OrderServiceTest {
         newOrder.setDeliveryMethod(DeliveryMethod.EXPRESS);
         newOrder.setDeliveryAddress("test address");
 
-        Mockito.when(repository.save(Mockito.any())).thenReturn(newOrder);
+        Mockito.when(repository.save(newOrder)).thenReturn(newOrder);
         OrderRequestDto resultOrder = orderService.addOrder(orderMapper.entityToDtoRequest(newOrder));
-
-        Mockito.verify(repository, Mockito.times(1)).save(Mockito.any());
+        Mockito.verify(repository).save(Mockito.eq(newOrder));
         assertEquals(newOrder.getDeliveryMethod(), DeliveryMethod.valueOf(resultOrder.getDeliveryMethod()));
         assertEquals(newOrder.getDeliveryAddress(), resultOrder.getDeliveryAddress());
     }
