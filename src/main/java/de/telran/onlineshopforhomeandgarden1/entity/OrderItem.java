@@ -29,9 +29,8 @@ public class OrderItem {
     @Column(name = "price_at_purchase")
     private BigDecimal priceAtPurchase;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "order_id")
-    @JsonBackReference
+    @ManyToOne(cascade = {CascadeType.REMOVE, CascadeType.PERSIST}, fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id", referencedColumnName = "order_id")
     private Order order;
 
     @ManyToOne(fetch = FetchType.LAZY)
