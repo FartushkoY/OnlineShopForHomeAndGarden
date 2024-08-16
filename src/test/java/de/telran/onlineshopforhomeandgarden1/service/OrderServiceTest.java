@@ -1,5 +1,6 @@
 package de.telran.onlineshopforhomeandgarden1.service;
 
+import de.telran.onlineshopforhomeandgarden1.dto.request.OrderRequestDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.OrderResponseDto;
 import de.telran.onlineshopforhomeandgarden1.entity.Order;
 import de.telran.onlineshopforhomeandgarden1.enums.DeliveryMethod;
@@ -67,5 +68,20 @@ class OrderServiceTest {
         Mockito.verify(repository).findById(orderId);
         assertTrue(result.isEmpty());
 
+    }
+
+    @Test
+    public void addOrder() {
+        Order newOrder = new Order();
+        newOrder.setId(22L);
+        newOrder.setDeliveryMethod(DeliveryMethod.EXPRESS);
+        newOrder.setDeliveryAddress("test address");
+
+        Mockito.when(repository.save(Mockito.any())).thenReturn(newOrder);
+        OrderRequestDto resultOrder = orderService.addOrder(orderMapper.entityToDtoRequest(newOrder));
+
+        Mockito.verify(repository, Mockito.times(1)).save(Mockito.any());
+        assertEquals(newOrder.getDeliveryMethod(), DeliveryMethod.valueOf(resultOrder.getDeliveryMethod()));
+        assertEquals(newOrder.getDeliveryAddress(), resultOrder.getDeliveryAddress());
     }
 }
