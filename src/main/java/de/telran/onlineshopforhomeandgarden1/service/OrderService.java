@@ -2,6 +2,8 @@ package de.telran.onlineshopforhomeandgarden1.service;
 
 import de.telran.onlineshopforhomeandgarden1.dto.response.OrderResponseDto;
 import de.telran.onlineshopforhomeandgarden1.entity.Order;
+import de.telran.onlineshopforhomeandgarden1.entity.User;
+import de.telran.onlineshopforhomeandgarden1.enums.Status;
 import de.telran.onlineshopforhomeandgarden1.mapper.OrderMapper;
 import de.telran.onlineshopforhomeandgarden1.repository.OrderRepository;
 import de.telran.onlineshopforhomeandgarden1.repository.ProductRepository;
@@ -30,8 +32,8 @@ public class OrderService {
         this.productRepository = productRepository;
     }
 
-    public List<OrderResponseDto> getAll() {
-        List<Order> orders = repository.findAll();
+    public List<OrderResponseDto> getOrdersHistory()  {
+        List<Order> orders = repository.findOrdersByUserId(this.getAutheticateUser().getId());
         return orderMapper.entityListToDto(orders);
     }
 
@@ -42,4 +44,9 @@ public class OrderService {
 
     }
 
+    private User getAutheticateUser() {
+        User user = new User();
+        user.setId(1l);
+        return user;
+    }
 }

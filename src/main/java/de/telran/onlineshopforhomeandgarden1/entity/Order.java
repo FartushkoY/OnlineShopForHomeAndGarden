@@ -11,6 +11,7 @@ import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import java.time.Instant;
+import java.util.Objects;
 import java.util.Set;
 
 
@@ -52,11 +53,21 @@ public class Order {
     @UpdateTimestamp
     private Instant updatedAt;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof Order order)) return false;
+        return Objects.equals(id, order.id) && Objects.equals(orderItems, order.orderItems) && Objects.equals(deliveryAddress, order.deliveryAddress) && Objects.equals(contactPhone, order.contactPhone) && deliveryMethod == order.deliveryMethod && status == order.status;
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, orderItems, deliveryAddress, contactPhone, deliveryMethod, status);
+    }
 
-//    @ManyToOne(fetch = FetchType.LAZY)
-//    @JoinColumn(name = "user_id")
-//    private User user;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
+    private User user;
 
 
 

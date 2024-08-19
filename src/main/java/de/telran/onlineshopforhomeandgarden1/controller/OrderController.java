@@ -27,9 +27,9 @@ public class OrderController {
     @Autowired
     public OrderController(OrderService service) {this.service = service;}
 
-    @GetMapping
-    public List<OrderResponseDto> getAll() {
-        return service.getAll();
+    @GetMapping("/history")
+    public List<OrderResponseDto> getOrdersHistory() {
+        return service.getOrdersHistory();
     }
 
     @GetMapping("/{orderId}")
@@ -41,5 +41,6 @@ public class OrderController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
 
 }
