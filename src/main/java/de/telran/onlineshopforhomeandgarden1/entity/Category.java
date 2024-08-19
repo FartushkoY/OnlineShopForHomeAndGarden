@@ -25,10 +25,11 @@ public class Category {
 
     private String name;
 
+    @Column(name = "image_url")
     private String imageUrl;
 
-    @OneToMany(mappedBy = "category")
-    @JsonIgnore
-//    @JsonManagedReference("category")
-    private List<Product> products;
+//    @OneToMany(mappedBy = "category")
+//    @JsonIgnore
+////    @JsonManagedReference("category")
+//    private List<Product> products;
 }

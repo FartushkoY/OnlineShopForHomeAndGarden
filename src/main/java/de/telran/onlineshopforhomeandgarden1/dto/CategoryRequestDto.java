@@ -1,6 +1,5 @@
 package de.telran.onlineshopforhomeandgarden1.dto;
 
-import de.telran.onlineshopforhomeandgarden1.entity.Product;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -14,9 +13,9 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class CategoryDto {
+public class CategoryRequestDto {
 
-    private Long id;
+    private String id;
 
     @NotNull(message = "{validation.category.name}")
     @Length(max = 50, message = "{validation.category.name}")
@@ -24,5 +23,4 @@ public class CategoryDto {
 
     private String imageUrl;
 
-    private List<ProductDto> products;
 }
