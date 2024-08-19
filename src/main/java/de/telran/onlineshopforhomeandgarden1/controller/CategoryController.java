@@ -34,6 +34,7 @@ public class CategoryController {
     public ResponseEntity<CategoryRequestDto> addCategory(@RequestBody CategoryRequestDto category) {
         try {
             CategoryRequestDto newCategory = service.addCategory(category);
+            log.info("Category with id = {} created", newCategory.getId());
             return new ResponseEntity<>(newCategory, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
