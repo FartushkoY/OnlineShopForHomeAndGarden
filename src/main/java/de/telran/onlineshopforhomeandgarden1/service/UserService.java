@@ -2,6 +2,7 @@ package de.telran.onlineshopforhomeandgarden1.service;
 
 import de.telran.onlineshopforhomeandgarden1.dto.UserDto;
 import de.telran.onlineshopforhomeandgarden1.entity.User;
+import de.telran.onlineshopforhomeandgarden1.enums.Role;
 import de.telran.onlineshopforhomeandgarden1.mapper.UserMapper;
 import de.telran.onlineshopforhomeandgarden1.repository.UserRepository;
 import org.apache.logging.log4j.LogManager;
@@ -22,7 +23,17 @@ public class UserService {
     public UserService(UserRepository repository, UserMapper mapper) {
         this.repository = repository;
         this.mapper = mapper;
-    }
+    } 
+  
+  public UserDto saveUser(UserDto userDto) {
+        if (userDto.getRole() == null){
+           userDto.setRole(Role.CUSTOMER);
+        }
+        User user = mapper.dtoToEntity(userDto);
+        User saved = repository.save(user);
+        return mapper.entityToDto(saved);
+    
+ }
     public Optional<UserDto> updateUser(Long id, String name, String phone) {
         Optional<User> optional = repository.findById(id);
         if (optional.isPresent()) {
@@ -34,5 +45,6 @@ public class UserService {
         } else {
             return Optional.empty();
         }
-    }
+  }
+    
 }

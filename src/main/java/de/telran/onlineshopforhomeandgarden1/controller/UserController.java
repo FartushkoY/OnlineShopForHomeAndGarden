@@ -2,6 +2,7 @@ package de.telran.onlineshopforhomeandgarden1.controller;
 
 import de.telran.onlineshopforhomeandgarden1.dto.UserDto;
 import de.telran.onlineshopforhomeandgarden1.service.UserService;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -31,6 +32,18 @@ public class UserController {
             return new ResponseEntity<>(result, result.getName() != null || result.getPhoneNumber() != null ? HttpStatus.OK : HttpStatus.BAD_REQUEST);
         }catch (Exception e){
             return  new ResponseEntity<>((HttpStatus.NOT_FOUND));
+        }
+    }
+
+    @PostMapping("/register")
+    public ResponseEntity<UserDto> saveUser(@RequestBody @Valid UserDto userDto) {
+        try{
+            UserDto result = service.saveUser(userDto);
+            log.info("User with name = {}, email = {}, phoneNumber = {} and passwordHash = {} created",
+                    result.getName(), result.getEmail(), result.getPhoneNumber(), result.getPasswordHash());
+            return new ResponseEntity<>(result, HttpStatus.CREATED);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 

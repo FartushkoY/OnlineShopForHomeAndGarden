@@ -30,7 +30,7 @@ public class UserDto {
 
     @NotNull
     @Length(max = 13, message = "{validation.user.phoneNumber}")
-    @Pattern(regexp = "[+\\d{12}]", message = "{validation.user.phoneNumber}")
+    @Pattern(regexp = "[+49\\d]{13}", message = "{validation.user.phoneNumber}")
     private String phoneNumber;
 
     @NotNull
