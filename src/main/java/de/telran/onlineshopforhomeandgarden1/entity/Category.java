@@ -1,7 +1,6 @@
 package de.telran.onlineshopforhomeandgarden1.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,7 +18,7 @@ import java.util.List;
 public class Category {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY )
     @Column(name = "category_id")
     private Long id;
 
@@ -28,6 +27,7 @@ public class Category {
     private String imageUrl;
 
     @OneToMany(mappedBy = "category")
+
     @JsonIgnore
 //    @JsonManagedReference("category")
     private List<Product> products;
