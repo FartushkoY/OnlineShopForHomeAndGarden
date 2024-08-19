@@ -37,7 +37,7 @@ class OrderServiceTest {
     @Test
     void getAll() {
         orderService.getOrdersHistory();
-        Mockito.verify(repository).findAll();
+        Mockito.verify(repository).findOrdersByUserId(1l);
     }
 
     @Test
@@ -87,10 +87,10 @@ class OrderServiceTest {
         dtoOne.setId(2L);
         OrderResponseDto dtoTwo = new OrderResponseDto();
         dtoTwo.setId(3L);
-        Mockito.when(repository.findAll()).thenReturn(deliveredOrders);
+        Mockito.when(repository.findOrdersByUserId(1l)).thenReturn(deliveredOrders);
         List<OrderResponseDto> resultOrders = orderService.getOrdersHistory();
 
-        Mockito.verify(repository).findAll();
+        Mockito.verify(repository).findOrdersByUserId(1l);
 
         assertNotNull(resultOrders);
         assertEquals(2, resultOrders.size());
