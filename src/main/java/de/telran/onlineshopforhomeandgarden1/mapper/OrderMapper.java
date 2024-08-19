@@ -5,20 +5,14 @@ import de.telran.onlineshopforhomeandgarden1.dto.request.OrderRequestDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.OrderResponseDto;
 import de.telran.onlineshopforhomeandgarden1.entity.Order;
 import de.telran.onlineshopforhomeandgarden1.entity.OrderItem;
-import de.telran.onlineshopforhomeandgarden1.entity.Product;
-import de.telran.onlineshopforhomeandgarden1.entity.User;
 import org.mapstruct.*;
-
-
 import java.util.List;
-import java.util.Optional;
-import java.util.Set;
 
 
 @Mapper(componentModel = "spring")
 public abstract class OrderMapper {
 
-   abstract Order dtoToEntity(OrderResponseDto orderResponseDto);
+  public abstract Order dtoToEntity(OrderResponseDto orderResponseDto);
 
    @Mapping(target = "orderItems", source = "items")
    public abstract Order dtoRequestToEntity(OrderRequestDto orderRequestDto);
