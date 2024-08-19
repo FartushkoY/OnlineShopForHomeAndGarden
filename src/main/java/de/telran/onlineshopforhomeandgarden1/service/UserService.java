@@ -24,11 +24,11 @@ public class UserService {
         this.mapper = mapper;
     }
 
-    public UserDto savedUser(UserDto userDto) {
-        User user = mapper.dtoToEntity(userDto);
-        if (user.getRole() == null){
-            user.setRole(Role.CUSTOMER);
+    public UserDto saveUser(UserDto userDto) {
+        if (userDto.getRole() == null){
+           userDto.setRole(Role.CUSTOMER);
         }
+        User user = mapper.dtoToEntity(userDto);
         User saved = repository.save(user);
         return mapper.entityToDto(saved);
     }

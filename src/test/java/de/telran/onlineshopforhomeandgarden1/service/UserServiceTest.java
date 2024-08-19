@@ -9,10 +9,8 @@ import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 import org.mockito.Mockito;
 
-
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.eq;
-
 
 class UserServiceTest {
     private static UserService service;
@@ -33,16 +31,25 @@ class UserServiceTest {
         user.setEmail("test@test.eu");
         user.setPhoneNumber("+491715207968");
         user.setRole(Role.valueOf("ADMINISTRATOR"));
+        user.setPasswordHash("TestPassHash123");
 
         Mockito.when(repository.save(user)).thenReturn(user);
-        service.savedUser(mapper.entityToDto(user));
+        service.saveUser(mapper.entityToDto(user));
         Mockito.verify(repository).save(eq(user));
         assertEquals(user.getRole(),Role.ADMINISTRATOR);
 
         user.setRole(Role.valueOf("CUSTOMER"));
         Mockito.when(repository.save(user)).thenReturn(user);
-        service.savedUser(mapper.entityToDto(user));
+        service.saveUser(mapper.entityToDto(user));
         Mockito.verify(repository).save(eq(user));
+        assertEquals(user.getRole(),Role.CUSTOMER);
+
+        user.setRole(null);
+
+        Mockito.when(repository.save(Mockito.eq(user))).thenReturn(user);
+        service.saveUser(mapper.entityToDto(user));
+        user.setRole(Role.CUSTOMER);
+        Mockito.verify(repository,Mockito.times(2)).save(eq(user));
         assertEquals(user.getRole(),Role.CUSTOMER);
 
     }
