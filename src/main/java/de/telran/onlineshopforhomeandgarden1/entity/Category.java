@@ -18,7 +18,7 @@ import java.util.List;
 public class Category {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY )
     @Column(name = "category_id")
     private Long id;
 
@@ -27,6 +27,7 @@ public class Category {
     private String imageUrl;
 
     @OneToMany(mappedBy = "category")
+
     @JsonIgnore
 //    @JsonManagedReference("category")
     private List<Product> products;
