@@ -1,7 +1,5 @@
 package de.telran.onlineshopforhomeandgarden1.entity;
 
-
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import jakarta.persistence.*;
 import lombok.*;
 
