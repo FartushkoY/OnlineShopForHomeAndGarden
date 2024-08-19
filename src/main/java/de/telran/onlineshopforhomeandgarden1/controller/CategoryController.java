@@ -24,6 +24,11 @@ public class CategoryController {
         this.service = service;
     }
 
+    @GetMapping
+    public ResponseEntity<List<CategoryResponseDto>> getCategories() {
+        List<CategoryResponseDto> categoryResponseDtoList = service.getAll();
+        return new ResponseEntity<>(categoryResponseDtoList, HttpStatus.OK);
+    }
 
     @PostMapping
     public ResponseEntity<CategoryRequestDto> addCategory(@RequestBody CategoryRequestDto category) {
@@ -35,9 +40,6 @@ public class CategoryController {
         }
     }
 
-        @GetMapping
-        public List<CategoryResponseDto> getCategories () {
-            return service.getAll();
-        }
-    }
+
+}
 
