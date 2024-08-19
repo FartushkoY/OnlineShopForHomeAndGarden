@@ -2,15 +2,13 @@ package de.telran.onlineshopforhomeandgarden1.service;
 
 
 import de.telran.onlineshopforhomeandgarden1.dto.CategoryRequestDto;
-
 import de.telran.onlineshopforhomeandgarden1.dto.response.CategoryResponseDto;
-
 import de.telran.onlineshopforhomeandgarden1.entity.Category;
 import de.telran.onlineshopforhomeandgarden1.mapper.CategoryMapper;
 import de.telran.onlineshopforhomeandgarden1.repository.CategoryRepository;
 import org.apache.logging.log4j.LogManager;
-import org.springframework.stereotype.Service;
 import org.apache.logging.log4j.Logger;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
@@ -32,8 +30,6 @@ public class CategoryService {
         Category newCategory = repository.save(category);
         return categoryMapper.entityToRequestDto(newCategory);
     }
-
-
 
     public List<CategoryResponseDto> getAll() {
         List<Category> categories = repository.findAll();
