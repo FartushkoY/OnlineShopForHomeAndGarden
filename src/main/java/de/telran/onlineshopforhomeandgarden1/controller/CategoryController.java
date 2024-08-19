@@ -2,22 +2,13 @@ package de.telran.onlineshopforhomeandgarden1.controller;
 
 
 import de.telran.onlineshopforhomeandgarden1.dto.CategoryRequestDto;
+import de.telran.onlineshopforhomeandgarden1.dto.response.CategoryResponseDto;
 import de.telran.onlineshopforhomeandgarden1.service.CategoryService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-
-import de.telran.onlineshopforhomeandgarden1.dto.response.CategoryResponseDto;
-import de.telran.onlineshopforhomeandgarden1.entity.Category;
-import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -36,13 +27,17 @@ public class CategoryController {
 
     @PostMapping
     public ResponseEntity<CategoryRequestDto> addCategory(@RequestBody CategoryRequestDto category) {
-        CategoryRequestDto newCategory = service.addCategory(category);
-        return new ResponseEntity<>(newCategory, HttpStatus.CREATED);
+        try {
+            CategoryRequestDto newCategory = service.addCategory(category);
+            return new ResponseEntity<>(newCategory, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 
-    @GetMapping
-    public List<CategoryResponseDto> getCategories() {
-        return service.getAll();
+        @GetMapping
+        public List<CategoryResponseDto> getCategories () {
+            return service.getAll();
+        }
     }
 
-}

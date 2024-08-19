@@ -27,13 +27,13 @@ public class CategoryService {
 
     public CategoryRequestDto addCategory(CategoryRequestDto categoryRequestDto) {
         Category category = categoryMapper.dtoToRequestEntity(categoryRequestDto);
+        logger.info("Category with id = {} created", category.getId());
         Category newCategory = repository.save(category);
         return categoryMapper.entityToRequestDto(newCategory);
     }
 
     public List<CategoryResponseDto> getAll() {
         List<Category> categories = repository.findAll();
-        logger.debug("Categories retrieved from DB: {}", ()->categories.stream().map(Category::getName).toList());
         return categoryMapper.entityListToDto(categories);
     }
     }
