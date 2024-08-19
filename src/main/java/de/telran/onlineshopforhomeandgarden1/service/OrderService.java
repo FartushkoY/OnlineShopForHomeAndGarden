@@ -52,8 +52,14 @@ public class OrderService {
 
     public OrderRequestDto addOrder(OrderRequestDto orderRequestDto) {
         Order order = orderMapper.dtoRequestToEntity(orderRequestDto);
+        order.setUser(this.getAutheticateUser());
         Order created = repository.save(order);
         return orderMapper.entityToDtoRequest(created);
     }
 
+    private User getAutheticateUser() {
+        User user = new User();
+        user.setId(1l);
+        return user;
+    }
 }

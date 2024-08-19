@@ -16,41 +16,28 @@ import java.util.Set;
 
 
 @Mapper(componentModel = "spring")
-public interface OrderMapper {
+public abstract class OrderMapper {
 
-   Order dtoToEntity(OrderResponseDto orderResponseDto);
+   abstract Order dtoToEntity(OrderResponseDto orderResponseDto);
 
    @Mapping(target = "orderItems", source = "items")
-   Order dtoRequestToEntity(OrderRequestDto orderRequestDto);
-   OrderResponseDto entityToDto(Order order);
-   OrderRequestDto entityToDtoRequest(Order order);
-   List<OrderResponseDto> entityListToDto(List<Order> orders);
-   List<OrderRequestDto> entityListRequestToDto(List<Order> orders);
+   public abstract Order dtoRequestToEntity(OrderRequestDto orderRequestDto);
+   public abstract OrderResponseDto entityToDto(Order order);
+   public abstract OrderRequestDto entityToDtoRequest(Order order);
+   public abstract List<OrderResponseDto> entityListToDto(List<Order> orders);
+   public abstract List<OrderRequestDto> entityListRequestToDto(List<Order> orders);
 
 
    @AfterMapping
-   default void setOrder(@MappingTarget Order order) {
-      Optional.ofNullable(order.getOrderItems())
-              .ifPresent(it -> it.forEach(item -> item.setOrder(order)));
-
-      User user = new User();
-      user.setId(1L);
-      order.setUser(user);
-   }
-
-   @Mapping(target = "product", source = "productId")
-   OrderItem dtoToEntity(OrderItemRequestDto orderItemRequestDto);
-
-   default Product mapProduct(String productId) {
-      if (productId == null) {
-         return null;
+    void setOrder(@MappingTarget Order order) {
+      if(order.getOrderItems() != null) {
+         order.getOrderItems().forEach(item -> item.setOrder(order));
       }
-      Product product = new Product();
-      Long id = Long.parseLong(productId);
-      product.setId(id);
-      return product;
+
    }
 
+   @Mapping(target = "product.id", source = "productId")
+   public abstract OrderItem dtoToEntity(OrderItemRequestDto orderItemRequestDto);
 
    }
 
