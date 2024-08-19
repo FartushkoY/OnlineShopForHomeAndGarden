@@ -13,6 +13,7 @@ import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 import org.mockito.Mockito;
 
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
@@ -77,6 +78,10 @@ class OrderServiceTest {
         newOrder.setId(22L);
         newOrder.setDeliveryMethod(DeliveryMethod.EXPRESS);
         newOrder.setDeliveryAddress("test address");
+        newOrder.setStatus(null);
+        newOrder.setContactPhone(null);
+        newOrder.setOrderItems(null);
+
 
         Mockito.when(repository.save(newOrder)).thenReturn(newOrder);
         OrderRequestDto resultOrder = orderService.addOrder(orderMapper.entityToDtoRequest(newOrder));

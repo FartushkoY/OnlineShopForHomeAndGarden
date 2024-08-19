@@ -57,6 +57,19 @@ public class Order {
     @JoinColumn(name = "user_id")
     private User user;
 
-
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", createdAt=" + createdAt +
+                ", orderItems=" + orderItems +
+                ", deliveryAddress='" + deliveryAddress + '\'' +
+                ", contactPhone='" + contactPhone + '\'' +
+                ", deliveryMethod=" + deliveryMethod +
+                ", status=" + status +
+                ", updatedAt=" + updatedAt +
+                ", user=" + user +
+                '}';
+    }
 }
 
