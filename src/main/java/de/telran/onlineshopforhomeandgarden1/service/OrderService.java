@@ -3,10 +3,7 @@ package de.telran.onlineshopforhomeandgarden1.service;
 import de.telran.onlineshopforhomeandgarden1.dto.request.OrderRequestDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.OrderResponseDto;
 import de.telran.onlineshopforhomeandgarden1.entity.Order;
-import de.telran.onlineshopforhomeandgarden1.entity.OrderItem;
 import de.telran.onlineshopforhomeandgarden1.entity.User;
-import de.telran.onlineshopforhomeandgarden1.enums.DeliveryMethod;
-import de.telran.onlineshopforhomeandgarden1.enums.Status;
 import de.telran.onlineshopforhomeandgarden1.mapper.OrderMapper;
 import de.telran.onlineshopforhomeandgarden1.repository.OrderRepository;
 import de.telran.onlineshopforhomeandgarden1.repository.ProductRepository;
@@ -14,10 +11,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import java.math.BigDecimal;
-import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -38,8 +31,8 @@ public class OrderService {
         this.productRepository = productRepository;
     }
 
-    public List<OrderResponseDto> getAll() {
-        List<Order> orders = repository.findAll();
+    public List<OrderResponseDto> getOrdersHistory()  {
+        List<Order> orders = repository.findOrdersByUserId(this.getAutheticateUser().getId());
         return orderMapper.entityListToDto(orders);
     }
 
@@ -50,12 +43,14 @@ public class OrderService {
 
     }
 
+
     public OrderRequestDto addOrder(OrderRequestDto orderRequestDto) {
         Order order = orderMapper.dtoRequestToEntity(orderRequestDto);
         order.setUser(this.getAutheticateUser());
         Order created = repository.save(order);
         return orderMapper.entityToDtoRequest(created);
     }
+
 
     private User getAutheticateUser() {
         User user = new User();

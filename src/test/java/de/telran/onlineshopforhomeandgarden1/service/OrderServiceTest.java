@@ -12,6 +12,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 import org.mockito.Mockito;
+
+import java.util.List;
 import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -35,8 +37,8 @@ class OrderServiceTest {
     }
     @Test
     void getAll() {
-        orderService.getAll();
-        Mockito.verify(repository).findAll();
+        orderService.getOrdersHistory();
+        Mockito.verify(repository).findOrdersByUserId(1l);
     }
 
     @Test
@@ -58,10 +60,8 @@ class OrderServiceTest {
     }
 
     @Test
-    void getOrderStatusNull() {
+   void getOrderStatusNull() {
         Long orderId = 1L;
-
-
         Mockito.when(repository.findById(orderId)).thenReturn(Optional.empty());
         Optional<OrderResponseDto> result = orderService.getOrderStatus(orderId);
 
@@ -69,6 +69,7 @@ class OrderServiceTest {
         assertTrue(result.isEmpty());
 
     }
+
 
     @Test
     public void addOrder() {
@@ -82,5 +83,32 @@ class OrderServiceTest {
         Mockito.verify(repository).save(Mockito.eq(newOrder));
         assertEquals(newOrder.getDeliveryMethod(), DeliveryMethod.valueOf(resultOrder.getDeliveryMethod()));
         assertEquals(newOrder.getDeliveryAddress(), resultOrder.getDeliveryAddress());
+    }
+    @Test
+    public void getOrdersHistory() {
+        Order firstOrder = new Order();
+        Long orderIdOne = 2L;
+        firstOrder.setId(orderIdOne);
+        firstOrder.setStatus(Status.valueOf("DELIVERED"));
+
+        Order secondOrder = new Order();
+        Long orderIdTwo = 3L;
+        secondOrder.setId(orderIdTwo);
+        secondOrder.setStatus(Status.valueOf("DELIVERED"));
+
+        List<Order> deliveredOrders = List.of(firstOrder, secondOrder);
+        OrderResponseDto dtoOne = new OrderResponseDto();
+        dtoOne.setId(2L);
+        OrderResponseDto dtoTwo = new OrderResponseDto();
+        dtoTwo.setId(3L);
+        Mockito.when(repository.findOrdersByUserId(1l)).thenReturn(deliveredOrders);
+        List<OrderResponseDto> resultOrders = orderService.getOrdersHistory();
+
+        Mockito.verify(repository).findOrdersByUserId(1l);
+
+        assertNotNull(resultOrders);
+        assertEquals(2, resultOrders.size());
+
+
     }
 }
