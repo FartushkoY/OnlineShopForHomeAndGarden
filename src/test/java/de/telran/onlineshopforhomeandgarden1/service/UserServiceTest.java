@@ -74,4 +74,11 @@ class UserServiceTest {
         assertTrue(optional.isEmpty());
 
     }
+
+    @Test
+    public void removeUser() {
+        Long userId = 1L;
+        service.removeUser(userId);
+        Mockito.verify(repository).deleteById(userId);
+    }
 }

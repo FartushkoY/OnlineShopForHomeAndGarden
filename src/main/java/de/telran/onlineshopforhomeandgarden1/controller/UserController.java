@@ -23,6 +23,19 @@ public class UserController {
     public UserController(UserService service) {
         this.service = service;
     }
+
+    @PostMapping("/register")
+    public ResponseEntity<UserDto> saveUser(@RequestBody @Valid UserDto userDto) {
+        try{
+            UserDto result = service.saveUser(userDto);
+            log.info("User with name = {}, email = {}, phoneNumber = {} and passwordHash = {} created",
+                    result.getName(), result.getEmail(), result.getPhoneNumber(), result.getPasswordHash());
+            return new ResponseEntity<>(result, HttpStatus.CREATED);
+        }catch (Exception e){
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
     @PutMapping("/{userId}")
     public ResponseEntity<UserDto> updateUser(@PathVariable("userId")Long userId,
                                               @RequestBody UserDto userDto){
@@ -35,15 +48,13 @@ public class UserController {
         }
     }
 
-    @PostMapping("/register")
-    public ResponseEntity<UserDto> saveUser(@RequestBody @Valid UserDto userDto) {
-        try{
-            UserDto result = service.saveUser(userDto);
-            log.info("User with name = {}, email = {}, phoneNumber = {} and passwordHash = {} created",
-                    result.getName(), result.getEmail(), result.getPhoneNumber(), result.getPasswordHash());
-            return new ResponseEntity<>(result, HttpStatus.CREATED);
+    @DeleteMapping("/{userId}")
+    public ResponseEntity<String> deleteUser (@PathVariable("userId") Long id){
+        try {
+            service.removeUser(id);
+            return new ResponseEntity<>(HttpStatus.OK);
         }catch (Exception e){
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 

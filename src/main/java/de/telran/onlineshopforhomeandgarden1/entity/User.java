@@ -1,5 +1,6 @@
 package de.telran.onlineshopforhomeandgarden1.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import de.telran.onlineshopforhomeandgarden1.enums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -7,7 +8,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -31,6 +34,9 @@ public class User {
 
     @Enumerated(EnumType.STRING)
     private Role role;
+
+//    @OneToOne(mappedBy = "cart", cascade = CascadeType.REMOVE)
+//    private Cart cart;
 
     @Override
     public boolean equals(Object o) {
