@@ -4,13 +4,15 @@ import de.telran.onlineshopforhomeandgarden1.dto.ProductDto;
 import de.telran.onlineshopforhomeandgarden1.entity.Product;
 import de.telran.onlineshopforhomeandgarden1.mapper.ProductMapper;
 import de.telran.onlineshopforhomeandgarden1.repository.ProductRepository;
-import org.junit.jupiter.api.BeforeAll;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 import org.mockito.Mockito;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.data.domain.*;
+import de.telran.onlineshopforhomeandgarden1.dto.response.ProductWithDiscountPriceResponseDto;
 
-import java.util.Optional;
+import java.math.BigDecimal;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -21,8 +23,8 @@ public class ProductServiceTest {
     private static ProductRepository repository;
     private static ProductMapper productMapper;
 
-    @BeforeAll
-    public static void init() {
+    @BeforeEach
+    public void init() {
         repository = Mockito.mock(ProductRepository.class);
         productMapper = Mappers.getMapper(ProductMapper.class);
         productService = new ProductService(repository, productMapper);
@@ -50,5 +52,24 @@ public class ProductServiceTest {
 
         Mockito.verify(repository).findById(111L);
         assertTrue(optional.isEmpty());
+    }
+
+
+    @Test
+    public void getAllTest() {
+        Product product = new Product();
+        Pageable pageable = PageRequest.of(0, 10, Sort.by("name").ascending());
+        Long categoryId = null;
+        Boolean hasDiscount = null;
+        Integer minPrice = null;
+        Integer maxPrice = null;
+        Page<Product> products = new PageImpl<>(Collections.singletonList(product));
+        ProductWithDiscountPriceResponseDto responseDto = new ProductWithDiscountPriceResponseDto();
+
+        Mockito.when(repository.getAllWithFilters(categoryId, false, false, BigDecimal.valueOf(0), BigDecimal.valueOf(Integer.MAX_VALUE), pageable))
+                .thenReturn(products);
+        productService.getAll(categoryId, hasDiscount, minPrice, maxPrice, pageable);
+        Mockito.verify(repository).getAllWithFilters(categoryId, false, false, BigDecimal.valueOf(0), BigDecimal.valueOf(Integer.MAX_VALUE), pageable);
+
     }
 }

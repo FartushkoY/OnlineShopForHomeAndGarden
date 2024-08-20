@@ -1,14 +1,18 @@
 package de.telran.onlineshopforhomeandgarden1.service;
 
 import de.telran.onlineshopforhomeandgarden1.dto.ProductDto;
+import de.telran.onlineshopforhomeandgarden1.dto.response.ProductWithDiscountPriceResponseDto;
 import de.telran.onlineshopforhomeandgarden1.entity.Product;
 import de.telran.onlineshopforhomeandgarden1.mapper.ProductMapper;
 import de.telran.onlineshopforhomeandgarden1.repository.ProductRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 @Service
@@ -30,4 +34,30 @@ public class ProductService {
         Optional<Product> optional = repository.findById(id);
         return optional.map(productMapper::entityToDto);
     }
+
+    public Page<ProductWithDiscountPriceResponseDto> getAll(Long categoryId, Boolean hasDiscount, Integer minPrice, Integer maxPrice, Pageable pageable) {
+        BigDecimal minPriceBigDecimal;
+        BigDecimal maxPriceBigDecimal;
+        Boolean hasCategory;
+
+        if (categoryId == null) {
+            hasCategory = false;
+        } else hasCategory = true;
+
+        if (hasDiscount == null) {
+            hasDiscount = false;
+        }
+
+        if (minPrice == null) {
+            minPriceBigDecimal = BigDecimal.valueOf(0);
+        } else minPriceBigDecimal = BigDecimal.valueOf(minPrice);
+
+        if (maxPrice == null) {
+            maxPriceBigDecimal = BigDecimal.valueOf(Integer.MAX_VALUE);
+        } else maxPriceBigDecimal = BigDecimal.valueOf(maxPrice);
+
+        Page<Product> products = repository.getAllWithFilters(categoryId, hasCategory, hasDiscount, minPriceBigDecimal, maxPriceBigDecimal, pageable);
+        return products.map(productMapper::entityToWithDiscountResponseDto);
+    }
+
 }
