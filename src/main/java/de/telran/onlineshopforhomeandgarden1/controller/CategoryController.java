@@ -4,6 +4,7 @@ package de.telran.onlineshopforhomeandgarden1.controller;
 import de.telran.onlineshopforhomeandgarden1.dto.CategoryRequestDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.CategoryResponseDto;
 import de.telran.onlineshopforhomeandgarden1.service.CategoryService;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -41,6 +42,15 @@ public class CategoryController {
         }
     }
 
+    @PutMapping
+    public ResponseEntity<CategoryRequestDto> updateCategory(@RequestBody @Valid CategoryRequestDto category) {
+        try {
+            CategoryRequestDto updatedCategory = service.updateCategory(category);
+            return new ResponseEntity<>(updatedCategory, category.getName() != null && category.getImageUrl() != null ? HttpStatus.OK : HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
 
 }
 

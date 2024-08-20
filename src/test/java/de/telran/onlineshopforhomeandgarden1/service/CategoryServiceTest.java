@@ -9,7 +9,10 @@ import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 import org.mockito.Mockito;
 
+import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNull;
 
 
 class CategoryServiceTest {
@@ -44,4 +47,32 @@ class CategoryServiceTest {
         assertEquals(category.getName(), resultCategory.getName());
 
     }
+
+    @Test
+   public void updateCategoryOk() {
+        Category dbCategory = new Category();
+        dbCategory.setId(88L);
+        dbCategory.setName("Test Category");
+        dbCategory.setImageUrl("Test Image");
+
+        Category updatedCategory = new Category();
+        updatedCategory.setId(88L);
+        updatedCategory.setName("Test Category1");
+        updatedCategory.setImageUrl("Test Image1");
+
+        Mockito.when(repository.findById(88L)).thenReturn(Optional.of(dbCategory));
+        Mockito.when(repository.save(dbCategory)).thenReturn(dbCategory);
+        CategoryRequestDto resultCategory = categoryService.updateCategory(categoryMapper.entityToRequestDto(updatedCategory));
+        Mockito.verify(repository).save(Mockito.eq(updatedCategory));
+    }
+
+    @Test
+    public void updateCategoryNotFound() {
+        Category updatedCategory = new Category();
+        updatedCategory.setId(88L);
+        Mockito.when(repository.findById(88L)).thenReturn(Optional.empty());
+        CategoryRequestDto resultCategory = categoryService.updateCategory(categoryMapper.entityToRequestDto(updatedCategory));
+        assertNull(resultCategory);
+    }
+
 }

@@ -11,6 +11,7 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CategoryService {
@@ -36,5 +37,15 @@ public class CategoryService {
         List<Category> categories = repository.findAll();
         return categoryMapper.entityListToDto(categories);
     }
+
+    public CategoryRequestDto updateCategory(CategoryRequestDto categoryRequestDto) {
+        Optional<Category> optional = repository.findById(Long.valueOf(categoryRequestDto.getId()));
+        if (optional.isPresent()) {
+            Category updatedCategory = repository.save(categoryMapper.dtoToRequestEntity(categoryRequestDto));
+            return categoryMapper.entityToRequestDto(updatedCategory);
+        } else {
+            return null;
+        }
     }
+}
 
