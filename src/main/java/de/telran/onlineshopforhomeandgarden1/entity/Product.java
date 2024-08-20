@@ -1,22 +1,18 @@
 package de.telran.onlineshopforhomeandgarden1.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
-
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.Objects;
 
 @Setter
 @Getter
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(exclude = {"createdAt", "updatedAt"})
 @Entity
 @Table(name = "products")
 public class Product {
@@ -45,4 +41,6 @@ public class Product {
 
     @UpdateTimestamp
     private  Instant updatedAt;
+
+
 }

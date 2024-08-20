@@ -1,6 +1,7 @@
 package de.telran.onlineshopforhomeandgarden1.service;
 
 import de.telran.onlineshopforhomeandgarden1.dto.ProductDto;
+import de.telran.onlineshopforhomeandgarden1.dto.RequestDto.ProductRequestDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.ProductWithDiscountPriceResponseDto;
 import de.telran.onlineshopforhomeandgarden1.entity.Product;
 import de.telran.onlineshopforhomeandgarden1.mapper.ProductMapper;
@@ -60,4 +61,9 @@ public class ProductService {
         return products.map(productMapper::entityToWithDiscountResponseDto);
     }
 
+    public ProductRequestDto addProduct(ProductRequestDto productRequestDto) {
+        Product product = productMapper.requestDtoToEntity(productRequestDto);
+        Product created = repository.save(product);
+        return productMapper.entityToRequestDto(created);
+    }
 }

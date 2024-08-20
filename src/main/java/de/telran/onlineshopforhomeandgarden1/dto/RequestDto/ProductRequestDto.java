@@ -1,14 +1,20 @@
-package de.telran.onlineshopforhomeandgarden1.dto.ProductRequestDto;
+package de.telran.onlineshopforhomeandgarden1.dto.RequestDto;
 
-import de.telran.onlineshopforhomeandgarden1.entity.Category;
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotNull;
 import org.hibernate.validator.constraints.Length;
+import lombok.*;
 
 import java.math.BigDecimal;
 
+@Getter
+@Setter
+@NoArgsConstructor
+@AllArgsConstructor
 public class ProductRequestDto {
+
+    private Long id;
 
     @NotNull(message = "{validation.product.name}")
     @Length(max = 90, message = "{validation.product.name}")
@@ -22,7 +28,8 @@ public class ProductRequestDto {
     @Digits(integer = 5, fraction = 2, message = "{validation.product.price}")
     private BigDecimal price;
 
-    private Long categoryId;
+    private String categoryId;
 
     private String imageUrl;
+
 }
