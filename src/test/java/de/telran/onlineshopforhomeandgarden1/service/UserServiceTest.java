@@ -48,6 +48,12 @@ class UserServiceTest {
         Mockito.verify(repository).save(eq(user));
         assertEquals(user.getRole(), Role.CUSTOMER);
 
+        user.setRole(null);
+        Mockito.when(repository.save(Mockito.eq(user))).thenReturn(user);
+        service.saveUser(mapper.entityToDto(user));
+        user.setRole(Role.CUSTOMER);
+        Mockito.verify(repository, Mockito.times(2)).save(eq(user));
+        assertEquals(user.getRole(), Role.CUSTOMER);
     }
 
     @Test
@@ -66,14 +72,6 @@ class UserServiceTest {
         Mockito.when(repository.findById(574L)).thenReturn(Optional.empty());
         Optional<UserDto> optional = service.updateUser(547L, "name", "+491530249951");
         assertTrue(optional.isEmpty());
-
-        user.setRole(null);
-
-        Mockito.when(repository.save(Mockito.eq(user))).thenReturn(user);
-        service.saveUser(mapper.entityToDto(user));
-        user.setRole(Role.CUSTOMER);
-        Mockito.verify(repository, Mockito.times(2)).save(eq(user));
-        assertEquals(user.getRole(), Role.CUSTOMER);
 
     }
 }
