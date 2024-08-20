@@ -24,8 +24,7 @@ public class UserController {
         this.service = service;
     }
     @PutMapping("/{userId}")
-    public ResponseEntity<UserDto> updateUser(@PathVariable("userId")Long userId,
-                                              @RequestBody UserDto userDto){
+    public ResponseEntity<UserDto> updateUser(@PathVariable("userId")Long userId, @RequestBody UserDto userDto){
         try {
             Optional<UserDto> user = service.updateUser(userId, userDto.getName(), userDto.getPhoneNumber());
             UserDto result = user.get();

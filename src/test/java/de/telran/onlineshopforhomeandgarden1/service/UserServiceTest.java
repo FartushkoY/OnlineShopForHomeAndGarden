@@ -72,6 +72,5 @@ class UserServiceTest {
         Mockito.when(repository.findById(574L)).thenReturn(Optional.empty());
         Optional<UserDto> optional = service.updateUser(547L, "name", "+491530249951");
         assertTrue(optional.isEmpty());
-
     }
 }
