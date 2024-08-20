@@ -8,7 +8,7 @@
     <include file="db/migrations/002_data.sql"/>
     <include file="db/migrations/003_fix_products.sql"/>
     <include file="db/migrations/004_update_data_discount_price_products.sql"/>
-
+    <include file="db/migrations/005_fix_product_name_camomile.sql"/>
 
 
 </databaseChangeLog>

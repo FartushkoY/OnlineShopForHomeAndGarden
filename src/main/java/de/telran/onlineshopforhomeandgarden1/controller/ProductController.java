@@ -1,9 +1,14 @@
 package de.telran.onlineshopforhomeandgarden1.controller;
 
 import de.telran.onlineshopforhomeandgarden1.dto.ProductDto;
+import de.telran.onlineshopforhomeandgarden1.dto.response.ProductWithDiscountPriceResponseDto;
 import de.telran.onlineshopforhomeandgarden1.service.ProductService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
+import org.springframework.data.web.SortDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -31,5 +36,18 @@ public class ProductController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
+    @GetMapping
+    public Page<ProductWithDiscountPriceResponseDto> getProducts(@RequestParam(required = false) Long categoryId,
+                                                                 @RequestParam(required = false) Boolean hasDiscount,
+                                                                 @RequestParam(required = false) Integer minPrice,
+                                                                 @RequestParam(required = false) Integer maxPrice,
+                                                                 @PageableDefault(size = 10)
+                                                                 @SortDefault.SortDefaults({@SortDefault(sort = "name")})
+                                                                 Pageable pageable) {
+        return service.getAll(categoryId, hasDiscount, minPrice, maxPrice, pageable);
+    }
+
+
 
 }
