@@ -1,11 +1,15 @@
 package de.telran.onlineshopforhomeandgarden1.service;
 
+import de.telran.onlineshopforhomeandgarden1.dto.CategoryRequestDto;
+import de.telran.onlineshopforhomeandgarden1.entity.Category;
 import de.telran.onlineshopforhomeandgarden1.mapper.CategoryMapper;
 import de.telran.onlineshopforhomeandgarden1.repository.CategoryRepository;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 import org.mockito.Mockito;
+
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 
 class CategoryServiceTest {
@@ -21,9 +25,23 @@ class CategoryServiceTest {
     }
 
     @Test
-    void getAll() {
+    public void getAll() {
         categoryService.getAll();
         Mockito.verify(repository).findAll();
     }
 
+    @Test
+    public void addCategory() {
+        Category category = new Category();
+        category.setId(99L);
+        category.setName("Test Category");
+        category.setImageUrl("Test Image");
+
+        Mockito.when(repository.save(category)).thenReturn(category);
+        CategoryRequestDto resultCategory = categoryService.addCategory(categoryMapper.entityToRequestDto(category));
+
+        Mockito.verify(repository).save(category);
+        assertEquals(category.getName(), resultCategory.getName());
+
+    }
 }
