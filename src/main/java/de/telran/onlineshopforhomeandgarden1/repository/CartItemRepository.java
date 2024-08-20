@@ -10,4 +10,5 @@ import java.util.Set;
 public interface CartItemRepository extends JpaRepository<CartItem,Long> {
 
     Set<CartItem> findAllByProductId(Long id);
+    CartItem deleteByCartId(Long id);
 }
