@@ -2,10 +2,7 @@ package de.telran.onlineshopforhomeandgarden1.entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 import java.util.List;
 
@@ -13,6 +10,7 @@ import java.util.List;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
 @Entity
 @Table(name = "categories")
 public class Category {
@@ -24,11 +22,12 @@ public class Category {
 
     private String name;
 
+    @Column(name = "image_url")
     private String imageUrl;
 
-    @OneToMany(mappedBy = "category")
+//    @OneToMany(mappedBy = "category")
+//    @JsonIgnore
+////    @JsonManagedReference("category")
+//    private List<Product> products;
 
-    @JsonIgnore
-//    @JsonManagedReference("category")
-    private List<Product> products;
 }
