@@ -1,7 +1,7 @@
 package de.telran.onlineshopforhomeandgarden1.controller;
 
 
-import de.telran.onlineshopforhomeandgarden1.dto.CategoryRequestDto;
+import de.telran.onlineshopforhomeandgarden1.dto.request.CategoryRequestDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.CategoryResponseDto;
 import de.telran.onlineshopforhomeandgarden1.service.CategoryService;
 import lombok.extern.slf4j.Slf4j;

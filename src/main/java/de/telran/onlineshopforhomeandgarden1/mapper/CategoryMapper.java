@@ -1,13 +1,12 @@
 package de.telran.onlineshopforhomeandgarden1.mapper;
 
 
-import de.telran.onlineshopforhomeandgarden1.dto.CategoryRequestDto;
+import de.telran.onlineshopforhomeandgarden1.dto.request.CategoryRequestDto;
 
 import de.telran.onlineshopforhomeandgarden1.dto.response.CategoryResponseDto;
 
 import de.telran.onlineshopforhomeandgarden1.entity.Category;
 import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 
 import java.util.List;
 

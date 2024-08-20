@@ -114,7 +114,7 @@ CREATE TABLE IF NOT EXISTS `OnlineApp`.`order_items` (
 `order_item_id` INT NOT NULL AUTO_INCREMENT,
 `product_id` INT NOT NULL,
 `order_id` INT NOT NULL,
-`quantity` INT NOT NULL,
+`quantity` INT NOT NULL,  CHECK (quantity > 0),
 `price_at_purchase` DECIMAL NULL,
     PRIMARY KEY (`order_item_id`),
     INDEX `fk_order_items_products1_idx` (`product_id` ASC) VISIBLE,
