@@ -19,7 +19,7 @@ public interface ProductMapper {
     List<ProductDto> entityListToDto(List<Product> products);
 
     //    RequestDto
-    Product RequestDtoToEntity(ProductRequestDto productDto);
+    Product requestDtoToEntity(ProductRequestDto productDto);
 
     ProductRequestDto entityToRequestDto(Product product);
 

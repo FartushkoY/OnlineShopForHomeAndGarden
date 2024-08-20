@@ -4,12 +4,10 @@ import de.telran.onlineshopforhomeandgarden1.dto.ProductDto;
 import de.telran.onlineshopforhomeandgarden1.entity.Product;
 import de.telran.onlineshopforhomeandgarden1.mapper.ProductMapper;
 import de.telran.onlineshopforhomeandgarden1.repository.ProductRepository;
-import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 import org.mockito.Mockito;
-import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.data.domain.*;
 import de.telran.onlineshopforhomeandgarden1.dto.response.ProductWithDiscountPriceResponseDto;
 
@@ -65,17 +63,13 @@ public class ProductServiceTest {
         Boolean hasDiscount = null;
         Integer minPrice = null;
         Integer maxPrice = null;
-        List<Product> productList = Arrays.asList(product);
-        Page<Product> products = new PageImpl<>(productList);
-//        Page<Product> products = new PageImpl<>(Collections.singletonList(product));
+        Page<Product> products = new PageImpl<>(Collections.singletonList(product));
         ProductWithDiscountPriceResponseDto responseDto = new ProductWithDiscountPriceResponseDto();
-//        productMapper = Mockito.mock(ProductMapper.class);
 
-        Mockito.when(repository.getAllWithFilters(categoryId, null, false, BigDecimal.valueOf(0), BigDecimal.valueOf(Integer.MAX_VALUE), pageable))
+        Mockito.when(repository.getAllWithFilters(categoryId, false, false, BigDecimal.valueOf(0), BigDecimal.valueOf(Integer.MAX_VALUE), pageable))
                 .thenReturn(products);
-//        Mockito.when(productMapper.entityToWithDiscountResponseDto(product)).thenReturn(responseDto);
         productService.getAll(categoryId, hasDiscount, minPrice, maxPrice, pageable);
-        Mockito.verify(repository).getAllWithFilters(categoryId, null, false, BigDecimal.valueOf(0), BigDecimal.valueOf(Integer.MAX_VALUE), pageable);
+        Mockito.verify(repository).getAllWithFilters(categoryId, false, false, BigDecimal.valueOf(0), BigDecimal.valueOf(Integer.MAX_VALUE), pageable);
 
     }
 }

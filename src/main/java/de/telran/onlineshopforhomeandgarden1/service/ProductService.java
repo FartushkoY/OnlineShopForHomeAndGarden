@@ -58,8 +58,6 @@ public class ProductService {
 
         Page<Product> products = repository.getAllWithFilters(categoryId, hasCategory, hasDiscount, minPriceBigDecimal, maxPriceBigDecimal, pageable);
         return products.map(productMapper::entityToWithDiscountResponseDto);
-
-
     }
 
 }
