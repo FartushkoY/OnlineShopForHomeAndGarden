@@ -46,11 +46,14 @@ public class CategoryController {
     public ResponseEntity<CategoryRequestDto> updateCategory(@RequestBody @Valid CategoryRequestDto category) {
         try {
             CategoryRequestDto updatedCategory = service.updateCategory(category);
-            return new ResponseEntity<>(updatedCategory, category.getName() != null && category.getImageUrl() != null ? HttpStatus.OK : HttpStatus.NOT_FOUND);
+            if (updatedCategory == null) {
+                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+            }else{
+                 return new ResponseEntity<>(updatedCategory, HttpStatus.OK);
+            }
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
-
 }
 
