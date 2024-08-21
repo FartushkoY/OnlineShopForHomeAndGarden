@@ -20,6 +20,8 @@ public class CategoryRequestDto {
     @Length(max = 50, message = "{validation.category.name}")
     private String name;
 
+    @NotNull(message = "{validation.category.imageUrl.notNull}")
+    @Length(max = 255, message = "{validation.category.imageUrl.size}")
     private String imageUrl;
 
 }
