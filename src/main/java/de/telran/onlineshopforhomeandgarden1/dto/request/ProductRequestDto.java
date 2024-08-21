@@ -1,4 +1,4 @@
-package de.telran.onlineshopforhomeandgarden1.dto.RequestDto;
+package de.telran.onlineshopforhomeandgarden1.dto.request;
 
 import jakarta.validation.constraints.DecimalMin;
 import jakarta.validation.constraints.Digits;
