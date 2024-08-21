@@ -1,6 +1,5 @@
 package de.telran.onlineshopforhomeandgarden1.controller;
 
-import de.telran.onlineshopforhomeandgarden1.dto.CartDto;
 import de.telran.onlineshopforhomeandgarden1.dto.UserDto;
 import de.telran.onlineshopforhomeandgarden1.service.UserService;
 import jakarta.validation.Valid;
@@ -50,9 +49,9 @@ public class UserController {
     }
 
     @DeleteMapping("/{userId}")
-    public ResponseEntity<String> deleteUser (@RequestBody CartDto cartDto, @PathVariable("userId") Long id){
+    public ResponseEntity<String> deleteUser (@PathVariable("userId") Long userId){
         try {
-            service.removeUser(cartDto, id);
+            service.removeUser(userId);
             return new ResponseEntity<>(HttpStatus.OK);
         }catch (Exception e){
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);

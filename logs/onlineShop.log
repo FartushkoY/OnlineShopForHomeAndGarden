@@ -5150,3 +5150,979 @@ Caused by: java.sql.SQLSyntaxErrorException: Unknown column 'u1_0.cart_cart_id' 
 2024-08-20 23:20:48.043  INFO --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
 2024-08-20 23:20:48.046  INFO --- [ionShutdownHook] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown initiated...
 2024-08-20 23:20:48.060  INFO --- [ionShutdownHook] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown completed.
+2024-08-21 11:36:48.588  INFO --- [kground-preinit] o.h.v.i.u.Version                        : HV000001: Hibernate Validator 8.0.1.Final
+2024-08-21 11:36:48.649  INFO --- [           main] o.OnlineShopForHomeAndGarden1Application : Starting OnlineShopForHomeAndGarden1Application using Java 21.0.2 with PID 8328 (C:\Users\irina\IdeaProjects\OnlineShopForHomeAndGarden\target\classes started by irina in C:\Users\irina\IdeaProjects\OnlineShopForHomeAndGarden)
+2024-08-21 11:36:48.652  INFO --- [           main] o.OnlineShopForHomeAndGarden1Application : No active profile set, falling back to 1 default profile: "default"
+2024-08-21 11:36:49.891  INFO --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-08-21 11:36:50.013  INFO --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 110 ms. Found 8 JPA repository interfaces.
+2024-08-21 11:36:50.738  INFO --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port 8080 (http)
+2024-08-21 11:36:50.790  INFO --- [           main] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8080"]
+2024-08-21 11:36:50.795  INFO --- [           main] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2024-08-21 11:36:50.796  INFO --- [           main] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/10.1.26]
+2024-08-21 11:36:50.919  INFO --- [           main] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2024-08-21 11:36:50.921  INFO --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2209 ms
+2024-08-21 11:36:51.228  INFO --- [           main] c.z.h.HikariDataSource                   : HikariPool-1 - Starting...
+2024-08-21 11:36:51.778  INFO --- [           main] c.z.h.p.HikariPool                       : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@6f986501
+2024-08-21 11:36:51.779  INFO --- [           main] c.z.h.HikariDataSource                   : HikariPool-1 - Start completed.
+2024-08-21 11:36:52.852  INFO --- [           main] l.changelog                              : Reading from OnlineApp.databasechangelog
+2024-08-21 11:36:52.914  INFO --- [           main] l.ui                                     : Database is up to date, no changesets to execute
+2024-08-21 11:36:52.919  INFO --- [           main] l.changelog                              : Reading from OnlineApp.databasechangelog
+2024-08-21 11:36:52.937  INFO --- [           main] l.util                                   : UPDATE SUMMARY
+2024-08-21 11:36:52.937  INFO --- [           main] l.util                                   : Run:                          0
+2024-08-21 11:36:52.937  INFO --- [           main] l.util                                   : Previously run:               5
+2024-08-21 11:36:52.937  INFO --- [           main] l.util                                   : Filtered out:                 0
+2024-08-21 11:36:52.938  INFO --- [           main] l.util                                   : -------------------------------
+2024-08-21 11:36:52.938  INFO --- [           main] l.util                                   : Total change sets:            5
+2024-08-21 11:36:52.939  INFO --- [           main] l.util                                   : Update summary generated
+2024-08-21 11:36:52.976  INFO --- [           main] l.lockservice                            : Successfully released change log lock
+2024-08-21 11:36:52.977  INFO --- [           main] l.command                                : Command execution complete
+2024-08-21 11:36:53.179  INFO --- [           main] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-08-21 11:36:53.269  INFO --- [           main] o.h.Version                              : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-08-21 11:36:53.321  INFO --- [           main] o.h.c.i.RegionFactoryInitiator           : HHH000026: Second-level cache disabled
+2024-08-21 11:36:53.875  INFO --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-08-21 11:36:55.566  INFO --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-08-21 11:36:55.573  INFO --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-08-21 11:36:56.175  INFO --- [           main] o.s.d.j.r.q.QueryEnhancerFactory         : Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-08-21 11:36:57.136  WARN --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-08-21 11:36:57.772  INFO --- [           main] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8080"]
+2024-08-21 11:36:57.810  INFO --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port 8080 (http) with context path '/'
+2024-08-21 11:36:57.823  INFO --- [           main] o.OnlineShopForHomeAndGarden1Application : Started OnlineShopForHomeAndGarden1Application in 9.693 seconds (process running for 11.444)
+2024-08-21 11:37:32.098  INFO --- [nio-8080-exec-1] o.a.c.c.C.[.[.[/]                        : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-08-21 11:37:32.098  INFO --- [nio-8080-exec-1] o.s.w.s.DispatcherServlet                : Initializing Servlet 'dispatcherServlet'
+2024-08-21 11:37:32.100  INFO --- [nio-8080-exec-1] o.s.w.s.DispatcherServlet                : Completed initialization in 2 ms
+2024-08-21 11:38:49.267  INFO --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-08-21 11:38:49.270  INFO --- [ionShutdownHook] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown initiated...
+2024-08-21 11:38:49.281  INFO --- [ionShutdownHook] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown completed.
+2024-08-21 11:38:56.486  INFO --- [kground-preinit] o.h.v.i.u.Version                        : HV000001: Hibernate Validator 8.0.1.Final
+2024-08-21 11:38:56.527  INFO --- [           main] o.OnlineShopForHomeAndGarden1Application : Starting OnlineShopForHomeAndGarden1Application using Java 21.0.2 with PID 25552 (C:\Users\irina\IdeaProjects\OnlineShopForHomeAndGarden\target\classes started by irina in C:\Users\irina\IdeaProjects\OnlineShopForHomeAndGarden)
+2024-08-21 11:38:56.535  INFO --- [           main] o.OnlineShopForHomeAndGarden1Application : No active profile set, falling back to 1 default profile: "default"
+2024-08-21 11:38:57.650  INFO --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-08-21 11:38:57.768  INFO --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 106 ms. Found 8 JPA repository interfaces.
+2024-08-21 11:38:58.505  INFO --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port 8080 (http)
+2024-08-21 11:38:58.527  INFO --- [           main] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8080"]
+2024-08-21 11:38:58.529  INFO --- [           main] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2024-08-21 11:38:58.529  INFO --- [           main] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/10.1.26]
+2024-08-21 11:38:58.613  INFO --- [           main] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2024-08-21 11:38:58.613  INFO --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2014 ms
+2024-08-21 11:38:58.865  INFO --- [           main] c.z.h.HikariDataSource                   : HikariPool-1 - Starting...
+2024-08-21 11:38:59.332  INFO --- [           main] c.z.h.p.HikariPool                       : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@48277712
+2024-08-21 11:38:59.333  INFO --- [           main] c.z.h.HikariDataSource                   : HikariPool-1 - Start completed.
+2024-08-21 11:39:00.154  INFO --- [           main] l.changelog                              : Reading from OnlineApp.databasechangelog
+2024-08-21 11:39:00.223  INFO --- [           main] l.ui                                     : Database is up to date, no changesets to execute
+2024-08-21 11:39:00.226  INFO --- [           main] l.changelog                              : Reading from OnlineApp.databasechangelog
+2024-08-21 11:39:00.246  INFO --- [           main] l.util                                   : UPDATE SUMMARY
+2024-08-21 11:39:00.246  INFO --- [           main] l.util                                   : Run:                          0
+2024-08-21 11:39:00.246  INFO --- [           main] l.util                                   : Previously run:               5
+2024-08-21 11:39:00.247  INFO --- [           main] l.util                                   : Filtered out:                 0
+2024-08-21 11:39:00.247  INFO --- [           main] l.util                                   : -------------------------------
+2024-08-21 11:39:00.247  INFO --- [           main] l.util                                   : Total change sets:            5
+2024-08-21 11:39:00.248  INFO --- [           main] l.util                                   : Update summary generated
+2024-08-21 11:39:00.278  INFO --- [           main] l.lockservice                            : Successfully released change log lock
+2024-08-21 11:39:00.281  INFO --- [           main] l.command                                : Command execution complete
+2024-08-21 11:39:00.456  INFO --- [           main] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-08-21 11:39:00.606  INFO --- [           main] o.h.Version                              : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-08-21 11:39:00.680  INFO --- [           main] o.h.c.i.RegionFactoryInitiator           : HHH000026: Second-level cache disabled
+2024-08-21 11:39:01.321  INFO --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-08-21 11:39:03.330  INFO --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-08-21 11:39:03.339  INFO --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-08-21 11:39:03.853  INFO --- [           main] o.s.d.j.r.q.QueryEnhancerFactory         : Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-08-21 11:39:04.957  WARN --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-08-21 11:39:05.716  INFO --- [           main] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8080"]
+2024-08-21 11:39:05.758  INFO --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port 8080 (http) with context path '/'
+2024-08-21 11:39:05.771  INFO --- [           main] o.OnlineShopForHomeAndGarden1Application : Started OnlineShopForHomeAndGarden1Application in 9.713 seconds (process running for 11.751)
+2024-08-21 11:39:06.389  INFO --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-08-21 11:39:06.410  INFO --- [ionShutdownHook] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown initiated...
+2024-08-21 11:39:06.459  INFO --- [ionShutdownHook] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown completed.
+2024-08-21 11:39:10.579  INFO --- [kground-preinit] o.h.v.i.u.Version                        : HV000001: Hibernate Validator 8.0.1.Final
+2024-08-21 11:39:10.660  INFO --- [           main] o.OnlineShopForHomeAndGarden1Application : Starting OnlineShopForHomeAndGarden1Application using Java 21.0.2 with PID 24980 (C:\Users\irina\IdeaProjects\OnlineShopForHomeAndGarden\target\classes started by irina in C:\Users\irina\IdeaProjects\OnlineShopForHomeAndGarden)
+2024-08-21 11:39:10.673  INFO --- [           main] o.OnlineShopForHomeAndGarden1Application : No active profile set, falling back to 1 default profile: "default"
+2024-08-21 11:39:11.986  INFO --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-08-21 11:39:12.121  INFO --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 121 ms. Found 8 JPA repository interfaces.
+2024-08-21 11:39:12.883  INFO --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port 8080 (http)
+2024-08-21 11:39:12.900  INFO --- [           main] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8080"]
+2024-08-21 11:39:12.902  INFO --- [           main] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2024-08-21 11:39:12.902  INFO --- [           main] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/10.1.26]
+2024-08-21 11:39:12.985  INFO --- [           main] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2024-08-21 11:39:12.985  INFO --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2237 ms
+2024-08-21 11:39:13.209  INFO --- [           main] c.z.h.HikariDataSource                   : HikariPool-1 - Starting...
+2024-08-21 11:39:13.652  INFO --- [           main] c.z.h.p.HikariPool                       : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@7752c0e7
+2024-08-21 11:39:13.654  INFO --- [           main] c.z.h.HikariDataSource                   : HikariPool-1 - Start completed.
+2024-08-21 11:39:14.578  INFO --- [           main] l.changelog                              : Reading from OnlineApp.databasechangelog
+2024-08-21 11:39:14.638  INFO --- [           main] l.ui                                     : Database is up to date, no changesets to execute
+2024-08-21 11:39:14.643  INFO --- [           main] l.changelog                              : Reading from OnlineApp.databasechangelog
+2024-08-21 11:39:14.650  INFO --- [           main] l.util                                   : UPDATE SUMMARY
+2024-08-21 11:39:14.651  INFO --- [           main] l.util                                   : Run:                          0
+2024-08-21 11:39:14.651  INFO --- [           main] l.util                                   : Previously run:               5
+2024-08-21 11:39:14.651  INFO --- [           main] l.util                                   : Filtered out:                 0
+2024-08-21 11:39:14.651  INFO --- [           main] l.util                                   : -------------------------------
+2024-08-21 11:39:14.651  INFO --- [           main] l.util                                   : Total change sets:            5
+2024-08-21 11:39:14.652  INFO --- [           main] l.util                                   : Update summary generated
+2024-08-21 11:39:14.677  INFO --- [           main] l.lockservice                            : Successfully released change log lock
+2024-08-21 11:39:14.680  INFO --- [           main] l.command                                : Command execution complete
+2024-08-21 11:39:14.791  INFO --- [           main] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-08-21 11:39:14.912  INFO --- [           main] o.h.Version                              : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-08-21 11:39:14.962  INFO --- [           main] o.h.c.i.RegionFactoryInitiator           : HHH000026: Second-level cache disabled
+2024-08-21 11:39:15.410  INFO --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-08-21 11:39:17.060  INFO --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-08-21 11:39:17.064  INFO --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-08-21 11:39:17.553  INFO --- [           main] o.s.d.j.r.q.QueryEnhancerFactory         : Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-08-21 11:39:18.635  WARN --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-08-21 11:39:19.279  INFO --- [           main] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8080"]
+2024-08-21 11:39:19.303  INFO --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port 8080 (http) with context path '/'
+2024-08-21 11:39:19.319  INFO --- [           main] o.OnlineShopForHomeAndGarden1Application : Started OnlineShopForHomeAndGarden1Application in 9.3 seconds (process running for 11.123)
+2024-08-21 11:39:23.758  INFO --- [nio-8080-exec-1] o.a.c.c.C.[.[.[/]                        : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-08-21 11:39:23.758  INFO --- [nio-8080-exec-1] o.s.w.s.DispatcherServlet                : Initializing Servlet 'dispatcherServlet'
+2024-08-21 11:39:23.763  INFO --- [nio-8080-exec-1] o.s.w.s.DispatcherServlet                : Completed initialization in 5 ms
+2024-08-21 11:49:12.899  WARN --- [l-1 housekeeper] c.z.h.p.HikariPool                       : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=9m59s130ms387µs700ns).
+2024-08-21 11:49:13.116  INFO --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-08-21 11:49:13.129  INFO --- [ionShutdownHook] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown initiated...
+2024-08-21 11:49:13.154  INFO --- [ionShutdownHook] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown completed.
+2024-08-21 11:49:20.180  INFO --- [kground-preinit] o.h.v.i.u.Version                        : HV000001: Hibernate Validator 8.0.1.Final
+2024-08-21 11:49:20.239  INFO --- [           main] o.OnlineShopForHomeAndGarden1Application : Starting OnlineShopForHomeAndGarden1Application using Java 21.0.2 with PID 11972 (C:\Users\irina\IdeaProjects\OnlineShopForHomeAndGarden\target\classes started by irina in C:\Users\irina\IdeaProjects\OnlineShopForHomeAndGarden)
+2024-08-21 11:49:20.249  INFO --- [           main] o.OnlineShopForHomeAndGarden1Application : No active profile set, falling back to 1 default profile: "default"
+2024-08-21 11:49:21.397  INFO --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-08-21 11:49:21.505  INFO --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 93 ms. Found 8 JPA repository interfaces.
+2024-08-21 11:49:22.215  INFO --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port 8080 (http)
+2024-08-21 11:49:22.240  INFO --- [           main] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8080"]
+2024-08-21 11:49:22.245  INFO --- [           main] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2024-08-21 11:49:22.245  INFO --- [           main] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/10.1.26]
+2024-08-21 11:49:22.321  INFO --- [           main] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2024-08-21 11:49:22.321  INFO --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2018 ms
+2024-08-21 11:49:22.547  INFO --- [           main] c.z.h.HikariDataSource                   : HikariPool-1 - Starting...
+2024-08-21 11:49:23.021  INFO --- [           main] c.z.h.p.HikariPool                       : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@79b7c350
+2024-08-21 11:49:23.023  INFO --- [           main] c.z.h.HikariDataSource                   : HikariPool-1 - Start completed.
+2024-08-21 11:49:23.889  INFO --- [           main] l.changelog                              : Reading from OnlineApp.databasechangelog
+2024-08-21 11:49:23.936  INFO --- [           main] l.ui                                     : Database is up to date, no changesets to execute
+2024-08-21 11:49:23.938  INFO --- [           main] l.changelog                              : Reading from OnlineApp.databasechangelog
+2024-08-21 11:49:23.946  INFO --- [           main] l.util                                   : UPDATE SUMMARY
+2024-08-21 11:49:23.946  INFO --- [           main] l.util                                   : Run:                          0
+2024-08-21 11:49:23.946  INFO --- [           main] l.util                                   : Previously run:               5
+2024-08-21 11:49:23.947  INFO --- [           main] l.util                                   : Filtered out:                 0
+2024-08-21 11:49:23.947  INFO --- [           main] l.util                                   : -------------------------------
+2024-08-21 11:49:23.947  INFO --- [           main] l.util                                   : Total change sets:            5
+2024-08-21 11:49:23.948  INFO --- [           main] l.util                                   : Update summary generated
+2024-08-21 11:49:23.976  INFO --- [           main] l.lockservice                            : Successfully released change log lock
+2024-08-21 11:49:23.981  INFO --- [           main] l.command                                : Command execution complete
+2024-08-21 11:49:24.090  INFO --- [           main] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-08-21 11:49:24.252  INFO --- [           main] o.h.Version                              : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-08-21 11:49:24.299  INFO --- [           main] o.h.c.i.RegionFactoryInitiator           : HHH000026: Second-level cache disabled
+2024-08-21 11:49:24.766  INFO --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-08-21 11:49:26.472  INFO --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-08-21 11:49:26.482  INFO --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-08-21 11:49:26.983  INFO --- [           main] o.s.d.j.r.q.QueryEnhancerFactory         : Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-08-21 11:49:27.829  WARN --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-08-21 11:49:28.469  INFO --- [           main] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8080"]
+2024-08-21 11:49:28.496  INFO --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port 8080 (http) with context path '/'
+2024-08-21 11:49:28.509  INFO --- [           main] o.OnlineShopForHomeAndGarden1Application : Started OnlineShopForHomeAndGarden1Application in 8.764 seconds (process running for 10.7)
+2024-08-21 11:49:32.011  INFO --- [nio-8080-exec-1] o.a.c.c.C.[.[.[/]                        : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-08-21 11:49:32.011  INFO --- [nio-8080-exec-1] o.s.w.s.DispatcherServlet                : Initializing Servlet 'dispatcherServlet'
+2024-08-21 11:49:32.014  INFO --- [nio-8080-exec-1] o.s.w.s.DispatcherServlet                : Completed initialization in 3 ms
+2024-08-21 11:49:32.412  WARN --- [nio-8080-exec-1] o.h.e.j.s.SqlExceptionHelper             : SQL Error: 1054, SQLState: 42S22
+2024-08-21 11:49:32.412 ERROR --- [nio-8080-exec-1] o.h.e.j.s.SqlExceptionHelper             : Unknown column 'u1_0.cart_cart_id' in 'on clause'
+2024-08-21 11:49:32.413  INFO --- [nio-8080-exec-1] o.h.e.i.DefaultLoadEventListener         : HHH000327: Error performing load command
+org.hibernate.exception.SQLGrammarException: JDBC exception executing SQL [select u1_0.user_id,c1_0.cart_id,c1_0.user_id,u1_0.email,u1_0.name,u1_0.password_hash,u1_0.phone_number,u1_0.role from users u1_0 left join cart c1_0 on c1_0.cart_id=u1_0.cart_cart_id where u1_0.user_id=?] [Unknown column 'u1_0.cart_cart_id' in 'on clause'] [n/a]
+	at org.hibernate.exception.internal.SQLExceptionTypeDelegate.convert(SQLExceptionTypeDelegate.java:66)
+	at org.hibernate.exception.internal.StandardSQLExceptionConverter.convert(StandardSQLExceptionConverter.java:58)
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:108)
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:94)
+	at org.hibernate.sql.results.jdbc.internal.DeferredResultSetAccess.executeQuery(DeferredResultSetAccess.java:264)
+	at org.hibernate.sql.results.jdbc.internal.DeferredResultSetAccess.getResultSet(DeferredResultSetAccess.java:167)
+	at org.hibernate.sql.results.jdbc.internal.JdbcValuesResultSetImpl.advanceNext(JdbcValuesResultSetImpl.java:265)
+	at org.hibernate.sql.results.jdbc.internal.JdbcValuesResultSetImpl.processNext(JdbcValuesResultSetImpl.java:145)
+	at org.hibernate.sql.results.jdbc.internal.AbstractJdbcValues.next(AbstractJdbcValues.java:19)
+	at org.hibernate.sql.results.internal.RowProcessingStateStandardImpl.next(RowProcessingStateStandardImpl.java:67)
+	at org.hibernate.sql.results.spi.ListResultsConsumer.consume(ListResultsConsumer.java:182)
+	at org.hibernate.sql.results.spi.ListResultsConsumer.consume(ListResultsConsumer.java:33)
+	at org.hibernate.sql.exec.internal.JdbcSelectExecutorStandardImpl.doExecuteQuery(JdbcSelectExecutorStandardImpl.java:211)
+	at org.hibernate.sql.exec.internal.JdbcSelectExecutorStandardImpl.executeQuery(JdbcSelectExecutorStandardImpl.java:83)
+	at org.hibernate.sql.exec.spi.JdbcSelectExecutor.list(JdbcSelectExecutor.java:76)
+	at org.hibernate.sql.exec.spi.JdbcSelectExecutor.list(JdbcSelectExecutor.java:65)
+	at org.hibernate.loader.ast.internal.SingleIdLoadPlan.load(SingleIdLoadPlan.java:145)
+	at org.hibernate.loader.ast.internal.SingleIdLoadPlan.load(SingleIdLoadPlan.java:117)
+	at org.hibernate.loader.ast.internal.SingleIdEntityLoaderStandardImpl.load(SingleIdEntityLoaderStandardImpl.java:75)
+	at org.hibernate.persister.entity.AbstractEntityPersister.doLoad(AbstractEntityPersister.java:3726)
+	at org.hibernate.persister.entity.AbstractEntityPersister.load(AbstractEntityPersister.java:3715)
+	at org.hibernate.event.internal.DefaultLoadEventListener.loadFromDatasource(DefaultLoadEventListener.java:604)
+	at org.hibernate.event.internal.DefaultLoadEventListener.loadFromCacheOrDatasource(DefaultLoadEventListener.java:590)
+	at org.hibernate.event.internal.DefaultLoadEventListener.load(DefaultLoadEventListener.java:560)
+	at org.hibernate.event.internal.DefaultLoadEventListener.doLoad(DefaultLoadEventListener.java:544)
+	at org.hibernate.event.internal.DefaultLoadEventListener.load(DefaultLoadEventListener.java:207)
+	at org.hibernate.event.internal.DefaultLoadEventListener.loadWithRegularProxy(DefaultLoadEventListener.java:290)
+	at org.hibernate.event.internal.DefaultLoadEventListener.proxyOrLoad(DefaultLoadEventListener.java:242)
+	at org.hibernate.event.internal.DefaultLoadEventListener.doOnLoad(DefaultLoadEventListener.java:111)
+	at org.hibernate.event.internal.DefaultLoadEventListener.onLoad(DefaultLoadEventListener.java:68)
+	at org.hibernate.event.service.internal.EventListenerGroupImpl.fireEventOnEachListener(EventListenerGroupImpl.java:138)
+	at org.hibernate.internal.SessionImpl.fireLoadNoChecks(SessionImpl.java:1225)
+	at org.hibernate.internal.SessionImpl.fireLoad(SessionImpl.java:1213)
+	at org.hibernate.loader.internal.IdentifierLoadAccessImpl.load(IdentifierLoadAccessImpl.java:209)
+	at org.hibernate.loader.internal.IdentifierLoadAccessImpl.doLoad(IdentifierLoadAccessImpl.java:160)
+	at org.hibernate.loader.internal.IdentifierLoadAccessImpl.lambda$load$1(IdentifierLoadAccessImpl.java:149)
+	at org.hibernate.loader.internal.IdentifierLoadAccessImpl.perform(IdentifierLoadAccessImpl.java:112)
+	at org.hibernate.loader.internal.IdentifierLoadAccessImpl.load(IdentifierLoadAccessImpl.java:149)
+	at org.hibernate.internal.SessionImpl.find(SessionImpl.java:2429)
+	at org.hibernate.internal.SessionImpl.find(SessionImpl.java:2400)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.orm.jpa.ExtendedEntityManagerCreator$ExtendedEntityManagerInvocationHandler.invoke(ExtendedEntityManagerCreator.java:364)
+	at jdk.proxy2/jdk.proxy2.$Proxy153.find(Unknown Source)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.orm.jpa.SharedEntityManagerCreator$SharedEntityManagerInvocationHandler.invoke(SharedEntityManagerCreator.java:319)
+	at jdk.proxy2/jdk.proxy2.$Proxy153.find(Unknown Source)
+	at org.springframework.data.jpa.repository.support.SimpleJpaRepository.findById(SimpleJpaRepository.java:321)
+	at org.springframework.data.jpa.repository.support.SimpleJpaRepository.deleteById(SimpleJpaRepository.java:183)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:354)
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker$RepositoryFragmentMethodInvoker.lambda$new$0(RepositoryMethodInvoker.java:277)
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.doInvoke(RepositoryMethodInvoker.java:170)
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.invoke(RepositoryMethodInvoker.java:158)
+	at org.springframework.data.repository.core.support.RepositoryComposition$RepositoryFragments.invoke(RepositoryComposition.java:516)
+	at org.springframework.data.repository.core.support.RepositoryComposition.invoke(RepositoryComposition.java:285)
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport$ImplementationMethodExecutionInterceptor.invoke(RepositoryFactorySupport.java:628)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.doInvoke(QueryExecutorMethodInterceptor.java:168)
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.invoke(QueryExecutorMethodInterceptor.java:143)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.data.projection.DefaultMethodInvokingMethodInterceptor.invoke(DefaultMethodInvokingMethodInterceptor.java:70)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:379)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:138)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodInterceptor.invoke(CrudMethodMetadataPostProcessor.java:165)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:223)
+	at jdk.proxy2/jdk.proxy2.$Proxy163.deleteById(Unknown Source)
+	at de.telran.onlineshopforhomeandgarden1.service.UserService.removeUser(UserService.java:62)
+	at de.telran.onlineshopforhomeandgarden1.controller.UserController.deleteUser(UserController.java:55)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:354)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768)
+	at org.springframework.validation.beanvalidation.MethodValidationInterceptor.invoke(MethodValidationInterceptor.java:174)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:720)
+	at de.telran.onlineshopforhomeandgarden1.controller.UserController$$SpringCGLIB$$0.deleteUser(<generated>)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:255)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:188)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:926)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:831)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doDelete(FrameworkServlet.java:936)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:596)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:389)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:904)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1741)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.sql.SQLSyntaxErrorException: Unknown column 'u1_0.cart_cart_id' in 'on clause'
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:121)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:912)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeQuery(ClientPreparedStatement.java:968)
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.executeQuery(ProxyPreparedStatement.java:52)
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeQuery(HikariProxyPreparedStatement.java)
+	at org.hibernate.sql.results.jdbc.internal.DeferredResultSetAccess.executeQuery(DeferredResultSetAccess.java:246)
+	... 132 more
+2024-08-21 11:50:28.807  INFO --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-08-21 11:50:28.814  INFO --- [ionShutdownHook] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown initiated...
+2024-08-21 11:50:28.850  INFO --- [ionShutdownHook] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown completed.
+2024-08-21 11:50:43.137  INFO --- [kground-preinit] o.h.v.i.u.Version                        : HV000001: Hibernate Validator 8.0.1.Final
+2024-08-21 11:50:43.208  INFO --- [           main] o.OnlineShopForHomeAndGarden1Application : Starting OnlineShopForHomeAndGarden1Application using Java 21.0.2 with PID 14948 (C:\Users\irina\IdeaProjects\OnlineShopForHomeAndGarden\target\classes started by irina in C:\Users\irina\IdeaProjects\OnlineShopForHomeAndGarden)
+2024-08-21 11:50:43.216  INFO --- [           main] o.OnlineShopForHomeAndGarden1Application : No active profile set, falling back to 1 default profile: "default"
+2024-08-21 11:50:44.600  INFO --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-08-21 11:50:44.740  INFO --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 120 ms. Found 8 JPA repository interfaces.
+2024-08-21 11:50:45.510  INFO --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port 8080 (http)
+2024-08-21 11:50:45.532  INFO --- [           main] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8080"]
+2024-08-21 11:50:45.533  INFO --- [           main] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2024-08-21 11:50:45.534  INFO --- [           main] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/10.1.26]
+2024-08-21 11:50:45.618  INFO --- [           main] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2024-08-21 11:50:45.618  INFO --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2330 ms
+2024-08-21 11:50:45.868  INFO --- [           main] c.z.h.HikariDataSource                   : HikariPool-1 - Starting...
+2024-08-21 11:50:46.631  INFO --- [           main] c.z.h.p.HikariPool                       : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@54275b5d
+2024-08-21 11:50:46.635  INFO --- [           main] c.z.h.HikariDataSource                   : HikariPool-1 - Start completed.
+2024-08-21 11:50:47.771  INFO --- [           main] l.changelog                              : Reading from OnlineApp.databasechangelog
+2024-08-21 11:50:47.816  INFO --- [           main] l.ui                                     : Database is up to date, no changesets to execute
+2024-08-21 11:50:47.818  INFO --- [           main] l.changelog                              : Reading from OnlineApp.databasechangelog
+2024-08-21 11:50:47.833  INFO --- [           main] l.util                                   : UPDATE SUMMARY
+2024-08-21 11:50:47.833  INFO --- [           main] l.util                                   : Run:                          0
+2024-08-21 11:50:47.833  INFO --- [           main] l.util                                   : Previously run:               5
+2024-08-21 11:50:47.834  INFO --- [           main] l.util                                   : Filtered out:                 0
+2024-08-21 11:50:47.834  INFO --- [           main] l.util                                   : -------------------------------
+2024-08-21 11:50:47.834  INFO --- [           main] l.util                                   : Total change sets:            5
+2024-08-21 11:50:47.835  INFO --- [           main] l.util                                   : Update summary generated
+2024-08-21 11:50:47.861  INFO --- [           main] l.lockservice                            : Successfully released change log lock
+2024-08-21 11:50:47.862  INFO --- [           main] l.command                                : Command execution complete
+2024-08-21 11:50:47.970  INFO --- [           main] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-08-21 11:50:48.097  INFO --- [           main] o.h.Version                              : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-08-21 11:50:48.152  INFO --- [           main] o.h.c.i.RegionFactoryInitiator           : HHH000026: Second-level cache disabled
+2024-08-21 11:50:48.620  INFO --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-08-21 11:50:50.499  INFO --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-08-21 11:50:50.501  INFO --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-08-21 11:50:51.460  INFO --- [           main] o.s.d.j.r.q.QueryEnhancerFactory         : Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-08-21 11:50:52.441  WARN --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-08-21 11:50:53.254  INFO --- [           main] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8080"]
+2024-08-21 11:50:53.281  INFO --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port 8080 (http) with context path '/'
+2024-08-21 11:50:53.294  INFO --- [           main] o.OnlineShopForHomeAndGarden1Application : Started OnlineShopForHomeAndGarden1Application in 10.786 seconds (process running for 13.056)
+2024-08-21 11:52:11.064  INFO --- [nio-8080-exec-2] o.a.c.c.C.[.[.[/]                        : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-08-21 11:52:11.064  INFO --- [nio-8080-exec-2] o.s.w.s.DispatcherServlet                : Initializing Servlet 'dispatcherServlet'
+2024-08-21 11:52:11.066  INFO --- [nio-8080-exec-2] o.s.w.s.DispatcherServlet                : Completed initialization in 2 ms
+2024-08-21 11:52:11.627  WARN --- [nio-8080-exec-2] o.h.e.j.s.SqlExceptionHelper             : SQL Error: 1054, SQLState: 42S22
+2024-08-21 11:52:11.628 ERROR --- [nio-8080-exec-2] o.h.e.j.s.SqlExceptionHelper             : Unknown column 'u1_0.cart_cart_id' in 'on clause'
+2024-08-21 11:52:11.630  INFO --- [nio-8080-exec-2] o.h.e.i.DefaultLoadEventListener         : HHH000327: Error performing load command
+org.hibernate.exception.SQLGrammarException: JDBC exception executing SQL [select u1_0.user_id,c1_0.cart_id,c1_0.user_id,u1_0.email,u1_0.name,u1_0.password_hash,u1_0.phone_number,u1_0.role from users u1_0 left join cart c1_0 on c1_0.cart_id=u1_0.cart_cart_id where u1_0.user_id=?] [Unknown column 'u1_0.cart_cart_id' in 'on clause'] [n/a]
+	at org.hibernate.exception.internal.SQLExceptionTypeDelegate.convert(SQLExceptionTypeDelegate.java:66)
+	at org.hibernate.exception.internal.StandardSQLExceptionConverter.convert(StandardSQLExceptionConverter.java:58)
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:108)
+	at org.hibernate.engine.jdbc.spi.SqlExceptionHelper.convert(SqlExceptionHelper.java:94)
+	at org.hibernate.sql.results.jdbc.internal.DeferredResultSetAccess.executeQuery(DeferredResultSetAccess.java:264)
+	at org.hibernate.sql.results.jdbc.internal.DeferredResultSetAccess.getResultSet(DeferredResultSetAccess.java:167)
+	at org.hibernate.sql.results.jdbc.internal.JdbcValuesResultSetImpl.advanceNext(JdbcValuesResultSetImpl.java:265)
+	at org.hibernate.sql.results.jdbc.internal.JdbcValuesResultSetImpl.processNext(JdbcValuesResultSetImpl.java:145)
+	at org.hibernate.sql.results.jdbc.internal.AbstractJdbcValues.next(AbstractJdbcValues.java:19)
+	at org.hibernate.sql.results.internal.RowProcessingStateStandardImpl.next(RowProcessingStateStandardImpl.java:67)
+	at org.hibernate.sql.results.spi.ListResultsConsumer.consume(ListResultsConsumer.java:182)
+	at org.hibernate.sql.results.spi.ListResultsConsumer.consume(ListResultsConsumer.java:33)
+	at org.hibernate.sql.exec.internal.JdbcSelectExecutorStandardImpl.doExecuteQuery(JdbcSelectExecutorStandardImpl.java:211)
+	at org.hibernate.sql.exec.internal.JdbcSelectExecutorStandardImpl.executeQuery(JdbcSelectExecutorStandardImpl.java:83)
+	at org.hibernate.sql.exec.spi.JdbcSelectExecutor.list(JdbcSelectExecutor.java:76)
+	at org.hibernate.sql.exec.spi.JdbcSelectExecutor.list(JdbcSelectExecutor.java:65)
+	at org.hibernate.loader.ast.internal.SingleIdLoadPlan.load(SingleIdLoadPlan.java:145)
+	at org.hibernate.loader.ast.internal.SingleIdLoadPlan.load(SingleIdLoadPlan.java:117)
+	at org.hibernate.loader.ast.internal.SingleIdEntityLoaderStandardImpl.load(SingleIdEntityLoaderStandardImpl.java:75)
+	at org.hibernate.persister.entity.AbstractEntityPersister.doLoad(AbstractEntityPersister.java:3726)
+	at org.hibernate.persister.entity.AbstractEntityPersister.load(AbstractEntityPersister.java:3715)
+	at org.hibernate.event.internal.DefaultLoadEventListener.loadFromDatasource(DefaultLoadEventListener.java:604)
+	at org.hibernate.event.internal.DefaultLoadEventListener.loadFromCacheOrDatasource(DefaultLoadEventListener.java:590)
+	at org.hibernate.event.internal.DefaultLoadEventListener.load(DefaultLoadEventListener.java:560)
+	at org.hibernate.event.internal.DefaultLoadEventListener.doLoad(DefaultLoadEventListener.java:544)
+	at org.hibernate.event.internal.DefaultLoadEventListener.load(DefaultLoadEventListener.java:207)
+	at org.hibernate.event.internal.DefaultLoadEventListener.loadWithRegularProxy(DefaultLoadEventListener.java:290)
+	at org.hibernate.event.internal.DefaultLoadEventListener.proxyOrLoad(DefaultLoadEventListener.java:242)
+	at org.hibernate.event.internal.DefaultLoadEventListener.doOnLoad(DefaultLoadEventListener.java:111)
+	at org.hibernate.event.internal.DefaultLoadEventListener.onLoad(DefaultLoadEventListener.java:68)
+	at org.hibernate.event.service.internal.EventListenerGroupImpl.fireEventOnEachListener(EventListenerGroupImpl.java:138)
+	at org.hibernate.internal.SessionImpl.fireLoadNoChecks(SessionImpl.java:1225)
+	at org.hibernate.internal.SessionImpl.fireLoad(SessionImpl.java:1213)
+	at org.hibernate.loader.internal.IdentifierLoadAccessImpl.load(IdentifierLoadAccessImpl.java:209)
+	at org.hibernate.loader.internal.IdentifierLoadAccessImpl.doLoad(IdentifierLoadAccessImpl.java:160)
+	at org.hibernate.loader.internal.IdentifierLoadAccessImpl.lambda$load$1(IdentifierLoadAccessImpl.java:149)
+	at org.hibernate.loader.internal.IdentifierLoadAccessImpl.perform(IdentifierLoadAccessImpl.java:112)
+	at org.hibernate.loader.internal.IdentifierLoadAccessImpl.load(IdentifierLoadAccessImpl.java:149)
+	at org.hibernate.internal.SessionImpl.find(SessionImpl.java:2429)
+	at org.hibernate.internal.SessionImpl.find(SessionImpl.java:2400)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.orm.jpa.ExtendedEntityManagerCreator$ExtendedEntityManagerInvocationHandler.invoke(ExtendedEntityManagerCreator.java:364)
+	at jdk.proxy2/jdk.proxy2.$Proxy153.find(Unknown Source)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.orm.jpa.SharedEntityManagerCreator$SharedEntityManagerInvocationHandler.invoke(SharedEntityManagerCreator.java:319)
+	at jdk.proxy2/jdk.proxy2.$Proxy153.find(Unknown Source)
+	at org.springframework.data.jpa.repository.support.SimpleJpaRepository.findById(SimpleJpaRepository.java:321)
+	at org.springframework.data.jpa.repository.support.SimpleJpaRepository.deleteById(SimpleJpaRepository.java:183)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:354)
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker$RepositoryFragmentMethodInvoker.lambda$new$0(RepositoryMethodInvoker.java:277)
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.doInvoke(RepositoryMethodInvoker.java:170)
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.invoke(RepositoryMethodInvoker.java:158)
+	at org.springframework.data.repository.core.support.RepositoryComposition$RepositoryFragments.invoke(RepositoryComposition.java:516)
+	at org.springframework.data.repository.core.support.RepositoryComposition.invoke(RepositoryComposition.java:285)
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport$ImplementationMethodExecutionInterceptor.invoke(RepositoryFactorySupport.java:628)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.doInvoke(QueryExecutorMethodInterceptor.java:168)
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.invoke(QueryExecutorMethodInterceptor.java:143)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.data.projection.DefaultMethodInvokingMethodInterceptor.invoke(DefaultMethodInvokingMethodInterceptor.java:70)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:379)
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:119)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:138)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodInterceptor.invoke(CrudMethodMetadataPostProcessor.java:165)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.interceptor.ExposeInvocationInterceptor.invoke(ExposeInvocationInterceptor.java:97)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:223)
+	at jdk.proxy2/jdk.proxy2.$Proxy163.deleteById(Unknown Source)
+	at de.telran.onlineshopforhomeandgarden1.service.UserService.removeUser(UserService.java:62)
+	at de.telran.onlineshopforhomeandgarden1.controller.UserController.deleteUser(UserController.java:55)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:354)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.invokeJoinpoint(ReflectiveMethodInvocation.java:196)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:163)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768)
+	at org.springframework.validation.beanvalidation.MethodValidationInterceptor.invoke(MethodValidationInterceptor.java:174)
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:184)
+	at org.springframework.aop.framework.CglibAopProxy$CglibMethodInvocation.proceed(CglibAopProxy.java:768)
+	at org.springframework.aop.framework.CglibAopProxy$DynamicAdvisedInterceptor.intercept(CglibAopProxy.java:720)
+	at de.telran.onlineshopforhomeandgarden1.controller.UserController$$SpringCGLIB$$0.deleteUser(<generated>)
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103)
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580)
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:255)
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:188)
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:118)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:926)
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:831)
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87)
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1089)
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:979)
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1014)
+	at org.springframework.web.servlet.FrameworkServlet.doDelete(FrameworkServlet.java:936)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:596)
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:885)
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:658)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:195)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:51)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:201)
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116)
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:164)
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:140)
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:167)
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:90)
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:483)
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115)
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:93)
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74)
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:344)
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:389)
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:63)
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:904)
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1741)
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:52)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1190)
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:659)
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:63)
+	at java.base/java.lang.Thread.run(Thread.java:1583)
+Caused by: java.sql.SQLSyntaxErrorException: Unknown column 'u1_0.cart_cart_id' in 'on clause'
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:121)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeInternal(ClientPreparedStatement.java:912)
+	at com.mysql.cj.jdbc.ClientPreparedStatement.executeQuery(ClientPreparedStatement.java:968)
+	at com.zaxxer.hikari.pool.ProxyPreparedStatement.executeQuery(ProxyPreparedStatement.java:52)
+	at com.zaxxer.hikari.pool.HikariProxyPreparedStatement.executeQuery(HikariProxyPreparedStatement.java)
+	at org.hibernate.sql.results.jdbc.internal.DeferredResultSetAccess.executeQuery(DeferredResultSetAccess.java:246)
+	... 132 more
+2024-08-21 11:55:24.697  INFO --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-08-21 11:55:24.704  INFO --- [ionShutdownHook] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown initiated...
+2024-08-21 11:55:24.743  INFO --- [ionShutdownHook] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown completed.
+2024-08-21 11:55:38.122  INFO --- [kground-preinit] o.h.v.i.u.Version                        : HV000001: Hibernate Validator 8.0.1.Final
+2024-08-21 11:55:38.159  INFO --- [           main] o.OnlineShopForHomeAndGarden1Application : Starting OnlineShopForHomeAndGarden1Application using Java 21.0.2 with PID 25872 (C:\Users\irina\IdeaProjects\OnlineShopForHomeAndGarden\target\classes started by irina in C:\Users\irina\IdeaProjects\OnlineShopForHomeAndGarden)
+2024-08-21 11:55:38.163  INFO --- [           main] o.OnlineShopForHomeAndGarden1Application : No active profile set, falling back to 1 default profile: "default"
+2024-08-21 11:55:39.416  INFO --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-08-21 11:55:39.553  INFO --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 125 ms. Found 8 JPA repository interfaces.
+2024-08-21 11:55:40.463  INFO --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port 8080 (http)
+2024-08-21 11:55:40.482  INFO --- [           main] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8080"]
+2024-08-21 11:55:40.485  INFO --- [           main] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2024-08-21 11:55:40.486  INFO --- [           main] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/10.1.26]
+2024-08-21 11:55:40.612  INFO --- [           main] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2024-08-21 11:55:40.613  INFO --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2410 ms
+2024-08-21 11:55:40.860  INFO --- [           main] c.z.h.HikariDataSource                   : HikariPool-1 - Starting...
+2024-08-21 11:55:41.435  INFO --- [           main] c.z.h.p.HikariPool                       : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@9dc782d
+2024-08-21 11:55:41.440  INFO --- [           main] c.z.h.HikariDataSource                   : HikariPool-1 - Start completed.
+2024-08-21 11:55:42.487  INFO --- [           main] l.changelog                              : Reading from OnlineApp.databasechangelog
+2024-08-21 11:55:42.546  INFO --- [           main] l.ui                                     : Database is up to date, no changesets to execute
+2024-08-21 11:55:42.553  INFO --- [           main] l.changelog                              : Reading from OnlineApp.databasechangelog
+2024-08-21 11:55:42.571  INFO --- [           main] l.util                                   : UPDATE SUMMARY
+2024-08-21 11:55:42.572  INFO --- [           main] l.util                                   : Run:                          0
+2024-08-21 11:55:42.572  INFO --- [           main] l.util                                   : Previously run:               5
+2024-08-21 11:55:42.572  INFO --- [           main] l.util                                   : Filtered out:                 0
+2024-08-21 11:55:42.572  INFO --- [           main] l.util                                   : -------------------------------
+2024-08-21 11:55:42.572  INFO --- [           main] l.util                                   : Total change sets:            5
+2024-08-21 11:55:42.574  INFO --- [           main] l.util                                   : Update summary generated
+2024-08-21 11:55:42.610  INFO --- [           main] l.lockservice                            : Successfully released change log lock
+2024-08-21 11:55:42.617  INFO --- [           main] l.command                                : Command execution complete
+2024-08-21 11:55:42.828  INFO --- [           main] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-08-21 11:55:42.976  INFO --- [           main] o.h.Version                              : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-08-21 11:55:43.063  INFO --- [           main] o.h.c.i.RegionFactoryInitiator           : HHH000026: Second-level cache disabled
+2024-08-21 11:55:43.866  INFO --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-08-21 11:55:46.120  INFO --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-08-21 11:55:46.128  INFO --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-08-21 11:55:47.081  INFO --- [           main] o.s.d.j.r.q.QueryEnhancerFactory         : Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-08-21 11:55:48.332  WARN --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-08-21 11:55:49.062  INFO --- [           main] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8080"]
+2024-08-21 11:55:49.097  INFO --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port 8080 (http) with context path '/'
+2024-08-21 11:55:49.109  INFO --- [           main] o.OnlineShopForHomeAndGarden1Application : Started OnlineShopForHomeAndGarden1Application in 11.251 seconds (process running for 13.611)
+2024-08-21 11:55:50.730  INFO --- [nio-8080-exec-1] o.a.c.c.C.[.[.[/]                        : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-08-21 11:55:50.731  INFO --- [nio-8080-exec-1] o.s.w.s.DispatcherServlet                : Initializing Servlet 'dispatcherServlet'
+2024-08-21 11:55:50.734  INFO --- [nio-8080-exec-1] o.s.w.s.DispatcherServlet                : Completed initialization in 2 ms
+2024-08-21 11:56:24.736  INFO --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-08-21 11:56:24.741  INFO --- [ionShutdownHook] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown initiated...
+2024-08-21 11:56:24.750  INFO --- [ionShutdownHook] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown completed.
+2024-08-21 11:56:30.170  INFO --- [kground-preinit] o.h.v.i.u.Version                        : HV000001: Hibernate Validator 8.0.1.Final
+2024-08-21 11:56:30.243  INFO --- [           main] o.OnlineShopForHomeAndGarden1Application : Starting OnlineShopForHomeAndGarden1Application using Java 21.0.2 with PID 7152 (C:\Users\irina\IdeaProjects\OnlineShopForHomeAndGarden\target\classes started by irina in C:\Users\irina\IdeaProjects\OnlineShopForHomeAndGarden)
+2024-08-21 11:56:30.249  INFO --- [           main] o.OnlineShopForHomeAndGarden1Application : No active profile set, falling back to 1 default profile: "default"
+2024-08-21 11:56:31.429  INFO --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-08-21 11:56:31.577  INFO --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 133 ms. Found 8 JPA repository interfaces.
+2024-08-21 11:56:32.584  INFO --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port 8080 (http)
+2024-08-21 11:56:32.616  INFO --- [           main] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8080"]
+2024-08-21 11:56:32.617  INFO --- [           main] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2024-08-21 11:56:32.617  INFO --- [           main] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/10.1.26]
+2024-08-21 11:56:32.724  INFO --- [           main] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2024-08-21 11:56:32.726  INFO --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2396 ms
+2024-08-21 11:56:33.017  INFO --- [           main] c.z.h.HikariDataSource                   : HikariPool-1 - Starting...
+2024-08-21 11:56:33.534  INFO --- [           main] c.z.h.p.HikariPool                       : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@79b7c350
+2024-08-21 11:56:33.536  INFO --- [           main] c.z.h.HikariDataSource                   : HikariPool-1 - Start completed.
+2024-08-21 11:56:34.381  INFO --- [           main] l.changelog                              : Reading from OnlineApp.databasechangelog
+2024-08-21 11:56:34.426  INFO --- [           main] l.ui                                     : Database is up to date, no changesets to execute
+2024-08-21 11:56:34.428  INFO --- [           main] l.changelog                              : Reading from OnlineApp.databasechangelog
+2024-08-21 11:56:34.444  INFO --- [           main] l.util                                   : UPDATE SUMMARY
+2024-08-21 11:56:34.445  INFO --- [           main] l.util                                   : Run:                          0
+2024-08-21 11:56:34.445  INFO --- [           main] l.util                                   : Previously run:               5
+2024-08-21 11:56:34.445  INFO --- [           main] l.util                                   : Filtered out:                 0
+2024-08-21 11:56:34.446  INFO --- [           main] l.util                                   : -------------------------------
+2024-08-21 11:56:34.446  INFO --- [           main] l.util                                   : Total change sets:            5
+2024-08-21 11:56:34.447  INFO --- [           main] l.util                                   : Update summary generated
+2024-08-21 11:56:34.477  INFO --- [           main] l.lockservice                            : Successfully released change log lock
+2024-08-21 11:56:34.479  INFO --- [           main] l.command                                : Command execution complete
+2024-08-21 11:56:34.582  INFO --- [           main] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-08-21 11:56:34.723  INFO --- [           main] o.h.Version                              : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-08-21 11:56:34.767  INFO --- [           main] o.h.c.i.RegionFactoryInitiator           : HHH000026: Second-level cache disabled
+2024-08-21 11:56:35.238  INFO --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-08-21 11:56:36.958  INFO --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-08-21 11:56:36.968  INFO --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-08-21 11:56:37.493  INFO --- [           main] o.s.d.j.r.q.QueryEnhancerFactory         : Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-08-21 11:56:38.423  WARN --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-08-21 11:56:39.034  INFO --- [           main] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8080"]
+2024-08-21 11:56:39.064  INFO --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port 8080 (http) with context path '/'
+2024-08-21 11:56:39.071  INFO --- [           main] o.OnlineShopForHomeAndGarden1Application : Started OnlineShopForHomeAndGarden1Application in 9.456 seconds (process running for 11.502)
+2024-08-21 11:56:41.133  INFO --- [nio-8080-exec-1] o.a.c.c.C.[.[.[/]                        : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-08-21 11:56:41.133  INFO --- [nio-8080-exec-1] o.s.w.s.DispatcherServlet                : Initializing Servlet 'dispatcherServlet'
+2024-08-21 11:56:41.144  INFO --- [nio-8080-exec-1] o.s.w.s.DispatcherServlet                : Completed initialization in 10 ms
+2024-08-21 11:58:53.651  WARN --- [l-1 housekeeper] c.z.h.p.HikariPool                       : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1m44s817ms604µs300ns).
+2024-08-21 11:58:53.749  INFO --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-08-21 11:58:53.751  INFO --- [ionShutdownHook] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown initiated...
+2024-08-21 11:58:53.760  INFO --- [ionShutdownHook] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown completed.
+2024-08-21 11:58:59.444  INFO --- [kground-preinit] o.h.v.i.u.Version                        : HV000001: Hibernate Validator 8.0.1.Final
+2024-08-21 11:58:59.504  INFO --- [           main] o.OnlineShopForHomeAndGarden1Application : Starting OnlineShopForHomeAndGarden1Application using Java 21.0.2 with PID 23472 (C:\Users\irina\IdeaProjects\OnlineShopForHomeAndGarden\target\classes started by irina in C:\Users\irina\IdeaProjects\OnlineShopForHomeAndGarden)
+2024-08-21 11:58:59.509  INFO --- [           main] o.OnlineShopForHomeAndGarden1Application : No active profile set, falling back to 1 default profile: "default"
+2024-08-21 11:59:00.959  INFO --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-08-21 11:59:01.133  INFO --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 157 ms. Found 8 JPA repository interfaces.
+2024-08-21 11:59:01.825  INFO --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port 8080 (http)
+2024-08-21 11:59:01.859  INFO --- [           main] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8080"]
+2024-08-21 11:59:01.869  INFO --- [           main] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2024-08-21 11:59:01.870  INFO --- [           main] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/10.1.26]
+2024-08-21 11:59:01.970  INFO --- [           main] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2024-08-21 11:59:01.973  INFO --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2402 ms
+2024-08-21 11:59:02.176  INFO --- [           main] c.z.h.HikariDataSource                   : HikariPool-1 - Starting...
+2024-08-21 11:59:02.646  INFO --- [           main] c.z.h.p.HikariPool                       : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@44084713
+2024-08-21 11:59:02.648  INFO --- [           main] c.z.h.HikariDataSource                   : HikariPool-1 - Start completed.
+2024-08-21 11:59:03.603  INFO --- [           main] l.changelog                              : Reading from OnlineApp.databasechangelog
+2024-08-21 11:59:03.642  INFO --- [           main] l.ui                                     : Database is up to date, no changesets to execute
+2024-08-21 11:59:03.648  INFO --- [           main] l.changelog                              : Reading from OnlineApp.databasechangelog
+2024-08-21 11:59:03.655  INFO --- [           main] l.util                                   : UPDATE SUMMARY
+2024-08-21 11:59:03.656  INFO --- [           main] l.util                                   : Run:                          0
+2024-08-21 11:59:03.656  INFO --- [           main] l.util                                   : Previously run:               5
+2024-08-21 11:59:03.656  INFO --- [           main] l.util                                   : Filtered out:                 0
+2024-08-21 11:59:03.656  INFO --- [           main] l.util                                   : -------------------------------
+2024-08-21 11:59:03.656  INFO --- [           main] l.util                                   : Total change sets:            5
+2024-08-21 11:59:03.657  INFO --- [           main] l.util                                   : Update summary generated
+2024-08-21 11:59:03.686  INFO --- [           main] l.lockservice                            : Successfully released change log lock
+2024-08-21 11:59:03.688  INFO --- [           main] l.command                                : Command execution complete
+2024-08-21 11:59:03.786  INFO --- [           main] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-08-21 11:59:03.893  INFO --- [           main] o.h.Version                              : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-08-21 11:59:03.953  INFO --- [           main] o.h.c.i.RegionFactoryInitiator           : HHH000026: Second-level cache disabled
+2024-08-21 11:59:04.360  INFO --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-08-21 11:59:05.885  INFO --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-08-21 11:59:05.888  INFO --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-08-21 11:59:06.335  INFO --- [           main] o.s.d.j.r.q.QueryEnhancerFactory         : Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-08-21 11:59:07.158  WARN --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-08-21 11:59:07.727  INFO --- [           main] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8080"]
+2024-08-21 11:59:07.746  INFO --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port 8080 (http) with context path '/'
+2024-08-21 11:59:07.762  INFO --- [           main] o.OnlineShopForHomeAndGarden1Application : Started OnlineShopForHomeAndGarden1Application in 8.674 seconds (process running for 10.477)
+2024-08-21 11:59:13.214  INFO --- [nio-8080-exec-1] o.a.c.c.C.[.[.[/]                        : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-08-21 11:59:13.215  INFO --- [nio-8080-exec-1] o.s.w.s.DispatcherServlet                : Initializing Servlet 'dispatcherServlet'
+2024-08-21 11:59:13.224  INFO --- [nio-8080-exec-1] o.s.w.s.DispatcherServlet                : Completed initialization in 9 ms
+2024-08-21 11:59:52.944  INFO --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-08-21 11:59:52.946  INFO --- [ionShutdownHook] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown initiated...
+2024-08-21 11:59:52.983  INFO --- [ionShutdownHook] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown completed.
+2024-08-21 11:59:59.697  INFO --- [kground-preinit] o.h.v.i.u.Version                        : HV000001: Hibernate Validator 8.0.1.Final
+2024-08-21 11:59:59.760  INFO --- [           main] o.OnlineShopForHomeAndGarden1Application : Starting OnlineShopForHomeAndGarden1Application using Java 21.0.2 with PID 25428 (C:\Users\irina\IdeaProjects\OnlineShopForHomeAndGarden\target\classes started by irina in C:\Users\irina\IdeaProjects\OnlineShopForHomeAndGarden)
+2024-08-21 11:59:59.768  INFO --- [           main] o.OnlineShopForHomeAndGarden1Application : No active profile set, falling back to 1 default profile: "default"
+2024-08-21 12:00:00.962  INFO --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-08-21 12:00:01.031  INFO --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 62 ms. Found 8 JPA repository interfaces.
+2024-08-21 12:00:01.423  INFO --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port 8080 (http)
+2024-08-21 12:00:01.443  INFO --- [           main] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8080"]
+2024-08-21 12:00:01.448  INFO --- [           main] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2024-08-21 12:00:01.448  INFO --- [           main] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/10.1.26]
+2024-08-21 12:00:01.498  INFO --- [           main] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2024-08-21 12:00:01.498  INFO --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1651 ms
+2024-08-21 12:00:01.617  INFO --- [           main] c.z.h.HikariDataSource                   : HikariPool-1 - Starting...
+2024-08-21 12:00:01.895  INFO --- [           main] c.z.h.p.HikariPool                       : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@16c5b50a
+2024-08-21 12:00:01.897  INFO --- [           main] c.z.h.HikariDataSource                   : HikariPool-1 - Start completed.
+2024-08-21 12:00:02.586  INFO --- [           main] l.changelog                              : Reading from OnlineApp.databasechangelog
+2024-08-21 12:00:02.614  INFO --- [           main] l.ui                                     : Database is up to date, no changesets to execute
+2024-08-21 12:00:02.616  INFO --- [           main] l.changelog                              : Reading from OnlineApp.databasechangelog
+2024-08-21 12:00:02.622  INFO --- [           main] l.util                                   : UPDATE SUMMARY
+2024-08-21 12:00:02.623  INFO --- [           main] l.util                                   : Run:                          0
+2024-08-21 12:00:02.623  INFO --- [           main] l.util                                   : Previously run:               5
+2024-08-21 12:00:02.623  INFO --- [           main] l.util                                   : Filtered out:                 0
+2024-08-21 12:00:02.623  INFO --- [           main] l.util                                   : -------------------------------
+2024-08-21 12:00:02.623  INFO --- [           main] l.util                                   : Total change sets:            5
+2024-08-21 12:00:02.624  INFO --- [           main] l.util                                   : Update summary generated
+2024-08-21 12:00:02.639  INFO --- [           main] l.lockservice                            : Successfully released change log lock
+2024-08-21 12:00:02.640  INFO --- [           main] l.command                                : Command execution complete
+2024-08-21 12:00:02.701  INFO --- [           main] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-08-21 12:00:02.749  INFO --- [           main] o.h.Version                              : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-08-21 12:00:02.779  INFO --- [           main] o.h.c.i.RegionFactoryInitiator           : HHH000026: Second-level cache disabled
+2024-08-21 12:00:03.069  INFO --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-08-21 12:00:04.437  INFO --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-08-21 12:00:04.445  INFO --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-08-21 12:00:05.050  INFO --- [           main] o.s.d.j.r.q.QueryEnhancerFactory         : Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-08-21 12:00:06.014  WARN --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-08-21 12:00:06.875  INFO --- [           main] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8080"]
+2024-08-21 12:00:06.910  INFO --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port 8080 (http) with context path '/'
+2024-08-21 12:00:06.922  INFO --- [           main] o.OnlineShopForHomeAndGarden1Application : Started OnlineShopForHomeAndGarden1Application in 7.627 seconds (process running for 9.444)
+2024-08-21 12:00:11.906  INFO --- [nio-8080-exec-3] o.a.c.c.C.[.[.[/]                        : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-08-21 12:00:11.907  INFO --- [nio-8080-exec-3] o.s.w.s.DispatcherServlet                : Initializing Servlet 'dispatcherServlet'
+2024-08-21 12:00:11.908  INFO --- [nio-8080-exec-3] o.s.w.s.DispatcherServlet                : Completed initialization in 1 ms
+2024-08-21 12:02:24.410  INFO --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-08-21 12:02:24.420  INFO --- [ionShutdownHook] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown initiated...
+2024-08-21 12:02:24.434  INFO --- [ionShutdownHook] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown completed.
+2024-08-21 12:02:31.756  INFO --- [kground-preinit] o.h.v.i.u.Version                        : HV000001: Hibernate Validator 8.0.1.Final
+2024-08-21 12:02:31.814  INFO --- [           main] o.OnlineShopForHomeAndGarden1Application : Starting OnlineShopForHomeAndGarden1Application using Java 21.0.2 with PID 23452 (C:\Users\irina\IdeaProjects\OnlineShopForHomeAndGarden\target\classes started by irina in C:\Users\irina\IdeaProjects\OnlineShopForHomeAndGarden)
+2024-08-21 12:02:31.824  INFO --- [           main] o.OnlineShopForHomeAndGarden1Application : No active profile set, falling back to 1 default profile: "default"
+2024-08-21 12:02:32.877  INFO --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-08-21 12:02:32.989  INFO --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 102 ms. Found 8 JPA repository interfaces.
+2024-08-21 12:02:33.803  INFO --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port 8080 (http)
+2024-08-21 12:02:33.843  INFO --- [           main] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8080"]
+2024-08-21 12:02:33.852  INFO --- [           main] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2024-08-21 12:02:33.853  INFO --- [           main] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/10.1.26]
+2024-08-21 12:02:33.934  INFO --- [           main] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2024-08-21 12:02:33.934  INFO --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2048 ms
+2024-08-21 12:02:34.227  INFO --- [           main] c.z.h.HikariDataSource                   : HikariPool-1 - Starting...
+2024-08-21 12:02:34.663  INFO --- [           main] c.z.h.p.HikariPool                       : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@333d44f6
+2024-08-21 12:02:34.664  INFO --- [           main] c.z.h.HikariDataSource                   : HikariPool-1 - Start completed.
+2024-08-21 12:02:35.143  INFO --- [           main] l.changelog                              : Reading from OnlineApp.databasechangelog
+2024-08-21 12:02:35.174  INFO --- [           main] l.ui                                     : Database is up to date, no changesets to execute
+2024-08-21 12:02:35.177  INFO --- [           main] l.changelog                              : Reading from OnlineApp.databasechangelog
+2024-08-21 12:02:35.183  INFO --- [           main] l.util                                   : UPDATE SUMMARY
+2024-08-21 12:02:35.184  INFO --- [           main] l.util                                   : Run:                          0
+2024-08-21 12:02:35.184  INFO --- [           main] l.util                                   : Previously run:               5
+2024-08-21 12:02:35.184  INFO --- [           main] l.util                                   : Filtered out:                 0
+2024-08-21 12:02:35.184  INFO --- [           main] l.util                                   : -------------------------------
+2024-08-21 12:02:35.184  INFO --- [           main] l.util                                   : Total change sets:            5
+2024-08-21 12:02:35.185  INFO --- [           main] l.util                                   : Update summary generated
+2024-08-21 12:02:35.200  INFO --- [           main] l.lockservice                            : Successfully released change log lock
+2024-08-21 12:02:35.200  INFO --- [           main] l.command                                : Command execution complete
+2024-08-21 12:02:35.263  INFO --- [           main] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-08-21 12:02:35.313  INFO --- [           main] o.h.Version                              : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-08-21 12:02:35.345  INFO --- [           main] o.h.c.i.RegionFactoryInitiator           : HHH000026: Second-level cache disabled
+2024-08-21 12:02:35.716  INFO --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-08-21 12:02:37.417  INFO --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-08-21 12:02:37.420  INFO --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-08-21 12:02:38.019  INFO --- [           main] o.s.d.j.r.q.QueryEnhancerFactory         : Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-08-21 12:02:39.025  WARN --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-08-21 12:02:39.654  INFO --- [           main] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8080"]
+2024-08-21 12:02:39.676  INFO --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port 8080 (http) with context path '/'
+2024-08-21 12:02:39.690  INFO --- [           main] o.OnlineShopForHomeAndGarden1Application : Started OnlineShopForHomeAndGarden1Application in 8.333 seconds (process running for 9.985)
+2024-08-21 12:02:42.066  INFO --- [nio-8080-exec-3] o.a.c.c.C.[.[.[/]                        : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-08-21 12:02:42.066  INFO --- [nio-8080-exec-3] o.s.w.s.DispatcherServlet                : Initializing Servlet 'dispatcherServlet'
+2024-08-21 12:02:42.077  INFO --- [nio-8080-exec-3] o.s.w.s.DispatcherServlet                : Completed initialization in 10 ms
+2024-08-21 12:02:59.384  INFO --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-08-21 12:02:59.388  INFO --- [ionShutdownHook] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown initiated...
+2024-08-21 12:02:59.398  INFO --- [ionShutdownHook] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown completed.
+2024-08-21 12:03:53.620  INFO --- [kground-preinit] o.h.v.i.u.Version                        : HV000001: Hibernate Validator 8.0.1.Final
+2024-08-21 12:03:53.692  INFO --- [           main] o.OnlineShopForHomeAndGarden1Application : Starting OnlineShopForHomeAndGarden1Application using Java 21.0.2 with PID 14888 (C:\Users\irina\IdeaProjects\OnlineShopForHomeAndGarden\target\classes started by irina in C:\Users\irina\IdeaProjects\OnlineShopForHomeAndGarden)
+2024-08-21 12:03:53.697  INFO --- [           main] o.OnlineShopForHomeAndGarden1Application : No active profile set, falling back to 1 default profile: "default"
+2024-08-21 12:03:54.984  INFO --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-08-21 12:03:55.089  INFO --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 91 ms. Found 8 JPA repository interfaces.
+2024-08-21 12:03:55.809  INFO --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port 8080 (http)
+2024-08-21 12:03:55.833  INFO --- [           main] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8080"]
+2024-08-21 12:03:55.843  INFO --- [           main] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2024-08-21 12:03:55.843  INFO --- [           main] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/10.1.26]
+2024-08-21 12:03:55.905  INFO --- [           main] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2024-08-21 12:03:55.906  INFO --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 2107 ms
+2024-08-21 12:03:56.126  INFO --- [           main] c.z.h.HikariDataSource                   : HikariPool-1 - Starting...
+2024-08-21 12:03:56.519  INFO --- [           main] c.z.h.p.HikariPool                       : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@44084713
+2024-08-21 12:03:56.522  INFO --- [           main] c.z.h.HikariDataSource                   : HikariPool-1 - Start completed.
+2024-08-21 12:03:57.261  INFO --- [           main] l.changelog                              : Reading from OnlineApp.databasechangelog
+2024-08-21 12:03:57.305  INFO --- [           main] l.ui                                     : Database is up to date, no changesets to execute
+2024-08-21 12:03:57.307  INFO --- [           main] l.changelog                              : Reading from OnlineApp.databasechangelog
+2024-08-21 12:03:57.319  INFO --- [           main] l.util                                   : UPDATE SUMMARY
+2024-08-21 12:03:57.320  INFO --- [           main] l.util                                   : Run:                          0
+2024-08-21 12:03:57.320  INFO --- [           main] l.util                                   : Previously run:               5
+2024-08-21 12:03:57.320  INFO --- [           main] l.util                                   : Filtered out:                 0
+2024-08-21 12:03:57.320  INFO --- [           main] l.util                                   : -------------------------------
+2024-08-21 12:03:57.322  INFO --- [           main] l.util                                   : Total change sets:            5
+2024-08-21 12:03:57.324  INFO --- [           main] l.util                                   : Update summary generated
+2024-08-21 12:03:57.341  INFO --- [           main] l.lockservice                            : Successfully released change log lock
+2024-08-21 12:03:57.342  INFO --- [           main] l.command                                : Command execution complete
+2024-08-21 12:03:57.429  INFO --- [           main] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-08-21 12:03:57.542  INFO --- [           main] o.h.Version                              : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-08-21 12:03:57.621  INFO --- [           main] o.h.c.i.RegionFactoryInitiator           : HHH000026: Second-level cache disabled
+2024-08-21 12:03:58.008  INFO --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-08-21 12:03:59.625  INFO --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-08-21 12:03:59.628  INFO --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-08-21 12:04:00.103  INFO --- [           main] o.s.d.j.r.q.QueryEnhancerFactory         : Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-08-21 12:04:00.956  WARN --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-08-21 12:04:01.530  INFO --- [           main] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8080"]
+2024-08-21 12:04:01.550  INFO --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port 8080 (http) with context path '/'
+2024-08-21 12:04:01.564  INFO --- [           main] o.OnlineShopForHomeAndGarden1Application : Started OnlineShopForHomeAndGarden1Application in 8.551 seconds (process running for 10.61)
+2024-08-21 12:04:03.643  INFO --- [nio-8080-exec-1] o.a.c.c.C.[.[.[/]                        : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-08-21 12:04:03.644  INFO --- [nio-8080-exec-1] o.s.w.s.DispatcherServlet                : Initializing Servlet 'dispatcherServlet'
+2024-08-21 12:04:03.646  INFO --- [nio-8080-exec-1] o.s.w.s.DispatcherServlet                : Completed initialization in 2 ms
+2024-08-21 12:06:18.862  INFO --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-08-21 12:06:18.867  INFO --- [ionShutdownHook] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown initiated...
+2024-08-21 12:06:18.892  INFO --- [ionShutdownHook] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown completed.
+2024-08-21 12:06:25.221  INFO --- [kground-preinit] o.h.v.i.u.Version                        : HV000001: Hibernate Validator 8.0.1.Final
+2024-08-21 12:06:25.269  INFO --- [           main] o.OnlineShopForHomeAndGarden1Application : Starting OnlineShopForHomeAndGarden1Application using Java 21.0.2 with PID 27212 (C:\Users\irina\IdeaProjects\OnlineShopForHomeAndGarden\target\classes started by irina in C:\Users\irina\IdeaProjects\OnlineShopForHomeAndGarden)
+2024-08-21 12:06:25.280  INFO --- [           main] o.OnlineShopForHomeAndGarden1Application : No active profile set, falling back to 1 default profile: "default"
+2024-08-21 12:06:26.314  INFO --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-08-21 12:06:26.429  INFO --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 104 ms. Found 8 JPA repository interfaces.
+2024-08-21 12:06:27.044  INFO --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port 8080 (http)
+2024-08-21 12:06:27.086  INFO --- [           main] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8080"]
+2024-08-21 12:06:27.089  INFO --- [           main] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2024-08-21 12:06:27.089  INFO --- [           main] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/10.1.26]
+2024-08-21 12:06:27.167  INFO --- [           main] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2024-08-21 12:06:27.167  INFO --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1828 ms
+2024-08-21 12:06:27.376  INFO --- [           main] c.z.h.HikariDataSource                   : HikariPool-1 - Starting...
+2024-08-21 12:06:27.770  INFO --- [           main] c.z.h.p.HikariPool                       : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@29c1249a
+2024-08-21 12:06:27.775  INFO --- [           main] c.z.h.HikariDataSource                   : HikariPool-1 - Start completed.
+2024-08-21 12:06:28.579  INFO --- [           main] l.changelog                              : Reading from OnlineApp.databasechangelog
+2024-08-21 12:06:28.622  INFO --- [           main] l.ui                                     : Database is up to date, no changesets to execute
+2024-08-21 12:06:28.626  INFO --- [           main] l.changelog                              : Reading from OnlineApp.databasechangelog
+2024-08-21 12:06:28.641  INFO --- [           main] l.util                                   : UPDATE SUMMARY
+2024-08-21 12:06:28.642  INFO --- [           main] l.util                                   : Run:                          0
+2024-08-21 12:06:28.642  INFO --- [           main] l.util                                   : Previously run:               5
+2024-08-21 12:06:28.642  INFO --- [           main] l.util                                   : Filtered out:                 0
+2024-08-21 12:06:28.642  INFO --- [           main] l.util                                   : -------------------------------
+2024-08-21 12:06:28.642  INFO --- [           main] l.util                                   : Total change sets:            5
+2024-08-21 12:06:28.643  INFO --- [           main] l.util                                   : Update summary generated
+2024-08-21 12:06:28.662  INFO --- [           main] l.lockservice                            : Successfully released change log lock
+2024-08-21 12:06:28.663  INFO --- [           main] l.command                                : Command execution complete
+2024-08-21 12:06:28.768  INFO --- [           main] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-08-21 12:06:28.895  INFO --- [           main] o.h.Version                              : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-08-21 12:06:28.939  INFO --- [           main] o.h.c.i.RegionFactoryInitiator           : HHH000026: Second-level cache disabled
+2024-08-21 12:06:29.327  INFO --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-08-21 12:06:30.828  INFO --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-08-21 12:06:30.831  INFO --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-08-21 12:06:31.138  INFO --- [           main] o.s.d.j.r.q.QueryEnhancerFactory         : Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-08-21 12:06:32.132  WARN --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-08-21 12:06:32.894  INFO --- [           main] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8080"]
+2024-08-21 12:06:32.915  INFO --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port 8080 (http) with context path '/'
+2024-08-21 12:06:32.930  INFO --- [           main] o.OnlineShopForHomeAndGarden1Application : Started OnlineShopForHomeAndGarden1Application in 8.098 seconds (process running for 9.697)
+2024-08-21 12:06:36.155  INFO --- [nio-8080-exec-1] o.a.c.c.C.[.[.[/]                        : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-08-21 12:06:36.156  INFO --- [nio-8080-exec-1] o.s.w.s.DispatcherServlet                : Initializing Servlet 'dispatcherServlet'
+2024-08-21 12:06:36.161  INFO --- [nio-8080-exec-1] o.s.w.s.DispatcherServlet                : Completed initialization in 4 ms
+2024-08-21 12:06:36.863  WARN --- [nio-8080-exec-1] o.h.e.j.s.SqlExceptionHelper             : SQL Error: 1451, SQLState: 23000
+2024-08-21 12:06:36.864 ERROR --- [nio-8080-exec-1] o.h.e.j.s.SqlExceptionHelper             : Cannot delete or update a parent row: a foreign key constraint fails (`onlineapp`.`favorites`, CONSTRAINT `fk_favorites_users` FOREIGN KEY (`user_id`) REFERENCES `users` (`user_id`))
+2024-08-21 12:15:01.741  INFO --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [de.telran.onlineshopforhomeandgarden1.controller.UserControllerTest]: UserControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2024-08-21 12:15:02.111  INFO --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration de.telran.onlineshopforhomeandgarden1.OnlineShopForHomeAndGarden1Application for test class de.telran.onlineshopforhomeandgarden1.controller.UserControllerTest
+2024-08-21 12:15:02.761  INFO --- [kground-preinit] o.h.v.i.u.Version                        : HV000001: Hibernate Validator 8.0.1.Final
+2024-08-21 12:15:02.862  INFO --- [           main] d.t.o.c.UserControllerTest               : Starting UserControllerTest using Java 21.0.2 with PID 10572 (started by irina in C:\Users\irina\IdeaProjects\OnlineShopForHomeAndGarden)
+2024-08-21 12:15:02.868  INFO --- [           main] d.t.o.c.UserControllerTest               : No active profile set, falling back to 1 default profile: "default"
+2024-08-21 12:15:06.654  INFO --- [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2024-08-21 12:15:06.655  INFO --- [           main] o.s.t.w.s.TestDispatcherServlet          : Initializing Servlet ''
+2024-08-21 12:15:06.660  INFO --- [           main] o.s.t.w.s.TestDispatcherServlet          : Completed initialization in 2 ms
+2024-08-21 12:15:06.706  INFO --- [           main] d.t.o.c.UserControllerTest               : Started UserControllerTest in 4.434 seconds (process running for 8.319)
+2024-08-21 12:15:06.775  INFO --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [de.telran.onlineshopforhomeandgarden1.OnlineShopForHomeAndGarden1ApplicationTests]: OnlineShopForHomeAndGarden1ApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2024-08-21 12:15:06.789  INFO --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration de.telran.onlineshopforhomeandgarden1.OnlineShopForHomeAndGarden1Application for test class de.telran.onlineshopforhomeandgarden1.OnlineShopForHomeAndGarden1ApplicationTests
+2024-08-21 12:15:06.839  INFO --- [           main] ineShopForHomeAndGarden1ApplicationTests : Starting OnlineShopForHomeAndGarden1ApplicationTests using Java 21.0.2 with PID 10572 (started by irina in C:\Users\irina\IdeaProjects\OnlineShopForHomeAndGarden)
+2024-08-21 12:15:06.841  INFO --- [           main] ineShopForHomeAndGarden1ApplicationTests : No active profile set, falling back to 1 default profile: "default"
+2024-08-21 12:15:07.714  INFO --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-08-21 12:15:07.846  INFO --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 117 ms. Found 8 JPA repository interfaces.
+2024-08-21 12:15:08.462  INFO --- [           main] c.z.h.HikariDataSource                   : HikariPool-1 - Starting...
+2024-08-21 12:15:09.244  INFO --- [           main] c.z.h.p.HikariPool                       : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@1142606f
+2024-08-21 12:15:09.248  INFO --- [           main] c.z.h.HikariDataSource                   : HikariPool-1 - Start completed.
+2024-08-21 12:15:10.417  INFO --- [           main] l.changelog                              : Reading from OnlineApp.databasechangelog
+2024-08-21 12:15:10.480  INFO --- [           main] l.ui                                     : Database is up to date, no changesets to execute
+2024-08-21 12:15:10.483  INFO --- [           main] l.changelog                              : Reading from OnlineApp.databasechangelog
+2024-08-21 12:15:10.498  INFO --- [           main] l.util                                   : UPDATE SUMMARY
+2024-08-21 12:15:10.499  INFO --- [           main] l.util                                   : Run:                          0
+2024-08-21 12:15:10.499  INFO --- [           main] l.util                                   : Previously run:               5
+2024-08-21 12:15:10.499  INFO --- [           main] l.util                                   : Filtered out:                 0
+2024-08-21 12:15:10.500  INFO --- [           main] l.util                                   : -------------------------------
+2024-08-21 12:15:10.500  INFO --- [           main] l.util                                   : Total change sets:            5
+2024-08-21 12:15:10.502  INFO --- [           main] l.util                                   : Update summary generated
+2024-08-21 12:15:10.549  INFO --- [           main] l.lockservice                            : Successfully released change log lock
+2024-08-21 12:15:10.551  INFO --- [           main] l.command                                : Command execution complete
+2024-08-21 12:15:10.693  INFO --- [           main] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-08-21 12:15:10.802  INFO --- [           main] o.h.Version                              : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-08-21 12:15:10.874  INFO --- [           main] o.h.c.i.RegionFactoryInitiator           : HHH000026: Second-level cache disabled
+2024-08-21 12:15:11.138  INFO --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-08-21 12:15:13.475  INFO --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-08-21 12:15:13.481  INFO --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-08-21 12:15:14.229  INFO --- [           main] o.s.d.j.r.q.QueryEnhancerFactory         : Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-08-21 12:15:15.878  WARN --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-08-21 12:15:16.372  INFO --- [           main] ineShopForHomeAndGarden1ApplicationTests : Started OnlineShopForHomeAndGarden1ApplicationTests in 9.571 seconds (process running for 17.985)
+2024-08-21 12:15:16.956  INFO --- [           main] d.t.o.s.CategoryService                  : Category with id = 99 created
+2024-08-21 12:15:16.982  INFO --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-08-21 12:15:16.985  INFO --- [ionShutdownHook] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown initiated...
+2024-08-21 12:15:16.998  INFO --- [ionShutdownHook] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown completed.
+2024-08-21 12:34:15.780  INFO --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [de.telran.onlineshopforhomeandgarden1.controller.UserControllerTest]: UserControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2024-08-21 12:34:15.942  INFO --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration de.telran.onlineshopforhomeandgarden1.OnlineShopForHomeAndGarden1Application for test class de.telran.onlineshopforhomeandgarden1.controller.UserControllerTest
+2024-08-21 12:34:16.288  INFO --- [kground-preinit] o.h.v.i.u.Version                        : HV000001: Hibernate Validator 8.0.1.Final
+2024-08-21 12:34:16.336  INFO --- [           main] d.t.o.c.UserControllerTest               : Starting UserControllerTest using Java 21.0.2 with PID 11864 (started by irina in C:\Users\irina\IdeaProjects\OnlineShopForHomeAndGarden)
+2024-08-21 12:34:16.340  INFO --- [           main] d.t.o.c.UserControllerTest               : No active profile set, falling back to 1 default profile: "default"
+2024-08-21 12:34:18.691  INFO --- [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2024-08-21 12:34:18.691  INFO --- [           main] o.s.t.w.s.TestDispatcherServlet          : Initializing Servlet ''
+2024-08-21 12:34:18.696  INFO --- [           main] o.s.t.w.s.TestDispatcherServlet          : Completed initialization in 2 ms
+2024-08-21 12:34:18.726  INFO --- [           main] d.t.o.c.UserControllerTest               : Started UserControllerTest in 2.712 seconds (process running for 4.544)
+2024-08-21 12:34:18.779  INFO --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [de.telran.onlineshopforhomeandgarden1.OnlineShopForHomeAndGarden1ApplicationTests]: OnlineShopForHomeAndGarden1ApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2024-08-21 12:34:18.793  INFO --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration de.telran.onlineshopforhomeandgarden1.OnlineShopForHomeAndGarden1Application for test class de.telran.onlineshopforhomeandgarden1.OnlineShopForHomeAndGarden1ApplicationTests
+2024-08-21 12:34:18.839  INFO --- [           main] ineShopForHomeAndGarden1ApplicationTests : Starting OnlineShopForHomeAndGarden1ApplicationTests using Java 21.0.2 with PID 11864 (started by irina in C:\Users\irina\IdeaProjects\OnlineShopForHomeAndGarden)
+2024-08-21 12:34:18.840  INFO --- [           main] ineShopForHomeAndGarden1ApplicationTests : No active profile set, falling back to 1 default profile: "default"
+2024-08-21 12:34:19.053  INFO --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-08-21 12:34:19.057  INFO --- [ionShutdownHook] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown initiated...
+2024-08-21 12:34:19.066  INFO --- [ionShutdownHook] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown completed.
+2024-08-21 12:34:19.538  INFO --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-08-21 12:34:19.626  INFO --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 73 ms. Found 8 JPA repository interfaces.
+2024-08-21 12:34:20.017  INFO --- [           main] c.z.h.HikariDataSource                   : HikariPool-1 - Starting...
+2024-08-21 12:34:20.519  INFO --- [           main] c.z.h.p.HikariPool                       : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@60e5eed0
+2024-08-21 12:34:20.521  INFO --- [           main] c.z.h.HikariDataSource                   : HikariPool-1 - Start completed.
+2024-08-21 12:34:21.731  INFO --- [           main] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-08-21 12:34:21.794  INFO --- [           main] o.h.Version                              : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-08-21 12:34:21.841  INFO --- [           main] o.h.c.i.RegionFactoryInitiator           : HHH000026: Second-level cache disabled
+2024-08-21 12:34:21.987  INFO --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-08-21 12:34:23.066  INFO --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-08-21 12:34:23.069  INFO --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-08-21 12:34:23.481  INFO --- [           main] o.s.d.j.r.q.QueryEnhancerFactory         : Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-08-21 12:34:24.358  WARN --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-08-21 12:34:24.684  INFO --- [           main] ineShopForHomeAndGarden1ApplicationTests : Started OnlineShopForHomeAndGarden1ApplicationTests in 5.883 seconds (process running for 10.501)
+2024-08-21 12:34:24.686  INFO --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-08-21 12:34:24.688  INFO --- [ionShutdownHook] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown initiated...
+2024-08-21 12:34:24.702  INFO --- [ionShutdownHook] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown completed.
+2024-08-21 12:34:30.711  INFO --- [kground-preinit] o.h.v.i.u.Version                        : HV000001: Hibernate Validator 8.0.1.Final
+2024-08-21 12:34:30.745  INFO --- [           main] o.OnlineShopForHomeAndGarden1Application : Starting OnlineShopForHomeAndGarden1Application using Java 21.0.2 with PID 13448 (C:\Users\irina\IdeaProjects\OnlineShopForHomeAndGarden\target\classes started by irina in C:\Users\irina\IdeaProjects\OnlineShopForHomeAndGarden)
+2024-08-21 12:34:30.749  INFO --- [           main] o.OnlineShopForHomeAndGarden1Application : No active profile set, falling back to 1 default profile: "default"
+2024-08-21 12:34:31.407  INFO --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-08-21 12:34:31.476  INFO --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 63 ms. Found 8 JPA repository interfaces.
+2024-08-21 12:34:31.928  INFO --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat initialized with port 8080 (http)
+2024-08-21 12:34:31.952  INFO --- [           main] o.a.c.h.Http11NioProtocol                : Initializing ProtocolHandler ["http-nio-8080"]
+2024-08-21 12:34:31.954  INFO --- [           main] o.a.c.c.StandardService                  : Starting service [Tomcat]
+2024-08-21 12:34:31.954  INFO --- [           main] o.a.c.c.StandardEngine                   : Starting Servlet engine: [Apache Tomcat/10.1.26]
+2024-08-21 12:34:32.009  INFO --- [           main] o.a.c.c.C.[.[.[/]                        : Initializing Spring embedded WebApplicationContext
+2024-08-21 12:34:32.010  INFO --- [           main] w.s.c.ServletWebServerApplicationContext : Root WebApplicationContext: initialization completed in 1223 ms
+2024-08-21 12:34:32.138  INFO --- [           main] c.z.h.HikariDataSource                   : HikariPool-1 - Starting...
+2024-08-21 12:34:32.414  INFO --- [           main] c.z.h.p.HikariPool                       : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@4def42c3
+2024-08-21 12:34:32.415  INFO --- [           main] c.z.h.HikariDataSource                   : HikariPool-1 - Start completed.
+2024-08-21 12:34:32.918  INFO --- [           main] l.changelog                              : Reading from OnlineApp.databasechangelog
+2024-08-21 12:34:32.946  INFO --- [           main] l.ui                                     : Database is up to date, no changesets to execute
+2024-08-21 12:34:32.948  INFO --- [           main] l.changelog                              : Reading from OnlineApp.databasechangelog
+2024-08-21 12:34:32.957  INFO --- [           main] l.util                                   : UPDATE SUMMARY
+2024-08-21 12:34:32.957  INFO --- [           main] l.util                                   : Run:                          0
+2024-08-21 12:34:32.957  INFO --- [           main] l.util                                   : Previously run:               5
+2024-08-21 12:34:32.957  INFO --- [           main] l.util                                   : Filtered out:                 0
+2024-08-21 12:34:32.957  INFO --- [           main] l.util                                   : -------------------------------
+2024-08-21 12:34:32.958  INFO --- [           main] l.util                                   : Total change sets:            5
+2024-08-21 12:34:32.958  INFO --- [           main] l.util                                   : Update summary generated
+2024-08-21 12:34:32.972  INFO --- [           main] l.lockservice                            : Successfully released change log lock
+2024-08-21 12:34:32.974  INFO --- [           main] l.command                                : Command execution complete
+2024-08-21 12:34:33.036  INFO --- [           main] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-08-21 12:34:33.090  INFO --- [           main] o.h.Version                              : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-08-21 12:34:33.122  INFO --- [           main] o.h.c.i.RegionFactoryInitiator           : HHH000026: Second-level cache disabled
+2024-08-21 12:34:33.422  INFO --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-08-21 12:34:34.511  INFO --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-08-21 12:34:34.515  INFO --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-08-21 12:34:34.837  INFO --- [           main] o.s.d.j.r.q.QueryEnhancerFactory         : Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-08-21 12:34:35.412  WARN --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-08-21 12:34:35.798  INFO --- [           main] o.a.c.h.Http11NioProtocol                : Starting ProtocolHandler ["http-nio-8080"]
+2024-08-21 12:34:35.814  INFO --- [           main] o.s.b.w.e.t.TomcatWebServer              : Tomcat started on port 8080 (http) with context path '/'
+2024-08-21 12:34:35.822  INFO --- [           main] o.OnlineShopForHomeAndGarden1Application : Started OnlineShopForHomeAndGarden1Application in 5.373 seconds (process running for 6.361)
+2024-08-21 12:34:44.702  INFO --- [nio-8080-exec-1] o.a.c.c.C.[.[.[/]                        : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2024-08-21 12:34:44.702  INFO --- [nio-8080-exec-1] o.s.w.s.DispatcherServlet                : Initializing Servlet 'dispatcherServlet'
+2024-08-21 12:34:44.704  INFO --- [nio-8080-exec-1] o.s.w.s.DispatcherServlet                : Completed initialization in 2 ms
+2024-08-21 12:46:53.827  INFO --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-08-21 12:46:53.830  INFO --- [ionShutdownHook] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown initiated...
+2024-08-21 12:46:53.840  INFO --- [ionShutdownHook] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown completed.
+2024-08-21 12:51:52.449  INFO --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [de.telran.onlineshopforhomeandgarden1.controller.UserControllerTest]: UserControllerTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2024-08-21 12:51:52.763  INFO --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration de.telran.onlineshopforhomeandgarden1.OnlineShopForHomeAndGarden1Application for test class de.telran.onlineshopforhomeandgarden1.controller.UserControllerTest
+2024-08-21 12:51:53.349  INFO --- [kground-preinit] o.h.v.i.u.Version                        : HV000001: Hibernate Validator 8.0.1.Final
+2024-08-21 12:51:53.457  INFO --- [           main] d.t.o.c.UserControllerTest               : Starting UserControllerTest using Java 21.0.2 with PID 3884 (started by irina in C:\Users\irina\IdeaProjects\OnlineShopForHomeAndGarden)
+2024-08-21 12:51:53.463  INFO --- [           main] d.t.o.c.UserControllerTest               : No active profile set, falling back to 1 default profile: "default"
+2024-08-21 12:51:57.156  INFO --- [           main] o.s.b.t.m.w.SpringBootMockServletContext : Initializing Spring TestDispatcherServlet ''
+2024-08-21 12:51:57.156  INFO --- [           main] o.s.t.w.s.TestDispatcherServlet          : Initializing Servlet ''
+2024-08-21 12:51:57.161  INFO --- [           main] o.s.t.w.s.TestDispatcherServlet          : Completed initialization in 3 ms
+2024-08-21 12:51:57.202  INFO --- [           main] d.t.o.c.UserControllerTest               : Started UserControllerTest in 4.321 seconds (process running for 7.716)
+2024-08-21 12:51:57.265  INFO --- [           main] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [de.telran.onlineshopforhomeandgarden1.OnlineShopForHomeAndGarden1ApplicationTests]: OnlineShopForHomeAndGarden1ApplicationTests does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2024-08-21 12:51:57.278  INFO --- [           main] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration de.telran.onlineshopforhomeandgarden1.OnlineShopForHomeAndGarden1Application for test class de.telran.onlineshopforhomeandgarden1.OnlineShopForHomeAndGarden1ApplicationTests
+2024-08-21 12:51:57.323  INFO --- [           main] ineShopForHomeAndGarden1ApplicationTests : Starting OnlineShopForHomeAndGarden1ApplicationTests using Java 21.0.2 with PID 3884 (started by irina in C:\Users\irina\IdeaProjects\OnlineShopForHomeAndGarden)
+2024-08-21 12:51:57.324  INFO --- [           main] ineShopForHomeAndGarden1ApplicationTests : No active profile set, falling back to 1 default profile: "default"
+2024-08-21 12:51:58.116  INFO --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2024-08-21 12:51:58.233  INFO --- [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 105 ms. Found 8 JPA repository interfaces.
+2024-08-21 12:51:58.752  INFO --- [           main] c.z.h.HikariDataSource                   : HikariPool-1 - Starting...
+2024-08-21 12:51:59.463  INFO --- [           main] c.z.h.p.HikariPool                       : HikariPool-1 - Added connection com.mysql.cj.jdbc.ConnectionImpl@24476874
+2024-08-21 12:51:59.466  INFO --- [           main] c.z.h.HikariDataSource                   : HikariPool-1 - Start completed.
+2024-08-21 12:52:00.624  INFO --- [           main] l.changelog                              : Reading from OnlineApp.databasechangelog
+2024-08-21 12:52:00.681  INFO --- [           main] l.ui                                     : Database is up to date, no changesets to execute
+2024-08-21 12:52:00.685  INFO --- [           main] l.changelog                              : Reading from OnlineApp.databasechangelog
+2024-08-21 12:52:00.702  INFO --- [           main] l.util                                   : UPDATE SUMMARY
+2024-08-21 12:52:00.702  INFO --- [           main] l.util                                   : Run:                          0
+2024-08-21 12:52:00.702  INFO --- [           main] l.util                                   : Previously run:               5
+2024-08-21 12:52:00.703  INFO --- [           main] l.util                                   : Filtered out:                 0
+2024-08-21 12:52:00.703  INFO --- [           main] l.util                                   : -------------------------------
+2024-08-21 12:52:00.703  INFO --- [           main] l.util                                   : Total change sets:            5
+2024-08-21 12:52:00.705  INFO --- [           main] l.util                                   : Update summary generated
+2024-08-21 12:52:00.742  INFO --- [           main] l.lockservice                            : Successfully released change log lock
+2024-08-21 12:52:00.745  INFO --- [           main] l.command                                : Command execution complete
+2024-08-21 12:52:00.893  INFO --- [           main] o.h.j.i.u.LogHelper                      : HHH000204: Processing PersistenceUnitInfo [name: default]
+2024-08-21 12:52:01.023  INFO --- [           main] o.h.Version                              : HHH000412: Hibernate ORM core version 6.5.2.Final
+2024-08-21 12:52:01.091  INFO --- [           main] o.h.c.i.RegionFactoryInitiator           : HHH000026: Second-level cache disabled
+2024-08-21 12:52:01.327  INFO --- [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2024-08-21 12:52:03.381  INFO --- [           main] o.h.e.t.j.p.i.JtaPlatformInitiator       : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2024-08-21 12:52:03.386  INFO --- [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2024-08-21 12:52:03.972  INFO --- [           main] o.s.d.j.r.q.QueryEnhancerFactory         : Hibernate is in classpath; If applicable, HQL parser will be used.
+2024-08-21 12:52:05.267  WARN --- [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2024-08-21 12:52:05.677  INFO --- [           main] ineShopForHomeAndGarden1ApplicationTests : Started OnlineShopForHomeAndGarden1ApplicationTests in 8.392 seconds (process running for 16.191)
+2024-08-21 12:52:06.207  INFO --- [           main] d.t.o.s.CategoryService                  : Category with id = 99 created
+2024-08-21 12:52:06.230  INFO --- [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2024-08-21 12:52:06.233  INFO --- [ionShutdownHook] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown initiated...
+2024-08-21 12:52:06.247  INFO --- [ionShutdownHook] c.z.h.HikariDataSource                   : HikariPool-1 - Shutdown completed.

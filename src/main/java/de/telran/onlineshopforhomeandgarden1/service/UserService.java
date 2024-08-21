@@ -1,6 +1,5 @@
 package de.telran.onlineshopforhomeandgarden1.service;
 
-import de.telran.onlineshopforhomeandgarden1.dto.CartDto;
 import de.telran.onlineshopforhomeandgarden1.dto.UserDto;
 import de.telran.onlineshopforhomeandgarden1.entity.Cart;
 import de.telran.onlineshopforhomeandgarden1.entity.User;
@@ -28,17 +27,18 @@ public class UserService {
         this.userRepository = userRepository;
         this.cartRepository = cartRepository;
         this.mapper = mapper;
-    } 
-  
-  public UserDto saveUser(UserDto userDto) {
-        if (userDto.getRole() == null){
-           userDto.setRole(Role.CUSTOMER);
+    }
+
+    public UserDto saveUser(UserDto userDto) {
+        if (userDto.getRole() == null) {
+            userDto.setRole(Role.CUSTOMER);
         }
         User user = mapper.dtoToEntity(userDto);
         User saved = userRepository.save(user);
         return mapper.entityToDto(saved);
-    
- }
+
+    }
+
     public Optional<UserDto> updateUser(Long id, String name, String phone) {
         Optional<User> optional = userRepository.findById(id);
         if (optional.isPresent()) {
@@ -50,13 +50,14 @@ public class UserService {
         } else {
             return Optional.empty();
         }
-  }
-    public void removeUser(CartDto cartDto, Long id){
-      Optional<Cart> optional = cartRepository.findById(cartDto.getId());
-        if (optional.isPresent()){
-            cartRepository.deleteByUserId(id);
+    }
+
+    public void removeUser(Long id) {
+        Optional<Cart> optional = cartRepository.findCartByUserId(id);
+        if (optional.isPresent()) {
+            cartRepository.deleteById(optional.get().getId());
             userRepository.deleteById(id);
-        }else{
+        } else {
             userRepository.deleteById(id);
         }
 

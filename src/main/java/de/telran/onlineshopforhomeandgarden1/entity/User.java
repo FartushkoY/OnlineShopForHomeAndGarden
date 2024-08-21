@@ -1,6 +1,5 @@
 package de.telran.onlineshopforhomeandgarden1.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import de.telran.onlineshopforhomeandgarden1.enums.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
@@ -8,7 +7,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.util.List;
+import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -35,8 +34,14 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-    @OneToOne(cascade = CascadeType.REMOVE)
+    @OneToOne(mappedBy = "user", cascade = CascadeType.REMOVE)
     private Cart cart;
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    private Set<Favorite> favorite = new LinkedHashSet<>();
+
+    @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE)
+    private Set<Order> order = new LinkedHashSet<>();
 
     @Override
     public boolean equals(Object o) {

@@ -1,7 +1,7 @@
 package de.telran.onlineshopforhomeandgarden1.service;
 
-import de.telran.onlineshopforhomeandgarden1.dto.CartDto;
 import de.telran.onlineshopforhomeandgarden1.dto.UserDto;
+import de.telran.onlineshopforhomeandgarden1.entity.Cart;
 import de.telran.onlineshopforhomeandgarden1.entity.User;
 import de.telran.onlineshopforhomeandgarden1.enums.Role;
 import de.telran.onlineshopforhomeandgarden1.mapper.CartMapper;
@@ -72,9 +72,10 @@ class UserServiceTest {
 
         Mockito.when(userRepository.findById(2L)).thenReturn(Optional.of(user));
         Mockito.when(userRepository.save(user)).thenReturn(user);
+        Optional<UserDto> resultOptional = service.updateUser(user.getId(), user.getName(), user.getPhoneNumber());
 
-        assertEquals("Old name", user.getName());
-        assertEquals("+491724706923", user.getPhoneNumber());
+        assertEquals(resultOptional.get().getName(), user.getName());
+        assertEquals(resultOptional.get().getPhoneNumber(), user.getPhoneNumber());
 
         Mockito.when(userRepository.findById(574L)).thenReturn(Optional.empty());
         Optional<UserDto> optional = service.updateUser(547L, "name", "+491530249951");
@@ -85,17 +86,16 @@ class UserServiceTest {
     @Test
     public void removeUser() {
         Long userId = 1L;
-        CartDto cartDto = new CartDto();
-        cartDto.setId(1L);
-        Mockito.when(cartRepository.findById(cartDto.getId())).thenReturn(Optional.of(cartMapper.dtoToEntity(cartDto)));
+        Cart cart = new Cart();
 
-        service.removeUser(cartDto, userId);
-        Mockito.verify(cartRepository).deleteByUserId(userId);
+        Mockito.when(cartRepository.findCartByUserId(userId)).thenReturn(Optional.of(cart));
+
+        service.removeUser(userId);
+        Mockito.verify(cartRepository).deleteById(cart.getId());
         Mockito.verify(userRepository).deleteById(userId);
 
-        Mockito.when(cartRepository.findById(500L)).thenReturn(Optional.empty());
-        service.removeUser(null,userId);
-
+        Mockito.when(cartRepository.findCartByUserId(null)).thenReturn(Optional.empty());
+        service.removeUser(userId);
 
     }
 }
