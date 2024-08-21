@@ -4,13 +4,11 @@ package de.telran.onlineshopforhomeandgarden1.entity;
 import de.telran.onlineshopforhomeandgarden1.enums.DeliveryMethod;
 import de.telran.onlineshopforhomeandgarden1.enums.Status;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import java.time.Instant;
+import java.util.LinkedHashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -19,6 +17,7 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(exclude = "user")
 @Entity
 @Table(name = "orders")
 public class Order {
@@ -33,7 +32,7 @@ public class Order {
     private Instant createdAt;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private Set<OrderItem> orderItems;
+    private Set<OrderItem> orderItems = new LinkedHashSet<>();
 
     @Column(name = "delivery_address")
     private String deliveryAddress;
@@ -53,23 +52,24 @@ public class Order {
     @UpdateTimestamp
     private Instant updatedAt;
 
-    @Override
-    public boolean equals(Object o) {
-        if (this == o) return true;
-        if (!(o instanceof Order order)) return false;
-        return Objects.equals(id, order.id) && Objects.equals(orderItems, order.orderItems) && Objects.equals(deliveryAddress, order.deliveryAddress) && Objects.equals(contactPhone, order.contactPhone) && deliveryMethod == order.deliveryMethod && status == order.status;
-    }
-
-    @Override
-    public int hashCode() {
-        return Objects.hash(id, orderItems, deliveryAddress, contactPhone, deliveryMethod, status);
-    }
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
 
-
-
+    @Override
+    public String toString() {
+        return "Order{" +
+                "id=" + id +
+                ", createdAt=" + createdAt +
+                ", orderItems=" + orderItems +
+                ", deliveryAddress='" + deliveryAddress + '\'' +
+                ", contactPhone='" + contactPhone + '\'' +
+                ", deliveryMethod=" + deliveryMethod +
+                ", status=" + status +
+                ", updatedAt=" + updatedAt +
+                ", user=" + user +
+                '}';
+    }
 }
 

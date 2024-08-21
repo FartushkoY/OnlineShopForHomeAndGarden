@@ -1,7 +1,7 @@
 package de.telran.onlineshopforhomeandgarden1.service;
 
 
-import de.telran.onlineshopforhomeandgarden1.dto.CategoryRequestDto;
+import de.telran.onlineshopforhomeandgarden1.dto.request.CategoryRequestDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.CategoryResponseDto;
 import de.telran.onlineshopforhomeandgarden1.entity.Category;
 import de.telran.onlineshopforhomeandgarden1.mapper.CategoryMapper;
@@ -26,16 +26,17 @@ public class CategoryService {
         this.categoryMapper = categoryMapper;
     }
 
+
+    public List<CategoryResponseDto> getAll() {
+        List<Category> categories = repository.findAll();
+        return categoryMapper.entityListToDto(categories);
+    }
+
     public CategoryRequestDto addCategory(CategoryRequestDto categoryRequestDto) {
         Category category = categoryMapper.dtoToRequestEntity(categoryRequestDto);
         logger.info("Category with id = {} created", category.getId());
         Category newCategory = repository.save(category);
         return categoryMapper.entityToRequestDto(newCategory);
-    }
-
-    public List<CategoryResponseDto> getAll() {
-        List<Category> categories = repository.findAll();
-        return categoryMapper.entityListToDto(categories);
     }
 
     public CategoryRequestDto updateCategory(CategoryRequestDto categoryRequestDto) {
@@ -48,4 +49,7 @@ public class CategoryService {
         }
     }
 }
+
+
+
 

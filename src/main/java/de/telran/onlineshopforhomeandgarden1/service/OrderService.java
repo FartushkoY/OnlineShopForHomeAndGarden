@@ -1,9 +1,9 @@
 package de.telran.onlineshopforhomeandgarden1.service;
 
+import de.telran.onlineshopforhomeandgarden1.dto.request.OrderRequestDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.OrderResponseDto;
 import de.telran.onlineshopforhomeandgarden1.entity.Order;
 import de.telran.onlineshopforhomeandgarden1.entity.User;
-import de.telran.onlineshopforhomeandgarden1.enums.Status;
 import de.telran.onlineshopforhomeandgarden1.mapper.OrderMapper;
 import de.telran.onlineshopforhomeandgarden1.repository.OrderRepository;
 import de.telran.onlineshopforhomeandgarden1.repository.ProductRepository;
@@ -11,7 +11,6 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
 import java.util.List;
 import java.util.Optional;
 
@@ -43,6 +42,15 @@ public class OrderService {
         return order.map(orderMapper::entityToDto);
 
     }
+
+
+    public OrderRequestDto addOrder(OrderRequestDto orderRequestDto) {
+        Order order = orderMapper.dtoRequestToEntity(orderRequestDto);
+        order.setUser(this.getAutheticateUser());
+        Order created = repository.save(order);
+        return orderMapper.entityToDtoRequest(created);
+    }
+
 
     private User getAutheticateUser() {
         User user = new User();
