@@ -1,8 +1,10 @@
 package de.telran.onlineshopforhomeandgarden1.controller;
 
 import de.telran.onlineshopforhomeandgarden1.dto.ProductDto;
+import de.telran.onlineshopforhomeandgarden1.dto.RequestDto.ProductRequestDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.ProductWithDiscountPriceResponseDto;
 import de.telran.onlineshopforhomeandgarden1.service.ProductService;
+import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -48,6 +50,19 @@ public class ProductController {
         return service.getAll(categoryId, hasDiscount, minPrice, maxPrice, pageable);
     }
 
+    @PostMapping
+    public ResponseEntity<ProductRequestDto> addProduct(@RequestBody ProductRequestDto productRequestDto) {
+        try {
+            ProductRequestDto createdProduct = service.addProduct(productRequestDto);
+            return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+
+
+
+
+    }
 
 
 }

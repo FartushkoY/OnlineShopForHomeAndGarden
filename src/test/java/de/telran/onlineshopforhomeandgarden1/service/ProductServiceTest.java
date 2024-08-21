@@ -1,6 +1,8 @@
 package de.telran.onlineshopforhomeandgarden1.service;
 
 import de.telran.onlineshopforhomeandgarden1.dto.ProductDto;
+import de.telran.onlineshopforhomeandgarden1.dto.RequestDto.ProductRequestDto;
+import de.telran.onlineshopforhomeandgarden1.entity.Category;
 import de.telran.onlineshopforhomeandgarden1.entity.Product;
 import de.telran.onlineshopforhomeandgarden1.mapper.ProductMapper;
 import de.telran.onlineshopforhomeandgarden1.repository.ProductRepository;
@@ -10,7 +12,6 @@ import org.mapstruct.factory.Mappers;
 import org.mockito.Mockito;
 import org.springframework.data.domain.*;
 import de.telran.onlineshopforhomeandgarden1.dto.response.ProductWithDiscountPriceResponseDto;
-
 import java.math.BigDecimal;
 import java.util.*;
 
@@ -64,12 +65,32 @@ public class ProductServiceTest {
         Integer minPrice = null;
         Integer maxPrice = null;
         Page<Product> products = new PageImpl<>(Collections.singletonList(product));
-        ProductWithDiscountPriceResponseDto responseDto = new ProductWithDiscountPriceResponseDto();
+//        ProductWithDiscountPriceResponseDto responseDto = new ProductWithDiscountPriceResponseDto();
 
         Mockito.when(repository.getAllWithFilters(categoryId, false, false, BigDecimal.valueOf(0), BigDecimal.valueOf(Integer.MAX_VALUE), pageable))
                 .thenReturn(products);
         productService.getAll(categoryId, hasDiscount, minPrice, maxPrice, pageable);
         Mockito.verify(repository).getAllWithFilters(categoryId, false, false, BigDecimal.valueOf(0), BigDecimal.valueOf(Integer.MAX_VALUE), pageable);
 
+    }
+
+    @Test
+    public void addProductTest() {
+        Category category = new Category();
+        category.setId(1L);
+        Product product = new Product();
+        product.setName("Test name");
+        product.setDescription("Test description");
+        product.setPrice(BigDecimal.valueOf(10.4));
+        product.setCategory(category);
+        product.setImageUrl("https://raw.githubusercontent.com/tel-ran-de");
+        product.setDiscountPrice(null);
+
+        Mockito.when(repository.save(product)).thenReturn(product);
+        ProductRequestDto savedProduct = productService.addProduct(productMapper.entityToRequestDto(product));
+
+        Mockito.verify(repository).save(Mockito.eq(product));
+        assertEquals(product.getName(), savedProduct.getName());
+        assertEquals(product.getPrice(), savedProduct.getPrice());
     }
 }
