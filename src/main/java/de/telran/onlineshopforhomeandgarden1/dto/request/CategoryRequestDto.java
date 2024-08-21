@@ -1,4 +1,4 @@
-package de.telran.onlineshopforhomeandgarden1.dto;
+package de.telran.onlineshopforhomeandgarden1.dto.request;
 
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
