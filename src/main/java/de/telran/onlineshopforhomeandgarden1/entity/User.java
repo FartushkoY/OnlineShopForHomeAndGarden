@@ -35,8 +35,8 @@ public class User {
     @Enumerated(EnumType.STRING)
     private Role role;
 
-//    @OneToOne(mappedBy = "cart", cascade = CascadeType.REMOVE)
-//    private Cart cart;
+    @OneToOne(cascade = CascadeType.REMOVE)
+    private Cart cart;
 
     @Override
     public boolean equals(Object o) {

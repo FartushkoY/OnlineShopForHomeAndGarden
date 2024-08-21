@@ -1,9 +1,12 @@
 package de.telran.onlineshopforhomeandgarden1.service;
 
+import de.telran.onlineshopforhomeandgarden1.dto.CartDto;
 import de.telran.onlineshopforhomeandgarden1.dto.UserDto;
 import de.telran.onlineshopforhomeandgarden1.entity.User;
 import de.telran.onlineshopforhomeandgarden1.enums.Role;
+import de.telran.onlineshopforhomeandgarden1.mapper.CartMapper;
 import de.telran.onlineshopforhomeandgarden1.mapper.UserMapper;
+import de.telran.onlineshopforhomeandgarden1.repository.CartRepository;
 import de.telran.onlineshopforhomeandgarden1.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -18,14 +21,18 @@ import static org.mockito.ArgumentMatchers.eq;
 
 class UserServiceTest {
     private static UserService service;
-    private static UserRepository repository;
-    private static UserMapper mapper;
+    private static UserRepository userRepository;
+    private static CartRepository cartRepository;
+    private static UserMapper userMapper;
+    private static CartMapper cartMapper;
 
     @BeforeEach
     public void init() {
-        repository = Mockito.mock(UserRepository.class);
-        mapper = Mappers.getMapper(UserMapper.class);
-        service = new UserService(repository, mapper);
+        userRepository = Mockito.mock(UserRepository.class);
+        cartRepository = Mockito.mock(CartRepository.class);
+        userMapper = Mappers.getMapper(UserMapper.class);
+        cartMapper = Mappers.getMapper(CartMapper.class);
+        service = new UserService(userRepository, cartRepository, userMapper);
     }
 
     @Test
@@ -37,22 +44,22 @@ class UserServiceTest {
         user.setRole(Role.valueOf("ADMINISTRATOR"));
         user.setPasswordHash("TestPassHash123");
 
-        Mockito.when(repository.save(user)).thenReturn(user);
-        service.saveUser(mapper.entityToDto(user));
-        Mockito.verify(repository).save(eq(user));
+        Mockito.when(userRepository.save(user)).thenReturn(user);
+        service.saveUser(userMapper.entityToDto(user));
+        Mockito.verify(userRepository).save(eq(user));
         assertEquals(user.getRole(), Role.ADMINISTRATOR);
 
         user.setRole(Role.valueOf("CUSTOMER"));
-        Mockito.when(repository.save(user)).thenReturn(user);
-        service.saveUser(mapper.entityToDto(user));
-        Mockito.verify(repository).save(eq(user));
+        Mockito.when(userRepository.save(user)).thenReturn(user);
+        service.saveUser(userMapper.entityToDto(user));
+        Mockito.verify(userRepository).save(eq(user));
         assertEquals(user.getRole(), Role.CUSTOMER);
 
         user.setRole(null);
-        Mockito.when(repository.save(Mockito.eq(user))).thenReturn(user);
-        service.saveUser(mapper.entityToDto(user));
+        Mockito.when(userRepository.save(Mockito.eq(user))).thenReturn(user);
+        service.saveUser(userMapper.entityToDto(user));
         user.setRole(Role.CUSTOMER);
-        Mockito.verify(repository, Mockito.times(2)).save(eq(user));
+        Mockito.verify(userRepository, Mockito.times(2)).save(eq(user));
         assertEquals(user.getRole(), Role.CUSTOMER);
     }
 
@@ -63,13 +70,13 @@ class UserServiceTest {
         user.setName("Old name");
         user.setPhoneNumber("+491724706923");
 
-        Mockito.when(repository.findById(2L)).thenReturn(Optional.of(user));
-        Mockito.when(repository.save(user)).thenReturn(user);
+        Mockito.when(userRepository.findById(2L)).thenReturn(Optional.of(user));
+        Mockito.when(userRepository.save(user)).thenReturn(user);
 
         assertEquals("Old name", user.getName());
         assertEquals("+491724706923", user.getPhoneNumber());
 
-        Mockito.when(repository.findById(574L)).thenReturn(Optional.empty());
+        Mockito.when(userRepository.findById(574L)).thenReturn(Optional.empty());
         Optional<UserDto> optional = service.updateUser(547L, "name", "+491530249951");
         assertTrue(optional.isEmpty());
 
@@ -78,7 +85,17 @@ class UserServiceTest {
     @Test
     public void removeUser() {
         Long userId = 1L;
-        service.removeUser(userId);
-        Mockito.verify(repository).deleteById(userId);
+        CartDto cartDto = new CartDto();
+        cartDto.setId(1L);
+        Mockito.when(cartRepository.findById(cartDto.getId())).thenReturn(Optional.of(cartMapper.dtoToEntity(cartDto)));
+
+        service.removeUser(cartDto, userId);
+        Mockito.verify(cartRepository).deleteByUserId(userId);
+        Mockito.verify(userRepository).deleteById(userId);
+
+        Mockito.when(cartRepository.findById(500L)).thenReturn(Optional.empty());
+        service.removeUser(null,userId);
+
+
     }
 }
