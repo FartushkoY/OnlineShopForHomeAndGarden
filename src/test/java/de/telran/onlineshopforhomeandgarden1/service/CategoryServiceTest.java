@@ -61,8 +61,8 @@ class CategoryServiceTest {
         updatedCategory.setImageUrl("Test Image1");
 
         Mockito.when(repository.findById(88L)).thenReturn(Optional.of(dbCategory));
-        Mockito.when(repository.save(dbCategory)).thenReturn(dbCategory);
-        CategoryRequestDto resultCategory = categoryService.updateCategory(categoryMapper.entityToRequestDto(updatedCategory));
+        Mockito.when(repository.save(updatedCategory)).thenReturn(updatedCategory);
+        categoryService.updateCategory(categoryMapper.entityToRequestDto(updatedCategory));
         Mockito.verify(repository).save(Mockito.eq(updatedCategory));
     }
 
