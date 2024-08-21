@@ -54,7 +54,6 @@ public class ProductController {
     public ResponseEntity<ProductRequestDto> addProduct(@RequestBody ProductRequestDto productRequestDto) {
         try {
             ProductRequestDto createdProduct = service.addProduct(productRequestDto);
-            log.info("Product with name = {} created", createdProduct.getName());
             return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
