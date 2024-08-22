@@ -2,10 +2,9 @@ package de.telran.onlineshopforhomeandgarden1.mapper;
 
 import de.telran.onlineshopforhomeandgarden1.dto.request.CategoryRequestDto;
 import de.telran.onlineshopforhomeandgarden1.dto.ProductDto;
-import de.telran.onlineshopforhomeandgarden1.dto.RequestDto.ProductRequestDto;
+import de.telran.onlineshopforhomeandgarden1.dto.request.ProductRequestDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.ProductResponseDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.ProductWithDiscountPriceResponseDto;
-import de.telran.onlineshopforhomeandgarden1.entity.Category;
 import de.telran.onlineshopforhomeandgarden1.entity.Product;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
