@@ -5,18 +5,13 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import java.math.BigDecimal;
-
 @Getter
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
-public class OrderItemResponseDto {
+public class UserResponseDto {
 
-    private Integer quantity;
-
-    private BigDecimal priceAtPurchase;
-
-    private ProductResponseDto product;
+    private String name;
 
 }
+

@@ -10,6 +10,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 import java.util.List;
+import java.util.Set;
 
 @Mapper(componentModel = "spring")
 public interface ProductMapper {
@@ -18,7 +19,7 @@ public interface ProductMapper {
 
     ProductDto entityToDto(Product product);
 
-    List<ProductDto> entityListToDto(List<Product> products);
+   Set<ProductDto> entityListToDto(Set<Product> products);
 
     //    RequestDto
     @Mapping(target = "category.id", source = "categoryId")
