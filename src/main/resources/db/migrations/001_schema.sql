@@ -14,7 +14,7 @@ CREATE TABLE IF NOT EXISTS `OnlineApp`.`categories` (
 
 CREATE TABLE IF NOT EXISTS `OnlineApp`.`products` (
 `product_id` INT NOT NULL AUTO_INCREMENT,
-`category_id` INT NOT NULL,
+`category_id` INT,
 `name` VARCHAR(100) NOT NULL,
 `description` TEXT NOT NULL,
 `price` DECIMAL NOT NULL,
