@@ -16,6 +16,7 @@ import java.math.BigDecimal;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.eq;
 
 
 public class ProductServiceTest {
@@ -89,8 +90,46 @@ public class ProductServiceTest {
         Mockito.when(repository.save(product)).thenReturn(product);
         ProductRequestDto savedProduct = productService.addProduct(productMapper.entityToRequestDto(product));
 
-        Mockito.verify(repository).save(Mockito.eq(product));
+        Mockito.verify(repository).save(eq(product));
         assertEquals(product.getName(), savedProduct.getName());
         assertEquals(product.getPrice(), savedProduct.getPrice());
+    }
+
+    @Test
+    public void updateProductTest() {
+        Category category = new Category();
+        category.setId(4L);
+        Product oldProduct = new Product();
+        oldProduct.setId(22L);
+        oldProduct.setName("Test name");
+        oldProduct.setDescription("Test description");
+        oldProduct.setPrice(BigDecimal.valueOf(10.4));
+        oldProduct.setCategory(category);
+        oldProduct.setImageUrl("https://raw.githubusercontent.com/tel-ran-de");
+        oldProduct.setDiscountPrice(null);
+
+        Product updatedProduct = new Product();
+        updatedProduct.setId(22L);
+        updatedProduct.setName("New test name");
+        updatedProduct.setDescription("New test description");
+        updatedProduct.setPrice(BigDecimal.valueOf(10));
+        updatedProduct.setCategory(category);
+        updatedProduct.setImageUrl("https://raw.githubusercontent.com/tel-ran-de");
+        updatedProduct.setDiscountPrice(null);
+
+        Mockito.when(repository.findById(updatedProduct.getId())).thenReturn(Optional.of(oldProduct));
+        Mockito.when(repository.save(updatedProduct)).thenReturn(updatedProduct);
+        productService.updateProduct(productMapper.entityToRequestDto(updatedProduct));
+        Mockito.verify(repository).save(eq(updatedProduct));
+    }
+
+    @Test
+    public void updateProductNotFoundTest() {
+        Product updatedProduct = new Product();
+        updatedProduct.setId(555L);
+
+        Mockito.when(repository.findById(updatedProduct.getId())).thenReturn(Optional.empty());
+        ProductRequestDto result = productService.updateProduct(productMapper.entityToRequestDto(updatedProduct));
+        assertNull(result);
     }
 }

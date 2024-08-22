@@ -1,6 +1,6 @@
 package de.telran.onlineshopforhomeandgarden1.mapper;
 
-import de.telran.onlineshopforhomeandgarden1.dto.CategoryRequestDto;
+import de.telran.onlineshopforhomeandgarden1.dto.request.CategoryRequestDto;
 import de.telran.onlineshopforhomeandgarden1.dto.ProductDto;
 import de.telran.onlineshopforhomeandgarden1.dto.RequestDto.ProductRequestDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.ProductResponseDto;
