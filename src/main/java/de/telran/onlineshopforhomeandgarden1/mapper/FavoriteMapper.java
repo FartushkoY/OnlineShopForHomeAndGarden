@@ -1,18 +1,17 @@
 package de.telran.onlineshopforhomeandgarden1.mapper;
 
-import de.telran.onlineshopforhomeandgarden1.dto.FavoriteDto;
+import de.telran.onlineshopforhomeandgarden1.dto.response.FavoriteResponseDto;
 import de.telran.onlineshopforhomeandgarden1.entity.Favorite;
 import org.mapstruct.Mapper;
-
-import java.util.List;
+import java.util.Set;
 
 @Mapper(componentModel = "spring")
 public interface FavoriteMapper {
 
-    Favorite dtoToEntity(FavoriteDto favoriteDto);
+    Favorite dtoToEntity(FavoriteResponseDto favoriteResponseDto);
 
-    FavoriteDto entityToDto(Favorite favorite);
+    FavoriteResponseDto entityToDto(Favorite favorite);
 
-    List<FavoriteDto> entityListToDto(List<Favorite> favorites);
+    Set<FavoriteResponseDto> entityListToDto(Set<Favorite> favorites);
 
 }

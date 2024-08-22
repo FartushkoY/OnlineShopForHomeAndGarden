@@ -13,9 +13,9 @@ import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 import org.mockito.Mockito;
 
-import java.time.Instant;
-import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -101,13 +101,13 @@ class OrderServiceTest {
         secondOrder.setId(orderIdTwo);
         secondOrder.setStatus(Status.valueOf("DELIVERED"));
 
-        List<Order> deliveredOrders = List.of(firstOrder, secondOrder);
+        Set<Order> deliveredOrders = Set.of(firstOrder, secondOrder);
         OrderResponseDto dtoOne = new OrderResponseDto();
         dtoOne.setId(2L);
         OrderResponseDto dtoTwo = new OrderResponseDto();
         dtoTwo.setId(3L);
         Mockito.when(repository.findOrdersByUserId(1l)).thenReturn(deliveredOrders);
-        List<OrderResponseDto> resultOrders = orderService.getOrdersHistory();
+        Set<OrderResponseDto> resultOrders = orderService.getOrdersHistory();
 
         Mockito.verify(repository).findOrdersByUserId(1l);
 

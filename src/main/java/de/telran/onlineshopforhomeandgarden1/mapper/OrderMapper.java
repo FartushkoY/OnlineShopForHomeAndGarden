@@ -6,7 +6,7 @@ import de.telran.onlineshopforhomeandgarden1.dto.response.OrderResponseDto;
 import de.telran.onlineshopforhomeandgarden1.entity.Order;
 import de.telran.onlineshopforhomeandgarden1.entity.OrderItem;
 import org.mapstruct.*;
-import java.util.List;
+import java.util.Set;
 
 
 @Mapper(componentModel = "spring")
@@ -18,8 +18,8 @@ public abstract class OrderMapper {
    public abstract Order dtoRequestToEntity(OrderRequestDto orderRequestDto);
    public abstract OrderResponseDto entityToDto(Order order);
    public abstract OrderRequestDto entityToDtoRequest(Order order);
-   public abstract List<OrderResponseDto> entityListToDto(List<Order> orders);
-   public abstract List<OrderRequestDto> entityListRequestToDto(List<Order> orders);
+   public abstract Set<OrderResponseDto> entityListToDto(Set<Order> orders);
+   public abstract Set<OrderRequestDto> entityListRequestToDto(Set<Order> orders);
 
 
    @AfterMapping

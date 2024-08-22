@@ -10,9 +10,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @RestController
 @RequestMapping("/orders")
@@ -27,8 +26,8 @@ public class OrderController {
     public OrderController(OrderService service) {this.service = service;}
 
     @GetMapping("/history")
-    public List<OrderResponseDto> getOrdersHistory() {
-        return service.getOrdersHistory();
+    public ResponseEntity <Set<OrderResponseDto>> getOrdersHistory() {
+        return new ResponseEntity<>(service.getOrdersHistory(), HttpStatus.OK);
     }
 
     @GetMapping("/{orderId}")
