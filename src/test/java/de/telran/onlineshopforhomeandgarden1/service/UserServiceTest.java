@@ -4,10 +4,9 @@ import de.telran.onlineshopforhomeandgarden1.dto.UserDto;
 import de.telran.onlineshopforhomeandgarden1.entity.Cart;
 import de.telran.onlineshopforhomeandgarden1.entity.User;
 import de.telran.onlineshopforhomeandgarden1.enums.Role;
-import de.telran.onlineshopforhomeandgarden1.mapper.CartMapper;
 import de.telran.onlineshopforhomeandgarden1.mapper.UserMapper;
-import de.telran.onlineshopforhomeandgarden1.repository.CartRepository;
 import de.telran.onlineshopforhomeandgarden1.repository.UserRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
@@ -22,17 +21,13 @@ import static org.mockito.ArgumentMatchers.eq;
 class UserServiceTest {
     private static UserService service;
     private static UserRepository userRepository;
-    private static CartRepository cartRepository;
     private static UserMapper userMapper;
-    private static CartMapper cartMapper;
 
     @BeforeEach
     public void init() {
         userRepository = Mockito.mock(UserRepository.class);
-        cartRepository = Mockito.mock(CartRepository.class);
         userMapper = Mappers.getMapper(UserMapper.class);
-        cartMapper = Mappers.getMapper(CartMapper.class);
-        service = new UserService(userRepository, cartRepository, userMapper);
+        service = new UserService(userRepository, userMapper);
     }
 
     @Test
@@ -85,17 +80,14 @@ class UserServiceTest {
 
     @Test
     public void removeUser() {
-        Long userId = 1L;
-        Cart cart = new Cart();
+        User user = new User();
+        user.setId(1L);
 
-        Mockito.when(cartRepository.findCartByUserId(userId)).thenReturn(Optional.of(cart));
+        Mockito.when(userRepository.findById(user.getId())).thenReturn(Optional.of(user));
+        service.removeUser(user.getId());
+        Mockito.verify(userRepository).deleteById(user.getId());
 
-        service.removeUser(userId);
-        Mockito.verify(cartRepository).deleteById(cart.getId());
-        Mockito.verify(userRepository).deleteById(userId);
-
-        Mockito.when(cartRepository.findCartByUserId(null)).thenReturn(Optional.empty());
-        service.removeUser(userId);
-
+        Mockito.when(userRepository.findById(1000L)).thenReturn(Optional.empty());
+        assertThrows(EntityNotFoundException.class, ()->  service.removeUser(10000L));
     }
 }
