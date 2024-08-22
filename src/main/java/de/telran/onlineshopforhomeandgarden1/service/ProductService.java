@@ -66,4 +66,14 @@ public class ProductService {
         Product created = repository.save(product);
         return productMapper.entityToRequestDto(created);
     }
+
+    public ProductRequestDto updateProduct(ProductRequestDto product) {
+        Optional<Product> optional = repository.findById(product.getId());
+        if (optional.isPresent()) {
+            Product updated = repository.save(productMapper.requestDtoToEntity(product));
+            return productMapper.entityToRequestDto(updated);
+        } else {
+            return null;
+        }
+    }
 }

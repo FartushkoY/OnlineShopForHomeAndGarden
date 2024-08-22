@@ -1,6 +1,7 @@
 package de.telran.onlineshopforhomeandgarden1.controller;
 
 import de.telran.onlineshopforhomeandgarden1.dto.ProductDto;
+
 import de.telran.onlineshopforhomeandgarden1.dto.request.ProductRequestDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.ProductWithDiscountPriceResponseDto;
 import de.telran.onlineshopforhomeandgarden1.service.ProductService;
@@ -57,11 +58,17 @@ public class ProductController {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-
-
-
-
     }
 
+
+    @PutMapping
+    public ResponseEntity<ProductRequestDto> updateProduct(@RequestBody @Valid ProductRequestDto product) {
+        try {
+            ProductRequestDto updatedProduct = service.updateProduct(product);
+            return new ResponseEntity<>(updatedProduct, updatedProduct != null ? HttpStatus.OK : HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
 
 }
