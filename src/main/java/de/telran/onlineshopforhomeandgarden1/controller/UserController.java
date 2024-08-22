@@ -10,7 +10,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -24,11 +23,6 @@ public class UserController {
     public UserController(UserService service) {
         this.service = service;
     }
-    @GetMapping
-    public List<UserDto> getAllUsers(UserDto userDto){
-        return service.getAll();
-    }
-
 
     @PostMapping("/register")
     public ResponseEntity<UserDto> saveUser(@RequestBody @Valid UserDto userDto) {
@@ -41,7 +35,6 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
-
 
     @PutMapping("/{userId}")
     public ResponseEntity<UserDto> updateUser(@PathVariable("userId")Long userId,
