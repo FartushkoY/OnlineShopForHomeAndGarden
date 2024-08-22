@@ -85,6 +85,7 @@ class CategoryServiceTest {
     public void delete() {
         Long id = 66L;
         Category category = new Category();
+        category.setId(id);
         List<Product> productList = new ArrayList<>();
         productList.add(new Product());
         Mockito.when(repository.findById(id)).thenReturn(Optional.of(category));
