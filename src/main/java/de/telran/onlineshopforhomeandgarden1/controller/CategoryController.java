@@ -3,6 +3,7 @@ package de.telran.onlineshopforhomeandgarden1.controller;
 
 import de.telran.onlineshopforhomeandgarden1.dto.request.CategoryRequestDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.CategoryResponseDto;
+import de.telran.onlineshopforhomeandgarden1.entity.Category;
 import de.telran.onlineshopforhomeandgarden1.service.CategoryService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -12,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/categories")
@@ -35,7 +37,6 @@ public class CategoryController {
     public ResponseEntity<CategoryRequestDto> addCategory(@RequestBody CategoryRequestDto category) {
         try {
             CategoryRequestDto newCategory = service.addCategory(category);
-            log.info("Category with id = {} created", newCategory.getId());
             return new ResponseEntity<>(newCategory, HttpStatus.CREATED);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
@@ -46,13 +47,19 @@ public class CategoryController {
     public ResponseEntity<CategoryRequestDto> updateCategory(@RequestBody @Valid CategoryRequestDto category) {
         try {
             CategoryRequestDto updatedCategory = service.updateCategory(category);
-            if (updatedCategory == null) {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }else{
-                 return new ResponseEntity<>(updatedCategory, HttpStatus.OK);
-            }
+            return new ResponseEntity<>(updatedCategory, updatedCategory != null ? HttpStatus.OK : HttpStatus.NOT_FOUND);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @DeleteMapping("/{categoryId}")
+    public ResponseEntity<?> deleteCategory(@PathVariable Long categoryId) {
+        Optional<Category> category = service.delete(categoryId);
+        if (category.isPresent()) {
+            return new ResponseEntity<>(HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
 }
