@@ -10,5 +10,8 @@ import java.util.Set;
 @Repository
 public interface FavoriteRepository extends JpaRepository<Favorite, Long> {
 
+    Set<Favorite> findAllByProductId(Long id);
+
     Set<Favorite> findFavoriteByUserId (Long userId);
+
 }
