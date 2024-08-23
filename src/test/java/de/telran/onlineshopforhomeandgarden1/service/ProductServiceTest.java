@@ -2,9 +2,14 @@ package de.telran.onlineshopforhomeandgarden1.service;
 
 import de.telran.onlineshopforhomeandgarden1.dto.ProductDto;
 import de.telran.onlineshopforhomeandgarden1.dto.request.ProductRequestDto;
+import de.telran.onlineshopforhomeandgarden1.dto.response.ProductResponseDto;
 import de.telran.onlineshopforhomeandgarden1.entity.Category;
+import de.telran.onlineshopforhomeandgarden1.entity.Favorite;
 import de.telran.onlineshopforhomeandgarden1.entity.Product;
 import de.telran.onlineshopforhomeandgarden1.mapper.ProductMapper;
+import de.telran.onlineshopforhomeandgarden1.repository.CartItemRepository;
+import de.telran.onlineshopforhomeandgarden1.repository.FavoriteRepository;
+import de.telran.onlineshopforhomeandgarden1.repository.OrderItemRepository;
 import de.telran.onlineshopforhomeandgarden1.repository.ProductRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -23,13 +28,19 @@ public class ProductServiceTest {
 
     private static ProductService productService;
     private static ProductRepository repository;
+    private static FavoriteRepository favoriteRepository;
+    private static CartItemRepository cartItemRepository;
+    private static OrderItemRepository orderItemRepository;
     private static ProductMapper productMapper;
 
     @BeforeEach
     public void init() {
         repository = Mockito.mock(ProductRepository.class);
+        favoriteRepository = Mockito.mock(FavoriteRepository.class);
+        cartItemRepository = Mockito.mock(CartItemRepository.class);
+        orderItemRepository = Mockito.mock(OrderItemRepository.class);
         productMapper = Mappers.getMapper(ProductMapper.class);
-        productService = new ProductService(repository, productMapper);
+        productService = new ProductService(repository, favoriteRepository, cartItemRepository, orderItemRepository, productMapper);
     }
 
     @Test
@@ -38,7 +49,7 @@ public class ProductServiceTest {
         product.setId(1L);
 
         Mockito.when(repository.findById(1L)).thenReturn(Optional.of(product));
-        ProductDto result = productService.getProductById(1L).get();
+        ProductResponseDto result = productService.getProductById(1L).get();
 
         Mockito.verify(repository).findById(1L);
         assertEquals(product.getId(), result.getId());
@@ -50,7 +61,7 @@ public class ProductServiceTest {
         product.setId(1L);
 
         Mockito.when(repository.findById(111L)).thenReturn(Optional.empty());
-        Optional<ProductDto> optional = productService.getProductById(111L);
+        Optional<ProductResponseDto> optional = productService.getProductById(111L);
 
         Mockito.verify(repository).findById(111L);
         assertTrue(optional.isEmpty());
@@ -66,7 +77,6 @@ public class ProductServiceTest {
         Integer minPrice = null;
         Integer maxPrice = null;
         Page<Product> products = new PageImpl<>(Collections.singletonList(product));
-//        ProductWithDiscountPriceResponseDto responseDto = new ProductWithDiscountPriceResponseDto();
 
         Mockito.when(repository.getAllWithFilters(categoryId, false, false, BigDecimal.valueOf(0), BigDecimal.valueOf(Integer.MAX_VALUE), pageable))
                 .thenReturn(products);
@@ -131,5 +141,41 @@ public class ProductServiceTest {
         Mockito.when(repository.findById(updatedProduct.getId())).thenReturn(Optional.empty());
         ProductRequestDto result = productService.updateProduct(productMapper.entityToRequestDto(updatedProduct));
         assertNull(result);
+    }
+
+    @Test
+    public void deleteProductTest() {
+        Product product = new Product();
+        product.setId(4L);
+
+        Mockito.when(repository.findById(product.getId())).thenReturn(Optional.of(product));
+        productService.deleteProduct(product.getId());
+        Mockito.verify(repository).deleteById(product.getId());
+    }
+
+    @Test
+    public void deleteProductCannotBeDeletedTest() {
+        Product product = new Product();
+        product.setId(4L);
+
+        Favorite favorite = new Favorite();
+        favorite.setId(1L);
+        favorite.setProduct(product);
+
+        Set<Favorite> favorites = new LinkedHashSet<>();
+        favorites.add(favorite);
+
+        Mockito.when(favoriteRepository.findAllByProductId(product.getId())).thenReturn(favorites);
+        productService.deleteProduct(product.getId());
+        Mockito.verify(repository, Mockito.times(0)).deleteById(product.getId());
+    }
+
+    @Test
+    public void deleteProductNotFoundTest() {
+        Product product = new Product();
+        product.setId(4L);
+
+        productService.deleteProduct(10L);
+        Mockito.verify(repository, Mockito.never()).deleteById(10L);
     }
 }

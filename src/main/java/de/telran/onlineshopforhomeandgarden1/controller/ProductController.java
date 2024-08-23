@@ -3,7 +3,9 @@ package de.telran.onlineshopforhomeandgarden1.controller;
 import de.telran.onlineshopforhomeandgarden1.dto.ProductDto;
 
 import de.telran.onlineshopforhomeandgarden1.dto.request.ProductRequestDto;
+import de.telran.onlineshopforhomeandgarden1.dto.response.ProductResponseDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.ProductWithDiscountPriceResponseDto;
+import de.telran.onlineshopforhomeandgarden1.entity.Product;
 import de.telran.onlineshopforhomeandgarden1.service.ProductService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -31,8 +33,8 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProductDto> getProductById(@PathVariable Long id) {
-        Optional<ProductDto> productDto = service.getProductById(id);
+    public ResponseEntity<ProductResponseDto> getProductById(@PathVariable Long id) {
+        Optional<ProductResponseDto> productDto = service.getProductById(id);
         if (productDto.isPresent()) {
             return new ResponseEntity<>(productDto.get(), HttpStatus.OK);
         } else {
@@ -70,6 +72,17 @@ public class ProductController {
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
+    }
+
+    @DeleteMapping("/{productId}")
+    public ResponseEntity<?> deleteProduct(@PathVariable Long productId) {
+        Optional<Product> deletedProduct = service.deleteProduct(productId);
+        if (deletedProduct.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(HttpStatus.OK);
+        }
+
     }
 
 }
