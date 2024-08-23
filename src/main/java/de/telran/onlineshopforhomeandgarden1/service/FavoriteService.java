@@ -26,6 +26,7 @@ public class FavoriteService {
 
     public Set<FavoriteResponseDto> getFavorites() {
       Set<Favorite> favorites = favoriteRepository.findFavoriteByUserId(this.getAutheticateUserForFavorites().getId());
+        logger.info("Found {} favorites", favorites.size());
         return favoriteMapper.entityListToDto(favorites);
     }
 
