@@ -33,22 +33,26 @@ public class CategoryService {
 
     public List<CategoryResponseDto> getAll() {
         List<Category> categories = repository.findAll();
+        logger.debug("Fetched {} categories from the repository.", categories.size());
         return categoryMapper.entityListToDto(categories);
     }
 
     public CategoryRequestDto addCategory(CategoryRequestDto categoryRequestDto) {
         Category category = categoryMapper.dtoToRequestEntity(categoryRequestDto);
-        logger.info("Category with id = {} created", category.getId());
         Category newCategory = repository.save(category);
+        logger.info("Category with id = {} created", category.getId());
         return categoryMapper.entityToRequestDto(newCategory);
     }
 
     public CategoryRequestDto updateCategory(CategoryRequestDto categoryRequestDto) {
         Optional<Category> optional = repository.findById(Long.valueOf(categoryRequestDto.getId()));
         if (optional.isPresent()) {
+            logger.info("Category with id = {} found.", categoryRequestDto.getId());
             Category updatedCategory = repository.save(categoryMapper.dtoToRequestEntity(categoryRequestDto));
+            logger.info("Category with id = {} updated successfully.", updatedCategory.getId());
             return categoryMapper.entityToRequestDto(updatedCategory);
         } else {
+            logger.warn("Category with id = {} not found. Update failed.", categoryRequestDto.getId());
             return null;
         }
     }
@@ -56,12 +60,15 @@ public class CategoryService {
     public Optional<Category> delete(Long id) {
         Optional<Category> category = repository.findById(id);
         if(category.isEmpty()) {
+            logger.warn("Category with id = {} not found. Delete operation failed.", id);
             return Optional.empty();
         }
         List<Product> products = productRepository.findAllByCategory(category.get());
+        logger.info("Found {} products associated with Category id = {}. Dissociating them.", products.size(), id);
         products.forEach(p -> p.setCategory(null));
         productRepository.saveAll(products);
         category.ifPresent(repository::delete);
+       logger.info ("Category with id = {} deleted successfully.", id);
         return category;
 
     }
