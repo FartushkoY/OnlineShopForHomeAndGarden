@@ -162,7 +162,8 @@ public class ProductServiceTest {
         favorite.setId(1L);
         favorite.setProduct(product);
 
-        List<Favorite> favorites = List.of(favorite);
+        Set<Favorite> favorites = new LinkedHashSet<>();
+        favorites.add(favorite);
 
         Mockito.when(favoriteRepository.findAllByProductId(product.getId())).thenReturn(favorites);
         productService.deleteProduct(product.getId());

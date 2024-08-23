@@ -23,6 +23,7 @@ import org.springframework.stereotype.Service;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class ProductService {
@@ -94,9 +95,9 @@ public class ProductService {
 
     public Optional<Product> deleteProduct(Long id) {
         Optional<Product> optional = repository.findById(id);
-        List<Favorite> favorite = favoriteRepository.findAllByProductId(id);
-        List<OrderItem> orderItem = orderItemRepository.findAllByProductId(id);
-        List<CartItem> cartItem = cartItemRepository.findAllByProductId(id);
+        Set<Favorite> favorite = favoriteRepository.findAllByProductId(id);
+        Set<OrderItem> orderItem = orderItemRepository.findAllByProductId(id);
+        Set<CartItem> cartItem = cartItemRepository.findAllByProductId(id);
 
         if (optional.isPresent() && favorite.isEmpty() && orderItem.isEmpty() && cartItem.isEmpty()) {
             repository.deleteById(id);
