@@ -49,7 +49,7 @@ public class OrderService {
         Order order = orderMapper.dtoRequestToEntity(orderRequestDto);
         order.setUser(this.getAuthenticUser());
         Order created = repository.save(order);
-        logger.info("Book with id = {} created", created.getId());
+        logger.info("Order with id = {} created", created.getId());
         return orderMapper.entityToDtoRequest(created);
     }
 
