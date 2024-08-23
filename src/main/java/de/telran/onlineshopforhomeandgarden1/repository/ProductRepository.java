@@ -1,5 +1,6 @@
 package de.telran.onlineshopforhomeandgarden1.repository;
 
+import de.telran.onlineshopforhomeandgarden1.entity.Category;
 import de.telran.onlineshopforhomeandgarden1.entity.Product;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -8,6 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
@@ -16,7 +18,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     Page<Product> getAllWithFilters(Long categoryId, Boolean hasCategory, Boolean hasDiscount,
                                     BigDecimal minPriceBigDecimal, BigDecimal maxPriceBigDecimal, Pageable pageable);
 
-
+    List<Product> findAllByCategory(Category category);
 
 
 }
