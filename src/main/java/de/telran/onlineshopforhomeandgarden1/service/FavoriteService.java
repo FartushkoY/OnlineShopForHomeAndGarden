@@ -25,11 +25,11 @@ public class FavoriteService {
 
 
     public Set<FavoriteResponseDto> getFavorites() {
-      Set<Favorite> favorites = favoriteRepository.findFavoriteByUserId(this.getAutheticateUserForFavorites().getId());
+      Set<Favorite> favorites = favoriteRepository.findFavoriteByUserId(this.getAuthenticUserForFavorites().getId());
         return favoriteMapper.entityListToDto(favorites);
     }
 
-    private User getAutheticateUserForFavorites() {
+    private User getAuthenticUserForFavorites() {
         User user = new User();
         user.setId(2l);
         return user;

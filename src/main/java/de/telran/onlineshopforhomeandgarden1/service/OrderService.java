@@ -32,7 +32,8 @@ public class OrderService {
     }
 
     public Set<OrderResponseDto> getOrdersHistory()  {
-        Set<Order> orders = repository.findOrdersByUserId(this.getAutheticateUser().getId());
+        Set<Order> orders = repository.findOrdersByUserId(this.getAuthenticUser().getId());
+        logger.info("Retrieved {} orders for user ID {}", orders.size(), this.getAuthenticUser().getId());
         return orderMapper.entityListToDto(orders);
     }
 
@@ -46,13 +47,14 @@ public class OrderService {
 
     public OrderRequestDto addOrder(OrderRequestDto orderRequestDto) {
         Order order = orderMapper.dtoRequestToEntity(orderRequestDto);
-        order.setUser(this.getAutheticateUser());
+        order.setUser(this.getAuthenticUser());
         Order created = repository.save(order);
+        logger.info("Order with id = {} created", created.getId());
         return orderMapper.entityToDtoRequest(created);
     }
 
 
-    private User getAutheticateUser() {
+    private User getAuthenticUser() {
         User user = new User();
         user.setId(1l);
         return user;
