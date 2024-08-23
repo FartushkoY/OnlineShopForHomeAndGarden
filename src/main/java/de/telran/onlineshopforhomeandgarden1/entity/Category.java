@@ -1,10 +1,8 @@
 package de.telran.onlineshopforhomeandgarden1.entity;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.List;
 
 @Getter
 @Setter
@@ -26,9 +24,5 @@ public class Category {
     @Column(name = "image_url")
     private String imageUrl;
 
-//    @OneToMany(mappedBy = "category")
-//    @JsonIgnore
-////    @JsonManagedReference("category")
-//    private List<Product> products;
 
 }
