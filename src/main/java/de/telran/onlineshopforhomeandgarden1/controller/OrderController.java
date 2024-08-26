@@ -15,7 +15,7 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/orders")
-@Validated
+
 @Slf4j
 
 public class OrderController {

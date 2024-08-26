@@ -5,10 +5,13 @@ import de.telran.onlineshopforhomeandgarden1.dto.request.OrderRequestDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.OrderResponseDto;
 import de.telran.onlineshopforhomeandgarden1.entity.Order;
 import de.telran.onlineshopforhomeandgarden1.entity.OrderItem;
+import jakarta.validation.Valid;
 import org.mapstruct.*;
+import org.springframework.validation.annotation.Validated;
+
 import java.util.Set;
 
-
+@Validated
 @Mapper(componentModel = "spring")
 public abstract class OrderMapper {
 
@@ -19,7 +22,8 @@ public abstract class OrderMapper {
    public abstract OrderResponseDto entityToDto(Order order);
    public abstract OrderRequestDto entityToDtoRequest(Order order);
    public abstract Set<OrderResponseDto> entityListToDto(Set<Order> orders);
-   public abstract Set<OrderRequestDto> entityListRequestToDto(Set<Order> orders);
+
+
 
 
    @AfterMapping
@@ -31,7 +35,8 @@ public abstract class OrderMapper {
    }
 
    @Mapping(target = "product.id", source = "productId")
-   public abstract OrderItem dtoToEntity(OrderItemRequestDto orderItemRequestDto);
+   public abstract OrderItem dtoToEntity(@Valid OrderItemRequestDto orderItemRequestDto);
+
 
    }
 

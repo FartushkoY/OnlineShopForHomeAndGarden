@@ -1,13 +1,16 @@
 package de.telran.onlineshopforhomeandgarden1.dto.request;
 
 
-import de.telran.onlineshopforhomeandgarden1.enums.DeliveryMethod;
+
+import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
+
+
 import java.util.Set;
 @Getter
 @Setter
@@ -26,6 +29,7 @@ public class OrderRequestDto {
     @NotNull(message = "{validation.order.deliveryMethod.notNull}")
     private String deliveryMethod;
 
+    @Valid
     private Set<OrderItemRequestDto> items;
 
 
