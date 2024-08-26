@@ -15,7 +15,7 @@ import java.util.Set;
 
 @RestController
 @RequestMapping("/orders")
-@Validated
+
 @Slf4j
 
 public class OrderController {
@@ -43,11 +43,7 @@ public class OrderController {
 
     @PostMapping
     public ResponseEntity<OrderRequestDto> addOrder(@RequestBody @Valid OrderRequestDto orderRequestDto) {
-        try {
         OrderRequestDto created = service.addOrder(orderRequestDto);
         return new ResponseEntity<>(created, HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
     }
 }
