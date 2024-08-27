@@ -12,7 +12,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 import org.mockito.Mockito;
-
 import java.util.Optional;
 import java.util.Set;
 
@@ -114,6 +113,34 @@ class OrderServiceTest {
         assertNotNull(resultOrders);
         assertEquals(2, resultOrders.size());
 
+
+    }
+
+    @Test
+   public void deleteOrder() {
+        Long id = 55L;
+        Order order = new Order();
+        order.setId(id);
+        order.setStatus(Status.PENDING);
+        Mockito.when(repository.findById(id)).thenReturn(Optional.of(order));
+
+        Optional<Order> result = orderService.deleteOrder(id);
+
+        assertTrue(result.isPresent());
+        assertEquals(order, result.get());
+        Mockito.verify(repository).delete(Mockito.eq(order));
+        
+    }
+
+    @Test
+    public void deleteOrderEmpty() {
+        Long id = 66L;
+        Order category = new Order();
+        category.setId(id);
+
+        Mockito.when(repository.findById(id)).thenReturn(Optional.empty());
+        Optional<Order> optional = orderService.deleteOrder(id);
+        assertTrue(optional.isEmpty());
 
     }
 }
