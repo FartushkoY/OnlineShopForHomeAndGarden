@@ -1,18 +1,14 @@
 -- liquibase formatted sql
 -- changeset maria:001
--- -----------------------------------------------------
--- Schema OnlineApp
--- -----------------------------------------------------
-CREATE SCHEMA IF NOT EXISTS `OnlineApp` DEFAULT CHARACTER SET utf8;
-USE `OnlineApp`;
 
-CREATE TABLE IF NOT EXISTS `OnlineApp`.`categories` (
+
+CREATE TABLE IF NOT EXISTS `categories` (
 `category_id` INT NOT NULL AUTO_INCREMENT,
 `name` VARCHAR(45) NOT NULL,
 `image_url` VARCHAR(255) NOT NULL,
  PRIMARY KEY (`category_id`));
 
-CREATE TABLE IF NOT EXISTS `OnlineApp`.`products` (
+CREATE TABLE IF NOT EXISTS `products` (
 `product_id` INT NOT NULL AUTO_INCREMENT,
 `category_id` INT,
 `name` VARCHAR(100) NOT NULL,
@@ -26,10 +22,10 @@ CREATE TABLE IF NOT EXISTS `OnlineApp`.`products` (
     INDEX `fk_products_categories1_idx` (`category_id` ASC) VISIBLE,
     CONSTRAINT `fk_products_categories1`
     FOREIGN KEY (`category_id`)
-    REFERENCES `OnlineApp`.`categories` (`category_id`)
+    REFERENCES `categories` (`category_id`)
 );
 
-CREATE TABLE IF NOT EXISTS `OnlineApp`.`users` (
+CREATE TABLE IF NOT EXISTS `users` (
 `user_id` INT NOT NULL AUTO_INCREMENT,
 `name` VARCHAR(45) NOT NULL,
 `email` VARCHAR(45) NOT NULL,
@@ -40,19 +36,19 @@ CREATE TABLE IF NOT EXISTS `OnlineApp`.`users` (
     UNIQUE INDEX `Email_UNIQUE` (`email` ASC) VISIBLE);
 --
 
-CREATE TABLE IF NOT EXISTS `OnlineApp`.`cart` (
+CREATE TABLE IF NOT EXISTS `carts` (
 `cart_id` INT NOT NULL AUTO_INCREMENT,
 `user_id` INT NOT NULL,
  PRIMARY KEY (`cart_id`),
-    INDEX `fk_cart_users1_idx` (`user_id` ASC) VISIBLE,
-    CONSTRAINT `fk_cart_users1`
+    INDEX `fk_carts_users1_idx` (`user_id` ASC) VISIBLE,
+    CONSTRAINT `fk_carts_users1`
     FOREIGN KEY (`user_id`)
-    REFERENCES `OnlineApp`.`users` (`user_id`)
+    REFERENCES `users` (`user_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 --
 
-CREATE TABLE IF NOT EXISTS `OnlineApp`.`cart_items` (
+CREATE TABLE IF NOT EXISTS `cart_items` (
 `cart_item_id` INT NOT NULL AUTO_INCREMENT,
 `product_id` INT NOT NULL,
 `cart_id` INT NOT NULL,
@@ -62,17 +58,17 @@ PRIMARY KEY (`cart_item_id`),
     INDEX `fk_CartItems_cart1_idx` (`cart_id` ASC) VISIBLE,
     CONSTRAINT `fk_cart_items_products1`
     FOREIGN KEY (`product_id`)
-    REFERENCES `OnlineApp`.`products` (`product_id`)
+    REFERENCES `products` (`product_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
     CONSTRAINT `fk_cart_items_cart1`
     FOREIGN KEY (`cart_id`)
-    REFERENCES `OnlineApp`.`cart` (`cart_id`)
+    REFERENCES `carts` (`cart_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
 --
-CREATE TABLE IF NOT EXISTS `OnlineApp`.`favorites` (
+CREATE TABLE IF NOT EXISTS `favorites` (
 `favorite_id` INT NOT NULL AUTO_INCREMENT,
 `user_id` INT NOT NULL,
 `product_id` INT NOT NULL,
@@ -81,17 +77,17 @@ CREATE TABLE IF NOT EXISTS `OnlineApp`.`favorites` (
     INDEX `fk_favorites_products1_idx` (`product_id` ASC) VISIBLE,
     CONSTRAINT `fk_favorites_users`
     FOREIGN KEY (`user_id`)
-    REFERENCES `OnlineApp`.`users` (`user_id`)
+    REFERENCES `users` (`user_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
     CONSTRAINT `fk_favorites_products1`
     FOREIGN KEY (`product_id`)
-    REFERENCES `OnlineApp`.`products` (`product_id`)
+    REFERENCES `products` (`product_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
 
-CREATE TABLE IF NOT EXISTS `OnlineApp`.`orders` (
+CREATE TABLE IF NOT EXISTS `orders` (
 `order_id` INT NOT NULL AUTO_INCREMENT,
 `user_id` INT NOT NULL,
 `created_at` TIMESTAMP NOT NULL,
@@ -104,13 +100,13 @@ CREATE TABLE IF NOT EXISTS `OnlineApp`.`orders` (
     INDEX `fk_orders_users1_idx` (`user_id` ASC) VISIBLE,
     CONSTRAINT `fk_orders_users1`
     FOREIGN KEY (`user_id`)
-    REFERENCES `OnlineApp`.`users` (`user_id`)
+    REFERENCES `users` (`user_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
 --
 
-CREATE TABLE IF NOT EXISTS `OnlineApp`.`order_items` (
+CREATE TABLE IF NOT EXISTS `order_items` (
 `order_item_id` INT NOT NULL AUTO_INCREMENT,
 `product_id` INT NOT NULL,
 `order_id` INT NOT NULL,
@@ -121,12 +117,12 @@ CREATE TABLE IF NOT EXISTS `OnlineApp`.`order_items` (
     INDEX `fk_order_items_orders1_idx` (`order_id` ASC) VISIBLE,
     CONSTRAINT `fk_order_items_products1`
     FOREIGN KEY (`product_id`)
-    REFERENCES `OnlineApp`.`products` (`product_id`)
+    REFERENCES `products` (`product_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
     CONSTRAINT `fk_order_items_orders1`
     FOREIGN KEY (`order_id`)
-    REFERENCES `OnlineApp`.`orders` (`order_id`)
+    REFERENCES `orders` (`order_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION);
 
