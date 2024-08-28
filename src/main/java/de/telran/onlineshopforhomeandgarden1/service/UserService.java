@@ -5,7 +5,6 @@ import de.telran.onlineshopforhomeandgarden1.entity.User;
 import de.telran.onlineshopforhomeandgarden1.enums.Role;
 import de.telran.onlineshopforhomeandgarden1.mapper.UserMapper;
 import de.telran.onlineshopforhomeandgarden1.repository.UserRepository;
-import jakarta.persistence.EntityNotFoundException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +31,7 @@ public class UserService {
         }
         User user = mapper.dtoToEntity(userDto);
         User saved = userRepository.save(user);
+        logger.info("User with id = {} created", saved.getId());
         return mapper.entityToDto(saved);
     }
 
@@ -42,15 +42,23 @@ public class UserService {
             user.setName(name);
             user.setPhoneNumber(phone);
             User updatedUser = userRepository.save(user);
+            logger.info("User with id = {} updated", updatedUser.getId());
             return Optional.of(mapper.entityToDto(updatedUser));
         } else {
+            logger.warn("User with id = {} not found",id);
             return Optional.empty();
         }
     }
 
-    public  void removeUser(Long id) {
-        User user = userRepository.findById(id)
-                .orElseThrow(() -> new EntityNotFoundException("User with ID " + id + " not found"));
-        userRepository.deleteById(user.getId());
+    public Optional<User> removeUser(Long id) {
+        Optional<User> user = userRepository.findById(id);
+        if (user.isPresent()){
+            userRepository.deleteById(user.get().getId());
+            logger.info("User with id = {} deleted", user.get().getId());
+            return user;
+        }else {
+            logger.warn("User with id = {} not found",id);
+            return Optional.empty();
+        }
     }
 }

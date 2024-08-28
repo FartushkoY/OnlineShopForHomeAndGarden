@@ -88,6 +88,6 @@ class UserServiceTest {
         Mockito.verify(userRepository).deleteById(user.getId());
 
         Mockito.when(userRepository.findById(1000L)).thenReturn(Optional.empty());
-        assertThrows(EntityNotFoundException.class, ()->  service.removeUser(1000L));
+        Mockito.verify(userRepository, Mockito.never()).deleteById(1000L);
     }
 }
