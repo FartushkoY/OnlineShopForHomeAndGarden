@@ -61,7 +61,7 @@ PRIMARY KEY (`cart_item_id`),
     REFERENCES `products` (`product_id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
-    CONSTRAINT `fk_cart_items_cart1`
+    CONSTRAINT `fk_cart_items_carts1`
     FOREIGN KEY (`cart_id`)
     REFERENCES `carts` (`cart_id`)
     ON DELETE NO ACTION
