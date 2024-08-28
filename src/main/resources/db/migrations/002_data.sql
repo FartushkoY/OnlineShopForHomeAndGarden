@@ -35,7 +35,7 @@ values (1, 'John Doe', 'john.doe@example.com', '+491708009466', 'strawberry_123'
        (7, 'Michael Brown', 'michael.brown@example.com', '+491628029468', 'Tomato_789', 'CUSTOMER'),
        (8, 'Emily Davis', 'emily.davis@example.com', '+491608039469', 'blacKberry_101', 'CUSTOMER');
 
-insert into cart (cart_id, user_id)
+insert into carts (cart_id, user_id)
 values (1, 1),
        (2, 2),
        (3, 3),
