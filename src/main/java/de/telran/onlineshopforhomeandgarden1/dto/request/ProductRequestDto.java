@@ -30,6 +30,7 @@ public class ProductRequestDto {
 
     private String categoryId;
 
+    @NotNull(message = "{validation.product.imageUrl}")
     private String imageUrl;
 
 }

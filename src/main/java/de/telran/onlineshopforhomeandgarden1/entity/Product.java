@@ -27,12 +27,14 @@ public class Product {
 
     private BigDecimal price;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
     @JoinColumn(name = "category_id")
     private Category category;
 
+    @Column(name = "image_url")
     private String imageUrl;
 
+    @Column(name = "discount_price")
     private BigDecimal discountPrice;
 
     @CreationTimestamp
