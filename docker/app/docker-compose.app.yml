@@ -19,6 +19,7 @@ services:
       - "8080:8080"
     environment:
       SPRING_DATASOURCE_URL: jdbc:mysql://db-prod:3306/OnlineApp_prod?autoReconnect=true
+      SPRING_PROFILES_ACTIVE: prod
     depends_on:
       - db-prod
     entrypoint: ["sh", "-c", "/wait-for-it.sh db-prod:3306 -- java -jar /app.jar"]
