@@ -135,9 +135,6 @@ class OrderServiceTest {
     @Test
     public void deleteOrderEmpty() {
         Long id = 66L;
-        Order category = new Order();
-        category.setId(id);
-
         Mockito.when(repository.findById(id)).thenReturn(Optional.empty());
         Optional<Order> optional = orderService.deleteOrder(id);
         assertTrue(optional.isEmpty());

@@ -74,7 +74,7 @@ public class OrderService {
             logger.info("Order with id = {} deleted successfully.", id);
             return order;
         } else {
-            logger.warn("Order with id = {} is not in PENDING status. Delete operation failed.", id);
+            logger.info("Order with id = {} is not in PENDING status. Delete operation failed.", id);
             throw new RuntimeException("Order with id = " + id + " is not in PENDING status");
         }
     }
