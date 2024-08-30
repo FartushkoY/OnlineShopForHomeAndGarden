@@ -15,6 +15,7 @@ import org.mockito.Mockito;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 
 
@@ -51,7 +52,7 @@ class UserServiceTest {
         assertEquals(user.getRole(), Role.CUSTOMER);
 
         user.setRole(null);
-        Mockito.when(userRepository.save(Mockito.eq(user))).thenReturn(user);
+        Mockito.when(userRepository.save(Mockito.any())).thenReturn(user);
         service.saveUser(userMapper.entityToDto(user));
         user.setRole(Role.CUSTOMER);
         Mockito.verify(userRepository, Mockito.times(2)).save(eq(user));
