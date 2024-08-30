@@ -36,7 +36,7 @@ class FavoriteControllerTest {
         favorites.add(new FavoriteResponseDto(new UserResponseDto("David"),new ProductResponseDto(2L, "Product 2", "Description 2", "Image 2")));
 
         Mockito.when(service.getFavorites()).thenReturn(favorites);
-        
+
         mockMvc.perform(get("/favorites").contentType("application/json"))
                 .andExpect(status().isOk())
                 .andExpect(MockMvcResultMatchers.jsonPath("$.length()").value(favorites.size()));
