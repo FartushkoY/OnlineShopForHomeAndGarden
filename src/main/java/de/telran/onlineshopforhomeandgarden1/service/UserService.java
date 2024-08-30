@@ -31,7 +31,7 @@ public class UserService {
         }
         User user = mapper.dtoToRequestEntity(userRequestDto);
         User saved = repository.save(user);
-        logger.info("User with id = {} created", saved.getId());
+        logger.debug("User with id = {} created", saved.getId());
         return mapper.entityToRequestDto(saved);
 
     }
@@ -42,10 +42,10 @@ public class UserService {
             User user = mapper.dtoToRequestEntity(userRequestDto);
             user.setId(id);
             User updatedUser = repository.save(user);
-            logger.info("User with id = {} updated", id);
+            logger.debug("User with id = {} updated", id);
             return Optional.of(mapper.entityToRequestDto(updatedUser));
         } else {
-            logger.warn("User with id = {} not found", id);
+            logger.debug("User with id = {} not found", id);
             return Optional.empty();
         }
     }
@@ -54,10 +54,10 @@ public class UserService {
         Optional<User> user = repository.findById(id);
         if (user.isPresent()) {
             repository.deleteById(user.get().getId());
-            logger.info("User with id = {} deleted", user.get().getId());
+            logger.debug("User with id = {} deleted", user.get().getId());
             return user;
         } else {
-            logger.warn("User with id = {} not found", id);
+            logger.debug("User with id = {} not found", id);
             return Optional.empty();
         }
     }

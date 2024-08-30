@@ -83,7 +83,7 @@ class UserServiceTest {
         service.updateUser(2L, mapper.entityToRequestDto(updatedUser));
         Mockito.verify(repository).save(eq(updatedUser));
 
-// Not Found
+//      Not Found
 
         User user = new User();
         user.setId(547L);
@@ -101,6 +101,9 @@ class UserServiceTest {
         Mockito.when(repository.findById(user.getId())).thenReturn(Optional.of(user));
         service.removeUser(user.getId());
         Mockito.verify(repository).deleteById(user.getId());
+
+
+//     Not Found
 
         Mockito.when(repository.findById(1000L)).thenReturn(Optional.empty());
         Mockito.verify(repository, Mockito.never()).deleteById(1000L);
