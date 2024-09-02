@@ -1,0 +1,13 @@
+version: '3.1'
+
+services:
+  db-test:
+    image: mysql
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: 'root'
+    ports:
+      # port exposed : mysql port running inside container
+      - "3309:3306"
+    volumes:
+      - ./schema-test.sql:/docker-entrypoint-initdb.d/ddbschema.sql
