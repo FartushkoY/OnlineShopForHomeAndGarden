@@ -1,6 +1,5 @@
 package de.telran.onlineshopforhomeandgarden1.service;
 
-import de.telran.onlineshopforhomeandgarden1.dto.ProductDto;
 import de.telran.onlineshopforhomeandgarden1.dto.request.ProductRequestDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.ProductResponseDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.ProductWithDiscountPriceResponseDto;
@@ -19,9 +18,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
-import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -74,12 +73,14 @@ public class ProductService {
         } else maxPriceBigDecimal = BigDecimal.valueOf(maxPrice);
 
         Page<Product> products = repository.getAllWithFilters(categoryId, hasCategory, hasDiscount, minPriceBigDecimal, maxPriceBigDecimal, pageable);
+       logger.info("Products retrieved from DB: {}", products.getTotalElements());
         return products.map(productMapper::entityToWithDiscountResponseDto);
     }
 
     public ProductRequestDto addProduct(ProductRequestDto productRequestDto) {
         Product product = productMapper.requestDtoToEntity(productRequestDto);
         Product created = repository.save(product);
+        logger.info("Product created with id {}", created.getId());
         return productMapper.entityToRequestDto(created);
     }
 
@@ -87,12 +88,15 @@ public class ProductService {
         Optional<Product> optional = repository.findById(product.getId());
         if (optional.isPresent()) {
             Product updated = repository.save(productMapper.requestDtoToEntity(product));
+            logger.info("Product with id = {} updated", product.getId());
             return productMapper.entityToRequestDto(updated);
         } else {
+            logger.info("Product with id {} not found", product.getId());
             return null;
         }
     }
 
+    @Transactional
     public Optional<Product> deleteProduct(Long id) {
         Optional<Product> optional = repository.findById(id);
         Set<Favorite> favorite = favoriteRepository.findAllByProductId(id);
@@ -100,6 +104,7 @@ public class ProductService {
         Set<CartItem> cartItem = cartItemRepository.findAllByProductId(id);
 
         if (optional.isPresent() && favorite.isEmpty() && orderItem.isEmpty() && cartItem.isEmpty()) {
+            optional.get().setCategory(null);
             repository.deleteById(id);
             logger.info("Product with id = {} deleted", id);
             return optional;
@@ -108,6 +113,7 @@ public class ProductService {
             logger.info("Product with id {} cannot be deleted", id);
             return optional;
         } else {
+            logger.info("Product with id = {} not found", id);
             return Optional.empty();
         }
     }

@@ -14,6 +14,5 @@ import lombok.Setter;
 public class CartDto {
     private Long id;
 
-    @JsonIgnore
     private User user;
 }

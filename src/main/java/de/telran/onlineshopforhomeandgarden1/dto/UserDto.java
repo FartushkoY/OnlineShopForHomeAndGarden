@@ -1,5 +1,8 @@
 package de.telran.onlineshopforhomeandgarden1.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import de.telran.onlineshopforhomeandgarden1.entity.Cart;
+import de.telran.onlineshopforhomeandgarden1.entity.User;
 import de.telran.onlineshopforhomeandgarden1.enums.Role;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.Pattern;
@@ -38,4 +41,6 @@ public class UserDto {
     private String passwordHash;
 
     private Role role;
+
+    private Cart cart;
 }

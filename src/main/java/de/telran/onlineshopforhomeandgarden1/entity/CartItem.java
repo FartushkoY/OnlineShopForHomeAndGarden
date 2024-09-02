@@ -16,7 +16,7 @@ public class CartItem {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cart_item_id")
+    @Column(name = "cart_item_id", columnDefinition = "int")
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)

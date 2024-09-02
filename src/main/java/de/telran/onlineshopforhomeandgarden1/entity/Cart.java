@@ -16,7 +16,7 @@ import java.util.Set;
 public class Cart {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "cart_id")
+    @Column(name = "cart_id", columnDefinition = "int")
     private Long id;
 
     @OneToOne(fetch = FetchType.LAZY)

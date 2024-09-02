@@ -14,7 +14,7 @@ import java.math.BigDecimal;
 
 @Table(name = "order_items")
 public class OrderItem {
-    @Column(name = "order_item_id")
+    @Column(name = "order_item_id", columnDefinition = "int")
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
