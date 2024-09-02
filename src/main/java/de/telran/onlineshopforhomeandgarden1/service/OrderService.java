@@ -5,6 +5,7 @@ import de.telran.onlineshopforhomeandgarden1.dto.response.OrderResponseDto;
 import de.telran.onlineshopforhomeandgarden1.entity.Order;
 import de.telran.onlineshopforhomeandgarden1.entity.User;
 import de.telran.onlineshopforhomeandgarden1.enums.Status;
+import de.telran.onlineshopforhomeandgarden1.exception.CannotDeleteOrderException;
 import de.telran.onlineshopforhomeandgarden1.mapper.OrderMapper;
 import de.telran.onlineshopforhomeandgarden1.repository.OrderRepository;
 import de.telran.onlineshopforhomeandgarden1.repository.ProductRepository;
@@ -75,7 +76,7 @@ public class OrderService {
             return order;
         } else {
             logger.info("Order with id = {} is not in PENDING status. Delete operation failed.", id);
-            throw new RuntimeException("Order with id = " + id + " is not in PENDING status");
+            throw new CannotDeleteOrderException ("Order with id = " + id + " is not in PENDING status");
         }
     }
 }
