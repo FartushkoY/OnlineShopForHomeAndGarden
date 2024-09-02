@@ -1,10 +1,7 @@
 package de.telran.onlineshopforhomeandgarden1.dto.request;
 
 import jakarta.validation.constraints.NotNull;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.validator.constraints.Length;
 
 
@@ -12,6 +9,7 @@ import org.hibernate.validator.constraints.Length;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode
 public class CategoryRequestDto {
 
     private String id;
