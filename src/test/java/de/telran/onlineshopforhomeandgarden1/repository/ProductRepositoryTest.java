@@ -32,41 +32,34 @@ class ProductRepositoryTest {
         Page<Product> productPage = repository.getAllWithFilters(1L, true, false, BigDecimal.valueOf(0), BigDecimal.valueOf(Integer.MAX_VALUE), Pageable.ofSize(10));
         assertEquals(List.of(repository.findById(1L).get(), repository.findById(2L).get(), repository.findById(3L).get()), productPage.getContent());
 
-        testEntityManager.clear();
 
         productPage = repository.getAllWithFilters(null, false, false, BigDecimal.valueOf(0), BigDecimal.valueOf(Integer.MAX_VALUE), Pageable.unpaged());
         assertEquals(repository.findAll(), productPage.getContent());
 
-        testEntityManager.clear();
 
         productPage = repository.getAllWithFilters(null, false, true, BigDecimal.valueOf(0), BigDecimal.valueOf(Integer.MAX_VALUE), Pageable.ofSize(10));
         assertEquals(List.of(repository.findById(6L).get(), repository.findById(10L).get(), repository.findById(13L).get()), productPage.getContent());
 
-        testEntityManager.clear();
 
         productPage = repository.getAllWithFilters(null, false, false, BigDecimal.valueOf(20), BigDecimal.valueOf(Integer.MAX_VALUE), Pageable.unpaged());
         assertEquals(List.of(repository.findById(10L).get(), repository.findById(11L).get(),
                 repository.findById(12L).get(), repository.findById(13L).get(), repository.findById(14L).get(),
                 repository.findById(15L).get()), productPage.getContent());
 
-        testEntityManager.clear();
 
         productPage = repository.getAllWithFilters(null, false, false, BigDecimal.valueOf(0), BigDecimal.valueOf(3), Pageable.unpaged());
         assertEquals(List.of(repository.findById(1L).get(), repository.findById(2L).get(),
                 repository.findById(3L).get()), productPage.getContent());
 
-        testEntityManager.clear();
 
         productPage = repository.getAllWithFilters(null, false, false, BigDecimal.valueOf(10), BigDecimal.valueOf(13), Pageable.unpaged());
         assertEquals(List.of(repository.findById(4L).get(), repository.findById(5L).get(),
                 repository.findById(6L).get()), productPage.getContent());
 
-        testEntityManager.clear();
 
         productPage = repository.getAllWithFilters(2L, true, true, BigDecimal.valueOf(0), BigDecimal.valueOf(Integer.MAX_VALUE), Pageable.unpaged());
         assertEquals(List.of(repository.findById(6L).get()), productPage.getContent());
 
-        testEntityManager.clear();
 
         productPage = repository.getAllWithFilters(null, false, true, BigDecimal.valueOf(30), BigDecimal.valueOf(35), Pageable.unpaged());
         assertEquals(List.of(repository.findById(10L).get()), productPage.getContent());
