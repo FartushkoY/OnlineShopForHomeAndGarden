@@ -22,9 +22,7 @@ class ProductRepositoryTest {
 
     @Autowired
     ProductRepository repository;
-
-    @Autowired
-    private TestEntityManager testEntityManager;
+    
 
     @Test
     void getAllWithFiltersTest() {
