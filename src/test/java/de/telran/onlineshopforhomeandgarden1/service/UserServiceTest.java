@@ -30,13 +30,14 @@ class UserServiceTest {
 
     @Test
     public void savedUser() {
-        User user = new User();
-        user.setId(1L);
-        user.setName("Test Name");
-        user.setEmail("test@test.eu");
-        user.setPhoneNumber("+491715207968");
-        user.setRole(Role.valueOf("ADMINISTRATOR"));
-        user.setPasswordHash("TestPassHash123");
+        UserRequestDto userRequestDto = new UserRequestDto();
+        userRequestDto.setId(1L);
+        userRequestDto.setName("Test Name");
+        userRequestDto.setEmail("test@test.eu");
+        userRequestDto.setPhoneNumber("+491715207968");
+        userRequestDto.setRole("ADMINISTRATOR");
+        userRequestDto.setPasswordHash("TestPassHash123");
+        User user = mapper.requestDtoToEntity(userRequestDto);
 
         Mockito.when(repository.save(user)).thenReturn(user);
         service.saveUser(mapper.entityToRequestDto(user));
@@ -49,13 +50,12 @@ class UserServiceTest {
         Mockito.verify(repository).save(eq(user));
         assertEquals(user.getRole(), Role.CUSTOMER);
 
-        UserRequestDto userRequestDto = mapper.entityToRequestDto(user);
         userRequestDto.setRole(null);
-        User userCreated = mapper.dtoToRequestEntity(userRequestDto);
+        User userCreated = mapper.requestDtoToEntity(userRequestDto);
         Mockito.when(repository.save(eq(userCreated))).thenReturn(userCreated);
         service.saveUser(mapper.entityToRequestDto(userCreated));
         userRequestDto.setRole(String.valueOf(Role.CUSTOMER));
-        userCreated = mapper.dtoToRequestEntity(userRequestDto);
+        userCreated = mapper.requestDtoToEntity(userRequestDto);
         Mockito.verify(repository, Mockito.times(2)).save(eq(userCreated));
         assertEquals(userCreated.getRole(), Role.CUSTOMER);
     }
@@ -101,6 +101,8 @@ class UserServiceTest {
         Mockito.when(repository.findById(user.getId())).thenReturn(Optional.of(user));
         service.removeUser(user.getId());
         Mockito.verify(repository).deleteById(user.getId());
+
+        // Not Found
 
         Mockito.when(repository.findById(1000L)).thenReturn(Optional.empty());
         Mockito.verify(repository, Mockito.never()).deleteById(1000L);
