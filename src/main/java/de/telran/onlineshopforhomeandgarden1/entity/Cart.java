@@ -24,6 +24,6 @@ public class Cart {
     @JsonIgnore
     private User user;
 
-    @OneToMany(mappedBy = "cart")
+    @OneToMany(mappedBy = "cart", cascade = CascadeType.MERGE)
     private Set<CartItem> cartItems = new LinkedHashSet<>();
 }
