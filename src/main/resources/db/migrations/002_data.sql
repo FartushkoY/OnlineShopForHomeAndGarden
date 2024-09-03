@@ -59,11 +59,23 @@ values (1, 2, current_timestamp(), 'Friedrichstraße 123, 10117, Berlin, Germany
        (2, 1, current_timestamp(), 'Kurfürstendamm 45, 10719, Berlin, Germany', '+491708009466', 'EXPRESS', 'DELIVERED', current_timestamp()),
        (3, 3, current_timestamp(), 'Karl-Marx-Allee 50, 10243, Berlin, Germany', '+491678019468', 'STANDARD', 'CANCELED', current_timestamp()),
        (4, 7, current_timestamp(), 'Schlossstasse 45, 10719, Berlin, Germany', '+491707709466', 'STANDARD', 'ON_THE_WAY', current_timestamp()),
-       (5, 8, current_timestamp(), 'Karslruherstrasse 11, 10243, Schwetzingen, Germany', '+491678044468', 'EXPRESS', 'PENDING', current_timestamp());
+       (5, 8, current_timestamp(), 'Karslruherstrasse 11, 10243, Schwetzingen, Germany', '+491678044468', 'EXPRESS', 'PENDING', current_timestamp()),
+       (6, 2, current_timestamp(), 'Friedrichstraße 123, 10117, Berlin, Germany', '+491668019467', 'STANDARD', 'PAID', current_timestamp()),
+       (7, 1, current_timestamp(), 'Kurfürstendamm 45, 10719, Berlin, Germany', '+491708009466', 'EXPRESS', 'DELIVERED', current_timestamp()),
+       (8, 3, current_timestamp(), 'Karl-Marx-Allee 50, 10243, Berlin, Germany', '+491678019468', 'STANDARD', 'ON_THE_WAY', current_timestamp()),
+       (9, 7, current_timestamp(), 'Schlossstasse 45, 10719, Berlin, Germany', '+491707709466', 'STANDARD', 'ON_THE_WAY', current_timestamp()),
+       (10, 8, current_timestamp(), 'Karslruherstrasse 11, 10243, Schwetzingen, Germany', '+491678044468', 'EXPRESS', 'PENDING', current_timestamp());
 
 insert into order_items (order_item_id, order_id, product_id, quantity, price_at_purchase)
 values (1, 1, 6, 5, 11.05),
        (2, 2, 11, 3, 20.00),
        (3, 3, 15, 1, 20.00),
        (4, 4, 8, 2, 7.00),
-       (5, 5, 9, 4, 8.50);
+       (5, 5, 9, 4, 8.50),
+       (6, 6, 1, 11, 8.50),
+       (7, 6, 3, 24, 8.50),
+       (8, 8, 5, 54, 8.50),
+       (9, 9, 12, 34, 8.50),
+       (10, 10, 15, 74, 8.50),
+       (11, 10, 2, 24, 18.50),
+       (12, 10, 7, 40, 8.50);

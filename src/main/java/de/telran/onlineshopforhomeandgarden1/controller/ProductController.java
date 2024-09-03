@@ -18,6 +18,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 
 @RestController
@@ -27,9 +28,11 @@ public class ProductController {
 
     private final ProductService service;
 
+
     @Autowired
     public ProductController(ProductService service) {
         this.service = service;
+
     }
 
     @GetMapping("/{id}")
@@ -84,5 +87,12 @@ public class ProductController {
         }
 
     }
+
+    @GetMapping("/top10")
+    public List<String> getTop10MostPurchasedProducts(){
+        return service.getTop10MostPurchasedProducts();
+
+    }
+
 
 }

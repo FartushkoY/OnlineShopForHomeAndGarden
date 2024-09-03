@@ -63,4 +63,24 @@ class ProductRepositoryTest {
         assertEquals(List.of(repository.findById(10L).get()), productPage.getContent());
 
     }
+
+   @Test
+    void findTop10MostPurchasedProducts(){
+        List<String> mostPurchasedProducts = repository.findTop10MostPurchasedProducts();
+       List<String> expected = new java.util.ArrayList<>();
+       expected.add("Gardening scissors");
+       expected.add("Happy Frog");
+       expected.add("Organic Perlite");
+       expected.add("Red Pot");
+       expected.add("Marigold");
+       expected.add("Camomile");
+       expected.add("Tulip");
+       expected.add("Horticultural Charcoal");
+       expected.add("Potting Mix");
+       expected.add("Wicker Pot");
+       assertEquals(expected,
+                mostPurchasedProducts);
+   }
+
+
 }

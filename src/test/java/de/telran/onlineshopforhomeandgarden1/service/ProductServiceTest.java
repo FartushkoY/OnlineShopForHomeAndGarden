@@ -178,4 +178,13 @@ public class ProductServiceTest {
         productService.deleteProduct(10L);
         Mockito.verify(repository, Mockito.never()).deleteById(10L);
     }
+
+    @Test
+   public void getTop10MostPurchasedProducts() {
+        Mockito.when(repository.findTop10MostPurchasedProducts()).thenReturn(List.of("Test1", "Test2", "Test3", "Test4", "Test5", "Test6", "Test7", "Test8", "Test9", "Test10"));
+        List products = productService.getTop10MostPurchasedProducts();
+        assertEquals(products.size(), 10);
+        Mockito.verify(repository).findTop10MostPurchasedProducts();
+
+    }
 }

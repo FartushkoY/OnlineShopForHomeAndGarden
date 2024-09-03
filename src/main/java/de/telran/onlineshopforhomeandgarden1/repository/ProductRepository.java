@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import java.math.BigDecimal;
 import java.util.List;
 
+
 @Repository
 public interface ProductRepository extends JpaRepository<Product, Long> {
 
@@ -20,5 +21,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     List<Product> findAllByCategory(Category category);
 
-
+    @Query("SELECT oi.product.name FROM OrderItem oi GROUP BY oi.product ORDER BY SUM(oi.quantity) DESC limit 10")
+    List<String> findTop10MostPurchasedProducts();
 }
+
+
+
