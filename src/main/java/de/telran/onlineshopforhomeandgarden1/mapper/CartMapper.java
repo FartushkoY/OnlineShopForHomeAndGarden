@@ -15,5 +15,5 @@ public interface CartMapper {
     Set<CartRequestDto> entityListToRequestDto(List<Cart> cart);
     Cart dtoToResponseEntity(CartResponseDto cartDto);
     CartResponseDto entityToResponseDto(Cart cart);
-    Set<CartResponseDto> entityListToResponseDto(List<Cart> cart);
+    Set<CartResponseDto> entityListToResponseDto(Set<Cart> cart);
 }

@@ -8,7 +8,6 @@ import java.util.Set;
 
 @Repository
 public interface CartItemRepository extends JpaRepository<CartItem,Long> {
-
     Set<CartItem> findAllByProductId(Long id);
-    CartItem deleteByCartId(Long id);
+    CartItem deleteCartItemByUserId(Long id);
 }
