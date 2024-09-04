@@ -44,11 +44,21 @@ public class CategoryService {
         return categoryMapper.entityToRequestDto(newCategory);
     }
 
-    public CategoryRequestDto updateCategory(CategoryRequestDto categoryRequestDto) {
-        Optional<Category> optional = repository.findById(Long.valueOf(categoryRequestDto.getId()));
+    public CategoryRequestDto updateCategory(Long id, CategoryRequestDto categoryRequestDto) {
+        Optional<Category> optional = repository.findById(id);
         if (optional.isPresent()) {
             logger.info("Category with id = {} found.", categoryRequestDto.getId());
-            Category updatedCategory = repository.save(categoryMapper.dtoToRequestEntity(categoryRequestDto));
+            Category category = optional.get();
+
+            if (categoryRequestDto.getName() != null && !category.getName().equals(categoryRequestDto.getName())) {
+                category.setName(categoryRequestDto.getName());
+            }
+
+            if(categoryRequestDto.getImageUrl() !=null && !category.getImageUrl().equals(categoryRequestDto.getImageUrl())){
+                category.setImageUrl(categoryRequestDto.getImageUrl());
+            }
+
+            Category updatedCategory = repository.save(category);
             logger.info("Category with id = {} updated successfully.", updatedCategory.getId());
             return categoryMapper.entityToRequestDto(updatedCategory);
         } else {
