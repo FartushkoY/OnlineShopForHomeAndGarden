@@ -120,8 +120,19 @@ public class ProductService {
         }
     }
 
-    public List<String> getTop10MostPurchasedProducts(){
+    public List<String> getTop10MostPurchasedProducts() {
         return repository.findTop10MostPurchasedProducts();
+    }
+
+    public Optional<ProductWithDiscountPriceResponseDto> getProductOfTheDay() {
+        Optional<Product> optional = repository.findProductOfTheDay();
+        if (optional.isPresent()) {
+            return optional.map(productMapper::entityToWithDiscountResponseDto);
+        } else {
+            optional = repository.findRandomProduct();
+            return optional.map(productMapper::entityToWithDiscountResponseDto);
+        }
+
     }
 }
 

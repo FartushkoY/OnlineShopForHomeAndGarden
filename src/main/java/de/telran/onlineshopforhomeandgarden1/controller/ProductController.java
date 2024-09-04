@@ -1,6 +1,5 @@
 package de.telran.onlineshopforhomeandgarden1.controller;
 
-import de.telran.onlineshopforhomeandgarden1.dto.ProductDto;
 
 import de.telran.onlineshopforhomeandgarden1.dto.request.ProductRequestDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.ProductResponseDto;
@@ -88,11 +87,22 @@ public class ProductController {
 
     }
 
+
     @GetMapping("/top10")
-    public List<String> getTop10MostPurchasedProducts(){
+    public List<String> getTop10MostPurchasedProducts() {
         return service.getTop10MostPurchasedProducts();
 
     }
 
+    @GetMapping("/productOfTheDay")
+    public ResponseEntity<ProductWithDiscountPriceResponseDto> getProductOfTheDay() {
+        Optional<ProductWithDiscountPriceResponseDto> productOfTheDay = service.getProductOfTheDay();
+        if (productOfTheDay.isPresent()) {
+            return new ResponseEntity<>(productOfTheDay.get(), HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+    }
 
 }
