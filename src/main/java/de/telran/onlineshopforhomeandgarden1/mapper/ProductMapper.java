@@ -5,6 +5,7 @@ import de.telran.onlineshopforhomeandgarden1.dto.ProductDto;
 import de.telran.onlineshopforhomeandgarden1.dto.request.ProductRequestDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.ProductResponseDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.ProductWithDiscountPriceResponseDto;
+import de.telran.onlineshopforhomeandgarden1.dto.response.ProductWithPriceResponseDto;
 import de.telran.onlineshopforhomeandgarden1.entity.Product;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -33,6 +34,8 @@ public interface ProductMapper {
     ProductResponseDto entityToResponseDto(Product product);
 
     ProductWithDiscountPriceResponseDto entityToWithDiscountResponseDto(Product product);
+
+    List <ProductWithPriceResponseDto> entityListToWithPriceResponseDto(List<Product> products);
 
     List<ProductResponseDto> entityListToResponseDto(List<Product> products);
 

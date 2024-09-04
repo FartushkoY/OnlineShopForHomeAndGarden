@@ -4,6 +4,7 @@ package de.telran.onlineshopforhomeandgarden1.controller;
 import de.telran.onlineshopforhomeandgarden1.dto.request.ProductRequestDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.ProductResponseDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.ProductWithDiscountPriceResponseDto;
+import de.telran.onlineshopforhomeandgarden1.dto.response.ProductWithPriceResponseDto;
 import de.telran.onlineshopforhomeandgarden1.entity.Product;
 import de.telran.onlineshopforhomeandgarden1.service.ProductService;
 import jakarta.validation.Valid;
@@ -89,7 +90,7 @@ public class ProductController {
 
 
     @GetMapping("/top10")
-    public List<String> getTop10MostPurchasedProducts() {
+    public List<ProductWithPriceResponseDto> getTop10MostPurchasedProducts() {
         return service.getTop10MostPurchasedProducts();
 
     }

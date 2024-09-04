@@ -1,6 +1,7 @@
 package de.telran.onlineshopforhomeandgarden1.repository;
 
 
+import de.telran.onlineshopforhomeandgarden1.dto.response.ProductWithPriceResponseDto;
 import de.telran.onlineshopforhomeandgarden1.entity.Category;
 import de.telran.onlineshopforhomeandgarden1.entity.Product;
 import org.springframework.data.domain.Page;
@@ -24,8 +25,8 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findAllByCategory(Category category);
 
 
-    @Query("SELECT oi.product.name FROM OrderItem oi GROUP BY oi.product ORDER BY SUM(oi.quantity) DESC limit 10")
-    List<String> findTop10MostPurchasedProducts();
+    @Query("SELECT oi.product FROM OrderItem oi GROUP BY oi.product ORDER BY SUM(oi.quantity) DESC limit 10")
+    List<Product> findTop10MostPurchasedProducts();
 
 
     @Query("select p, (p.price - p.discountPrice)/p.price as discount from Product p where (p.price - p.discountPrice)/p.price = (select  max((p.price - p.discountPrice)/p.price) from Product p) order by rand() limit 1")

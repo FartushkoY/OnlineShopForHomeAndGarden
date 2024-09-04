@@ -3,6 +3,7 @@ package de.telran.onlineshopforhomeandgarden1.service;
 import de.telran.onlineshopforhomeandgarden1.dto.request.ProductRequestDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.ProductResponseDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.ProductWithDiscountPriceResponseDto;
+import de.telran.onlineshopforhomeandgarden1.dto.response.ProductWithPriceResponseDto;
 import de.telran.onlineshopforhomeandgarden1.entity.CartItem;
 import de.telran.onlineshopforhomeandgarden1.entity.Favorite;
 import de.telran.onlineshopforhomeandgarden1.entity.OrderItem;
@@ -120,8 +121,9 @@ public class ProductService {
         }
     }
 
-    public List<String> getTop10MostPurchasedProducts() {
-        return repository.findTop10MostPurchasedProducts();
+    public List<ProductWithPriceResponseDto> getTop10MostPurchasedProducts() {
+        List<Product> topTen =  repository.findTop10MostPurchasedProducts();
+        return productMapper.entityListToWithPriceResponseDto(topTen);
     }
 
     public Optional<ProductWithDiscountPriceResponseDto> getProductOfTheDay() {

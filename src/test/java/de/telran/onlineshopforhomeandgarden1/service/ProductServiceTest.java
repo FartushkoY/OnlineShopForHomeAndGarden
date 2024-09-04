@@ -1,6 +1,5 @@
 package de.telran.onlineshopforhomeandgarden1.service;
 
-import de.telran.onlineshopforhomeandgarden1.dto.ProductDto;
 import de.telran.onlineshopforhomeandgarden1.dto.request.ProductRequestDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.ProductResponseDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.ProductWithDiscountPriceResponseDto;
@@ -181,9 +180,20 @@ public class ProductServiceTest {
     }
 
     @Test
-
    public void getTop10MostPurchasedProducts() {
-        Mockito.when(repository.findTop10MostPurchasedProducts()).thenReturn(List.of("Test1", "Test2", "Test3", "Test4", "Test5", "Test6", "Test7", "Test8", "Test9", "Test10"));
+        Product product1 = new Product();
+        Product product2 = new Product();
+        Product product3 = new Product();
+        Product product4 = new Product();
+        Product product5 = new Product();
+        Product product6 = new Product();
+        Product product7 = new Product();
+        Product product8 = new Product();
+        Product product9 = new Product();
+        Product product10 = new Product();
+        List<Product> productList = Arrays.asList( product1, product2, product3, product4, product5, product6, product7, product8, product9, product10 );
+
+        Mockito.when(repository.findTop10MostPurchasedProducts()).thenReturn(productList);
         List products = productService.getTop10MostPurchasedProducts();
         assertEquals(products.size(), 10);
         Mockito.verify(repository).findTop10MostPurchasedProducts();
