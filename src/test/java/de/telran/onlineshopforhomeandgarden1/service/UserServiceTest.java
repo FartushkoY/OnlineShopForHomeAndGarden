@@ -30,14 +30,12 @@ class UserServiceTest {
 
     @Test
     public void savedUser() {
-        UserRequestDto userRequestDto = new UserRequestDto();
-        userRequestDto.setId(1L);
-        userRequestDto.setName("Test Name");
-        userRequestDto.setEmail("test@test.eu");
-        userRequestDto.setPhoneNumber("+491715207968");
-        userRequestDto.setRole("ADMINISTRATOR");
-        userRequestDto.setPasswordHash("TestPassHash123");
-        User user = mapper.requestDtoToEntity(userRequestDto);
+        User user = new User();
+        user.setName("Test Name");
+        user.setEmail("test@test.eu");
+        user.setPhoneNumber("+491715207968");
+        user.setRole(Role.valueOf("ADMINISTRATOR"));
+        user.setPasswordHash("TestPassHash123");
 
         Mockito.when(repository.save(user)).thenReturn(user);
         service.saveUser(mapper.entityToRequestDto(user));
@@ -50,14 +48,12 @@ class UserServiceTest {
         Mockito.verify(repository).save(eq(user));
         assertEquals(user.getRole(), Role.CUSTOMER);
 
-        userRequestDto.setRole(null);
-        User userCreated = mapper.requestDtoToEntity(userRequestDto);
-        Mockito.when(repository.save(eq(userCreated))).thenReturn(userCreated);
-        service.saveUser(mapper.entityToRequestDto(userCreated));
-        userRequestDto.setRole(String.valueOf(Role.CUSTOMER));
-        userCreated = mapper.requestDtoToEntity(userRequestDto);
-        Mockito.verify(repository, Mockito.times(2)).save(eq(userCreated));
-        assertEquals(userCreated.getRole(), Role.CUSTOMER);
+        user.setRole(null);
+        Mockito.when(repository.save(Mockito.any())).thenReturn(user);
+        service.saveUser(mapper.entityToRequestDto(user));
+        user.setRole(Role.CUSTOMER);
+        Mockito.verify(repository, Mockito.times(2)).save(eq(user));
+        assertEquals(user.getRole(), Role.CUSTOMER);
     }
 
     @Test
