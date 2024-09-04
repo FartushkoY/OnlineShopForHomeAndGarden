@@ -49,9 +49,9 @@ public class ProductService {
     }
 
 
-    public Optional<ProductResponseDto> getProductById(Long id) {
+    public Optional<ProductWithDiscountPriceResponseDto> getProductById(Long id) {
         Optional<Product> optional = repository.findById(id);
-        return optional.map(productMapper::entityToResponseDto);
+        return optional.map(productMapper::entityToWithDiscountResponseDto);
     }
 
     public Page<ProductWithDiscountPriceResponseDto> getAll(Long categoryId, Boolean hasDiscount, Integer minPrice, Integer maxPrice, Pageable pageable) {
@@ -95,6 +95,19 @@ public class ProductService {
             return productMapper.entityToRequestDto(updated);
         } else {
             logger.info("Product with id {} not found", product.getId());
+            return null;
+        }
+    }
+
+    @Transactional
+    public ProductRequestDto addDiscount(Long id, BigDecimal discountPrice) {
+        Optional<Product> optional = repository.findById(id);
+        if (optional.isPresent()) {
+            Product updated = optional.get();
+            updated.setDiscountPrice(discountPrice);
+            updated = repository.save(updated);
+            return  productMapper.entityToRequestDto(updated);
+        } else {
             return null;
         }
     }
