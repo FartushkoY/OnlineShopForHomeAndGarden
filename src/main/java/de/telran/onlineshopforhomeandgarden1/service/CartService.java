@@ -14,8 +14,10 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.util.LinkedHashSet;
+import java.util.Optional;
 import java.util.Set;
 
 @Service
@@ -36,58 +38,79 @@ public class CartService {
     }
 
     public Set<CartResponseDto> getCartItems() {
-       Set<Cart> carts = repository.findCartsByUserId(this.getAuthenticatedUser().getId());
+        Set<Cart> carts = repository.findCartsByUserId(this.getAuthenticatedUser().getId());
         logger.debug("Found {} carts", carts.size());
         return mapper.entityListToResponseDto(carts);
     }
 
     public CartRequestDto addCartItem(CartItemRequestDto cartItemRequestDto) {
-        Cart cart = repository.findCartByUserId(this.getAuthenticatedUser().getId());
+        Cart cart = repository.findByUserId(this.getAuthenticatedUser().getId());
+
+        if (cart == null) {
+            cart = new Cart();
+            cart.setUser(this.getAuthenticatedUser());
+            cart.setCartItems(new LinkedHashSet<>());
+            logger.debug("Creating new cart");
+        }
         Set<CartItem> cartItems = cart.getCartItems();
-        CartItem cartItem = cartItemMapper.dtoToRequestEntity(cartItemRequestDto);
-        cartItems.add(cartItem);
+
+        CartItem newCartItem = cartItemMapper.requestDtoToEntity(cartItemRequestDto);
+        boolean itemExists = false;
+        for (CartItem existingItem : cartItems) {
+            if (existingItem.getProduct().getId().equals(newCartItem.getProduct().getId())) {
+                existingItem.setQuantity(existingItem.getQuantity() + newCartItem.getQuantity());
+                itemExists = true;
+                break;
+            }
+        }
+        if (!itemExists) {
+            newCartItem.setCart(cart);
+            cartItems.add(newCartItem);
+        }
 
         Cart saved = repository.save(cart);
-        logger.debug("Cart with id = {} added product = {} and quantity = {}.", saved.getId(), cartItem.getProduct(), cartItem.getQuantity());
+        logger.debug("Cart with id = {} added product = {} and quantity = {}.", saved.getId(), newCartItem.getProduct(), newCartItem.getQuantity());
         return mapper.entityToRequestDto(saved);
-
     }
 
     public CartRequestDto updateCartItemInCart(CartItemRequestDto cartItemRequestDto) {
-        Cart cartByUserId = repository.findCartByUserId(this.getAuthenticatedUser().getId());
-        if (cartByUserId != null) {
-            Set<CartItem> cartItems = cartByUserId.getCartItems();
-            if (!cartItems.isEmpty()) {
-                CartItem cartItem = cartItemMapper.dtoToRequestEntity(cartItemRequestDto);
-                cartItemRepository.save(cartItem);
-                logger.debug("CartItem with id = {} updated successfully.", cartItem.getId());
-                cartItems.add(cartItem);
-                Cart saved = repository.save(cartByUserId);
-                logger.debug("Cart with id = {} updated successfully.", saved.getId());
-                return mapper.entityToRequestDto(saved);
+        Cart cart = repository.findByUserId(this.getAuthenticatedUser().getId());
+        if (cart == null) {
+            return null;
+        } else {
+            Set<CartItem> cartItems = cart.getCartItems();
+            CartItem newCartItem = cartItemMapper.requestDtoToEntity(cartItemRequestDto);
+
+            for (CartItem existingItem : cartItems) {
+                if (existingItem.getProduct().getId().equals(newCartItem.getProduct().getId())) {
+                    existingItem.setQuantity(newCartItem.getQuantity());
+                    break;
+                }
             }
-        }
-        logger.debug("Cart for user with id = {} cannot be updated.", cartByUserId.getId());
-        return null;
 
+            Cart saved = repository.save(cart);
+            logger.debug("Cart with id = {} updated product = {} and quantity = {}.", saved.getId(), newCartItem.getProduct(), newCartItem.getQuantity());
+            return mapper.entityToRequestDto(saved);
+        }
     }
 
-    public CartRequestDto deleteCartItemInCart() {
-        Cart cartByUserId = repository.findCartByUserId(this.getAuthenticatedUser().getId());
-        Set<CartItem> cartItems = cartByUserId.getCartItems();
+    @Transactional
+    public Optional<Cart> deleteCartItemInCart() {
+        Cart cart = repository.findByUserId(this.getAuthenticatedUser().getId());
+        Set<CartItem> cartItems = cartItemRepository.findAllByCartId(cart.getId());
         if (cartItems != null && !cartItems.isEmpty()) {
-            CartItem cartItem = cartItemRepository.deleteCartItemByUserId(this.getAuthenticatedUser().getId());
-            repository.save(cartByUserId);
-            logger.debug("Cart for user with id = {} has not items.", this.getAuthenticatedUser().getId());
-            logger.debug("CartItem with id = {} deleted successfully.", cartItem.getId());
+            cartItemRepository.deleteAllByCart(cart);
+            logger.debug("CartItem deleted successfully.");
+            return Optional.of(cart);
+        } else {
+            logger.debug("Cart is empty.");
+            return Optional.empty();
         }
-        logger.debug("Cart is empty.");
-        return null;
-
     }
+
     private User getAuthenticatedUser() {
         User user = new User();
-        user.setId(1l);
+        user.setId(8l);
         return user;
     }
 }

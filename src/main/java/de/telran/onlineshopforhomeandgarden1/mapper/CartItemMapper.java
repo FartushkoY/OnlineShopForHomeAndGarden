@@ -11,8 +11,10 @@ import java.util.Set;
 
 @Mapper(componentModel = "spring")
 public interface CartItemMapper {
+
     @Mapping(target = "product.id", source = "productId")
-    CartItem dtoToRequestEntity (CartItemRequestDto cartItemRequestDto);
+    CartItem requestDtoToEntity(CartItemRequestDto cartItemRequestDto);
+
     @Mapping(target = "productId", source = "product.id")
     CartItemRequestDto entityToRequestDto (CartItem cartItem);
 
