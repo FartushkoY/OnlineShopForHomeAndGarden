@@ -17,8 +17,6 @@ import java.util.Set;
 @AllArgsConstructor
 @NoArgsConstructor
 public class OrderRequestDto {
-
-
     private Long id;
 
     @NotNull(message = "{validation.order.deliveryAddress.notNull}")

@@ -1,24 +1,20 @@
-package de.telran.onlineshopforhomeandgarden1.dto;
+package de.telran.onlineshopforhomeandgarden1.dto.request;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import de.telran.onlineshopforhomeandgarden1.entity.Cart;
-import de.telran.onlineshopforhomeandgarden1.entity.User;
-import de.telran.onlineshopforhomeandgarden1.enums.Role;
 import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.antlr.v4.runtime.misc.NotNull;
 import org.hibernate.validator.constraints.Length;
 
 @Getter
 @Setter
-@AllArgsConstructor
 @NoArgsConstructor
-public class UserDto {
+@AllArgsConstructor
+public class UserRequestDto {
     private Long id;
 
     @NotNull
@@ -36,11 +32,10 @@ public class UserDto {
     @Pattern(regexp = "[+49\\d]{13}", message = "{validation.user.phoneNumber}")
     private String phoneNumber;
 
-    @NotNull
+    @org.antlr.v4.runtime.misc.NotNull
     @Length(max = 45, message = "{validation.user.passwordHash}")
     private String passwordHash;
 
-    private Role role;
+    private String role;
 
-    private Cart cart;
 }

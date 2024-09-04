@@ -1,6 +1,6 @@
 package de.telran.onlineshopforhomeandgarden1.service;
 
-import de.telran.onlineshopforhomeandgarden1.dto.UserDto;
+import de.telran.onlineshopforhomeandgarden1.dto.request.UserRequestDto;
 import de.telran.onlineshopforhomeandgarden1.entity.User;
 import de.telran.onlineshopforhomeandgarden1.enums.Role;
 import de.telran.onlineshopforhomeandgarden1.mapper.UserMapper;
@@ -16,49 +16,50 @@ import java.util.Optional;
 public class UserService {
 
     private static final Logger logger = LogManager.getLogger(UserService.class);
-    private final UserRepository userRepository;
+    private final UserRepository repository;
     private final UserMapper mapper;
 
     @Autowired
-    public UserService(UserRepository userRepository, UserMapper mapper) {
-        this.userRepository = userRepository;
+    public UserService(UserRepository repository, UserMapper mapper) {
+        this.repository = repository;
         this.mapper = mapper;
     }
 
-    public UserDto saveUser(UserDto userDto) {
-        if (userDto.getRole() == null) {
-            userDto.setRole(Role.CUSTOMER);
+    public UserRequestDto saveUser(UserRequestDto userRequestDto) {
+        if (userRequestDto.getRole() == null) {
+            userRequestDto.setRole(String.valueOf(Role.CUSTOMER));
         }
-        User user = mapper.dtoToEntity(userDto);
-        User saved = userRepository.save(user);
-        logger.info("User with id = {} created", saved.getId());
-        return mapper.entityToDto(saved);
+        User user = mapper.requestDtoToEntity(userRequestDto);
+        User saved = repository.save(user);
+        logger.debug("User with id = {} created", saved.getId());
+        return mapper.entityToRequestDto(saved);
+
     }
 
-    public Optional<UserDto> updateUser(Long id, String name, String phone) {
-        Optional<User> optional = userRepository.findById(id);
-        if (optional.isPresent()) {
-            User user = optional.get();
-            user.setName(name);
-            user.setPhoneNumber(phone);
-            User updatedUser = userRepository.save(user);
-            logger.info("User with id = {} updated", updatedUser.getId());
-            return Optional.of(mapper.entityToDto(updatedUser));
+    public Optional<UserRequestDto> updateUser(Long id, UserRequestDto userRequestDto) {
+        Optional<User> userOptional = repository.findById(id);
+        if (userOptional.isPresent()) {
+            User user = mapper.requestDtoToEntity(userRequestDto);
+            user.setId(id);
+            User updatedUser = repository.save(user);
+            logger.debug("User with id = {} updated", id);
+            return Optional.of(mapper.entityToRequestDto(updatedUser));
         } else {
-            logger.warn("User with id = {} not found",id);
+            logger.debug("User with id = {} not found", id);
             return Optional.empty();
         }
     }
 
     public Optional<User> removeUser(Long id) {
-        Optional<User> user = userRepository.findById(id);
-        if (user.isPresent()){
-            userRepository.deleteById(user.get().getId());
-            logger.info("User with id = {} deleted", user.get().getId());
+        Optional<User> user = repository.findById(id);
+        if (user.isPresent()) {
+            repository.deleteById(user.get().getId());
+            logger.debug("User with id = {} deleted", user.get().getId());
             return user;
-        }else {
-            logger.warn("User with id = {} not found",id);
+        } else {
+            logger.debug("User with id = {} not found", id);
             return Optional.empty();
         }
     }
+
 }
