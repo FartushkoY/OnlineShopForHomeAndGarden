@@ -1,8 +1,7 @@
 package de.telran.onlineshopforhomeandgarden1.service;
 
-import de.telran.onlineshopforhomeandgarden1.dto.ProductDto;
 import de.telran.onlineshopforhomeandgarden1.dto.request.ProductRequestDto;
-import de.telran.onlineshopforhomeandgarden1.dto.response.ProductResponseDto;
+import de.telran.onlineshopforhomeandgarden1.dto.response.ProductWithDiscountPriceResponseDto;
 import de.telran.onlineshopforhomeandgarden1.entity.Category;
 import de.telran.onlineshopforhomeandgarden1.entity.Favorite;
 import de.telran.onlineshopforhomeandgarden1.entity.Product;
@@ -49,10 +48,10 @@ public class ProductServiceTest {
         product.setId(1L);
 
         Mockito.when(repository.findById(1L)).thenReturn(Optional.of(product));
-        ProductResponseDto result = productService.getProductById(1L).get();
+        ProductWithDiscountPriceResponseDto result = productService.getProductById(1L).get();
 
         Mockito.verify(repository).findById(1L);
-        assertEquals(product.getId(), result.getId());
+        assertEquals(product.getName(), result.getName());
     }
 
     @Test
@@ -61,7 +60,7 @@ public class ProductServiceTest {
         product.setId(1L);
 
         Mockito.when(repository.findById(111L)).thenReturn(Optional.empty());
-        Optional<ProductResponseDto> optional = productService.getProductById(111L);
+        Optional<ProductWithDiscountPriceResponseDto> optional = productService.getProductById(111L);
 
         Mockito.verify(repository).findById(111L);
         assertTrue(optional.isEmpty());
@@ -144,6 +143,39 @@ public class ProductServiceTest {
     }
 
     @Test
+    void addDiscountTest() {
+        Product updatedProduct = new Product();
+        updatedProduct.setId(22L);
+        updatedProduct.setName("New test name");
+        updatedProduct.setDescription("New test description");
+        updatedProduct.setPrice(BigDecimal.valueOf(10));
+        updatedProduct.setImageUrl("https://raw.githubusercontent.com/tel-ran-de");
+        updatedProduct.setDiscountPrice(null);
+
+        BigDecimal newDiscount = BigDecimal.valueOf(7.00);
+
+        Mockito.when(repository.findById(updatedProduct.getId())).thenReturn(Optional.of(updatedProduct));
+        Mockito.when(repository.save(updatedProduct)).thenReturn(updatedProduct);
+        productService.addDiscount(22L, newDiscount);
+
+        Mockito.verify(repository).save(updatedProduct);
+        assertEquals(updatedProduct.getDiscountPrice(), newDiscount);
+    }
+
+    @Test
+    public void addDiscountNotFoundTest() {
+        Product product = new Product();
+        product.setId(22L);
+
+        Long id = 555L;
+
+        Mockito.when(repository.findById(id)).thenReturn(Optional.empty());
+        ProductRequestDto result = productService.addDiscount(id, BigDecimal.valueOf(7.00));
+        assertNull(result);
+    }
+
+
+    @Test
     public void deleteProductTest() {
         Product product = new Product();
         product.setId(4L);
@@ -178,4 +210,63 @@ public class ProductServiceTest {
         productService.deleteProduct(10L);
         Mockito.verify(repository, Mockito.never()).deleteById(10L);
     }
+
+    @Test
+   public void getTop10MostPurchasedProducts() {
+        Product product1 = new Product();
+        Product product2 = new Product();
+        Product product3 = new Product();
+        Product product4 = new Product();
+        Product product5 = new Product();
+        Product product6 = new Product();
+        Product product7 = new Product();
+        Product product8 = new Product();
+        Product product9 = new Product();
+        Product product10 = new Product();
+        List<Product> productList = Arrays.asList( product1, product2, product3, product4, product5, product6, product7, product8, product9, product10 );
+
+        Mockito.when(repository.findTop10MostPurchasedProducts()).thenReturn(productList);
+        List products = productService.getTop10MostPurchasedProducts();
+        assertEquals(products.size(), 10);
+        Mockito.verify(repository).findTop10MostPurchasedProducts();
+
+    }
+
+    public void getProductOfTheDayTest() {
+        Product product1 = new Product();
+        product1.setId(1L);
+        product1.setName("Product1");
+        product1.setPrice(BigDecimal.valueOf(100));
+        product1.setDiscountPrice(BigDecimal.valueOf(90));
+
+        Product product2 = new Product();
+        product1.setId(2L);
+        product1.setName("Product2");
+        product1.setPrice(BigDecimal.valueOf(100));
+        product1.setDiscountPrice(BigDecimal.valueOf(50));
+
+        Mockito.when(repository.findProductOfTheDay()).thenReturn(Optional.of(product2));
+        Optional<ProductWithDiscountPriceResponseDto> result = productService.getProductOfTheDay();
+
+        Mockito.verify(repository).findProductOfTheDay();
+        assertEquals(product2.getName(), result.get().getName());
+    }
+
+    @Test
+    public void getProductOfTheDayNotDiscountTest() {
+        Product product1 = new Product();
+        product1.setId(1L);
+        product1.setName("Product1");
+        product1.setPrice(BigDecimal.valueOf(100));
+        product1.setDiscountPrice(null);
+
+
+        Mockito.when(repository.findProductOfTheDay()).thenReturn(Optional.of(product1));
+        Optional<ProductWithDiscountPriceResponseDto> result = productService.getProductOfTheDay();
+
+        Mockito.verify(repository).findProductOfTheDay();
+        assertEquals(product1.getName(), result.get().getName());
+    }
+
+
 }

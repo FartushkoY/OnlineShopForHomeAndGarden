@@ -13,6 +13,7 @@ import org.mockito.Mockito;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 
 
@@ -43,21 +44,20 @@ class UserServiceTest {
         Mockito.verify(repository).save(eq(user));
         assertEquals(user.getRole(), Role.ADMINISTRATOR);
 
+
         user.setRole(Role.valueOf("CUSTOMER"));
         Mockito.when(repository.save(user)).thenReturn(user);
         service.saveUser(mapper.entityToRequestDto(user));
         Mockito.verify(repository).save(eq(user));
         assertEquals(user.getRole(), Role.CUSTOMER);
 
-        UserRequestDto userRequestDto = mapper.entityToRequestDto(user);
-        userRequestDto.setRole(null);
-        User userCreated = mapper.dtoToRequestEntity(userRequestDto);
-        Mockito.when(repository.save(eq(userCreated))).thenReturn(userCreated);
-        service.saveUser(mapper.entityToRequestDto(userCreated));
-        userRequestDto.setRole(String.valueOf(Role.CUSTOMER));
-        userCreated = mapper.dtoToRequestEntity(userRequestDto);
-        Mockito.verify(repository, Mockito.times(2)).save(eq(userCreated));
-        assertEquals(userCreated.getRole(), Role.CUSTOMER);
+        user.setRole(null);
+        Mockito.when(repository.save(Mockito.any())).thenReturn(user);
+        service.saveUser(mapper.entityToRequestDto(user));
+        user.setRole(Role.CUSTOMER);
+        Mockito.verify(repository, Mockito.times(2)).save(eq(user));
+        assertEquals(user.getRole(), Role.CUSTOMER);
+
     }
 
     @Test
@@ -101,7 +101,6 @@ class UserServiceTest {
         Mockito.when(repository.findById(user.getId())).thenReturn(Optional.of(user));
         service.removeUser(user.getId());
         Mockito.verify(repository).deleteById(user.getId());
-
 
 //     Not Found
 

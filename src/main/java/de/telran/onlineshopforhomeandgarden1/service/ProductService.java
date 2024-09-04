@@ -3,6 +3,7 @@ package de.telran.onlineshopforhomeandgarden1.service;
 import de.telran.onlineshopforhomeandgarden1.dto.request.ProductRequestDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.ProductResponseDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.ProductWithDiscountPriceResponseDto;
+import de.telran.onlineshopforhomeandgarden1.dto.response.ProductWithPriceResponseDto;
 import de.telran.onlineshopforhomeandgarden1.entity.CartItem;
 import de.telran.onlineshopforhomeandgarden1.entity.Favorite;
 import de.telran.onlineshopforhomeandgarden1.entity.OrderItem;
@@ -16,11 +17,13 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -46,9 +49,9 @@ public class ProductService {
     }
 
 
-    public Optional<ProductResponseDto> getProductById(Long id) {
+    public Optional<ProductWithDiscountPriceResponseDto> getProductById(Long id) {
         Optional<Product> optional = repository.findById(id);
-        return optional.map(productMapper::entityToResponseDto);
+        return optional.map(productMapper::entityToWithDiscountResponseDto);
     }
 
     public Page<ProductWithDiscountPriceResponseDto> getAll(Long categoryId, Boolean hasDiscount, Integer minPrice, Integer maxPrice, Pageable pageable) {
@@ -97,6 +100,19 @@ public class ProductService {
     }
 
     @Transactional
+    public ProductRequestDto addDiscount(Long id, BigDecimal discountPrice) {
+        Optional<Product> optional = repository.findById(id);
+        if (optional.isPresent()) {
+            Product updated = optional.get();
+            updated.setDiscountPrice(discountPrice);
+            updated = repository.save(updated);
+            return  productMapper.entityToRequestDto(updated);
+        } else {
+            return null;
+        }
+    }
+
+    @Transactional
     public Optional<Product> deleteProduct(Long id) {
         Optional<Product> optional = repository.findById(id);
         Set<Favorite> favorite = favoriteRepository.findAllByProductId(id);
@@ -118,5 +134,20 @@ public class ProductService {
         }
     }
 
+    public List<ProductWithPriceResponseDto> getTop10MostPurchasedProducts() {
+        List<Product> topTen =  repository.findTop10MostPurchasedProducts();
+        return productMapper.entityListToWithPriceResponseDto(topTen);
+    }
+
+    public Optional<ProductWithDiscountPriceResponseDto> getProductOfTheDay() {
+        Optional<Product> optional = repository.findProductOfTheDay();
+        if (optional.isPresent()) {
+            return optional.map(productMapper::entityToWithDiscountResponseDto);
+        } else {
+            optional = repository.findRandomProduct();
+            return optional.map(productMapper::entityToWithDiscountResponseDto);
+        }
+
+    }
 }
 

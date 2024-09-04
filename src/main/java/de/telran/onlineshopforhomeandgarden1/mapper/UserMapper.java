@@ -10,10 +10,12 @@ import java.util.Set;
 
 @Mapper(componentModel = "spring")
 public interface UserMapper {
-    User dtoToRequestEntity (UserRequestDto UserRequestDto);
+
+    User requestDtoToEntity(UserRequestDto UserRequestDto);
     UserRequestDto entityToRequestDto (User User);
     Set<UserRequestDto> entityListToRequestDto(List<User> User);
-    User dtoToResponseEntity(UserResponseDto UserDto);
+    User responseDtoToEntity(UserResponseDto UserDto);
+
     UserResponseDto entityToResponseDto(User User);
     Set<UserResponseDto> entityListToResponseDto(List<User> User);
 }
