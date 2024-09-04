@@ -131,5 +131,14 @@ public class ProductService {
         }
     }
 
+    public Optional<ProductWithDiscountPriceResponseDto> getProductOfTheDay() {
+        Optional<Product> optional = repository.findProductOfTheDay();
+        if (optional.isPresent()) {
+            return optional.map(productMapper::entityToWithDiscountResponseDto);
+        } else {
+            optional = repository.findRandomProduct();
+            return optional.map(productMapper::entityToWithDiscountResponseDto);
+        }
+    }
 }
 
