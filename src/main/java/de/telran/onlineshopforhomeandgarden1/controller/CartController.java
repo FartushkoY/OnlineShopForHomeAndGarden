@@ -53,11 +53,7 @@ public class CartController {
 
     @DeleteMapping
     public ResponseEntity<?> deleteCartItemInCart() {
-        try{
             service.deleteCartItemInCart();
             return new ResponseEntity<>(HttpStatus.OK);
-        } catch (Exception e ){
-            return  new ResponseEntity<>((HttpStatus.NOT_FOUND));
-        }
     }
 }

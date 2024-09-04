@@ -13,6 +13,6 @@ import lombok.Setter;
 public class CartItemRequestDto {
     private String productId;
 
-    @Min(value = 0, message = "{validation.cartItem.quantity}")
+    @Min(value = 1, message = "{validation.cartItem.quantity}")
     private Integer quantity;
 }

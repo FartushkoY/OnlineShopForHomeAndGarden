@@ -10,10 +10,10 @@ import java.util.Set;
 
 @Mapper(componentModel = "spring")
 public interface CartMapper {
-    Cart dtoToRequestEntity (CartRequestDto cartRequestDto);
+    Cart requestDtoToEntity(CartRequestDto cartRequestDto);
     CartRequestDto entityToRequestDto (Cart cart);
     Set<CartRequestDto> entityListToRequestDto(List<Cart> cart);
-    Cart dtoToResponseEntity(CartResponseDto cartDto);
+    Cart responseDtoToEntity(CartResponseDto cartDto);
     CartResponseDto entityToResponseDto(Cart cart);
     Set<CartResponseDto> entityListToResponseDto(Set<Cart> cart);
 }
