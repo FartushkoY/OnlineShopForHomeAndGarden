@@ -8,6 +8,7 @@ import de.telran.onlineshopforhomeandgarden1.dto.response.ProductWithDiscountPri
 import de.telran.onlineshopforhomeandgarden1.entity.Product;
 import de.telran.onlineshopforhomeandgarden1.service.ProductService;
 import jakarta.validation.Valid;
+import jakarta.validation.constraints.Min;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -18,6 +19,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 
 @RestController
@@ -33,8 +35,8 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<ProductResponseDto> getProductById(@PathVariable Long id) {
-        Optional<ProductResponseDto> productDto = service.getProductById(id);
+    public ResponseEntity<ProductWithDiscountPriceResponseDto> getProductById(@PathVariable Long id) {
+        Optional<ProductWithDiscountPriceResponseDto> productDto = service.getProductById(id);
         if (productDto.isPresent()) {
             return new ResponseEntity<>(productDto.get(), HttpStatus.OK);
         } else {
@@ -68,6 +70,18 @@ public class ProductController {
     public ResponseEntity<ProductRequestDto> updateProduct(@RequestBody @Valid ProductRequestDto product) {
         try {
             ProductRequestDto updatedProduct = service.updateProduct(product);
+            return new ResponseEntity<>(updatedProduct, updatedProduct != null ? HttpStatus.OK : HttpStatus.NOT_FOUND);
+        } catch (Exception e) {
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
+    }
+
+    @PutMapping("/addDiscount/{id}")
+    public ResponseEntity<ProductRequestDto> addDiscount(@PathVariable Long id,
+                                                         @RequestParam @Min(value = 0, message = "{validation.product.price}")
+                                                         BigDecimal discountPrice) {
+        try {
+            ProductRequestDto updatedProduct = service.addDiscount(id, discountPrice);
             return new ResponseEntity<>(updatedProduct, updatedProduct != null ? HttpStatus.OK : HttpStatus.NOT_FOUND);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

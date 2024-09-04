@@ -1,8 +1,7 @@
 package de.telran.onlineshopforhomeandgarden1.service;
 
-import de.telran.onlineshopforhomeandgarden1.dto.ProductDto;
 import de.telran.onlineshopforhomeandgarden1.dto.request.ProductRequestDto;
-import de.telran.onlineshopforhomeandgarden1.dto.response.ProductResponseDto;
+import de.telran.onlineshopforhomeandgarden1.dto.response.ProductWithDiscountPriceResponseDto;
 import de.telran.onlineshopforhomeandgarden1.entity.Category;
 import de.telran.onlineshopforhomeandgarden1.entity.Favorite;
 import de.telran.onlineshopforhomeandgarden1.entity.Product;
@@ -49,10 +48,10 @@ public class ProductServiceTest {
         product.setId(1L);
 
         Mockito.when(repository.findById(1L)).thenReturn(Optional.of(product));
-        ProductResponseDto result = productService.getProductById(1L).get();
+        ProductWithDiscountPriceResponseDto result = productService.getProductById(1L).get();
 
         Mockito.verify(repository).findById(1L);
-        assertEquals(product.getId(), result.getId());
+        assertEquals(product.getName(), result.getName());
     }
 
     @Test
@@ -61,7 +60,7 @@ public class ProductServiceTest {
         product.setId(1L);
 
         Mockito.when(repository.findById(111L)).thenReturn(Optional.empty());
-        Optional<ProductResponseDto> optional = productService.getProductById(111L);
+        Optional<ProductWithDiscountPriceResponseDto> optional = productService.getProductById(111L);
 
         Mockito.verify(repository).findById(111L);
         assertTrue(optional.isEmpty());
@@ -142,6 +141,39 @@ public class ProductServiceTest {
         ProductRequestDto result = productService.updateProduct(productMapper.entityToRequestDto(updatedProduct));
         assertNull(result);
     }
+
+    @Test
+    void addDiscountTest() {
+        Product updatedProduct = new Product();
+        updatedProduct.setId(22L);
+        updatedProduct.setName("New test name");
+        updatedProduct.setDescription("New test description");
+        updatedProduct.setPrice(BigDecimal.valueOf(10));
+        updatedProduct.setImageUrl("https://raw.githubusercontent.com/tel-ran-de");
+        updatedProduct.setDiscountPrice(null);
+
+        BigDecimal newDiscount = BigDecimal.valueOf(7.00);
+
+        Mockito.when(repository.findById(updatedProduct.getId())).thenReturn(Optional.of(updatedProduct));
+        Mockito.when(repository.save(updatedProduct)).thenReturn(updatedProduct);
+        productService.addDiscount(22L, newDiscount);
+
+        Mockito.verify(repository).save(updatedProduct);
+        assertEquals(updatedProduct.getDiscountPrice(), newDiscount);
+    }
+
+    @Test
+    public void addDiscountNotFoundTest() {
+        Product product = new Product();
+        product.setId(22L);
+
+        Long id = 555L;
+
+        Mockito.when(repository.findById(id)).thenReturn(Optional.empty());
+        ProductRequestDto result = productService.addDiscount(id, BigDecimal.valueOf(7.00));
+        assertNull(result);
+    }
+
 
     @Test
     public void deleteProductTest() {
