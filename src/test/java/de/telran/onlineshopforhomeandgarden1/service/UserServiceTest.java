@@ -42,11 +42,13 @@ class UserServiceTest {
         Mockito.verify(repository).save(eq(user));
         assertEquals(user.getRole(), Role.ADMINISTRATOR);
 
+
         user.setRole(Role.valueOf("CUSTOMER"));
         Mockito.when(repository.save(user)).thenReturn(user);
         service.saveUser(mapper.entityToRequestDto(user));
         Mockito.verify(repository).save(eq(user));
         assertEquals(user.getRole(), Role.CUSTOMER);
+
 
         user.setRole(null);
         Mockito.when(repository.save(Mockito.any())).thenReturn(user);
