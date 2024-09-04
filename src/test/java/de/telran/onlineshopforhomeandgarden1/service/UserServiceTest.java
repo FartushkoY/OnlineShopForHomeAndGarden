@@ -32,6 +32,7 @@ class UserServiceTest {
     @Test
     public void savedUser() {
         User user = new User();
+        user.setId(1L);
         user.setName("Test Name");
         user.setEmail("test@test.eu");
         user.setPhoneNumber("+491715207968");
@@ -50,13 +51,13 @@ class UserServiceTest {
         Mockito.verify(repository).save(eq(user));
         assertEquals(user.getRole(), Role.CUSTOMER);
 
-
         user.setRole(null);
         Mockito.when(repository.save(Mockito.any())).thenReturn(user);
         service.saveUser(mapper.entityToRequestDto(user));
         user.setRole(Role.CUSTOMER);
         Mockito.verify(repository, Mockito.times(2)).save(eq(user));
         assertEquals(user.getRole(), Role.CUSTOMER);
+
     }
 
     @Test
@@ -82,7 +83,7 @@ class UserServiceTest {
         service.updateUser(2L, mapper.entityToRequestDto(updatedUser));
         Mockito.verify(repository).save(eq(updatedUser));
 
-// Not Found
+//      Not Found
 
         User user = new User();
         user.setId(547L);
@@ -101,7 +102,7 @@ class UserServiceTest {
         service.removeUser(user.getId());
         Mockito.verify(repository).deleteById(user.getId());
 
-        // Not Found
+//     Not Found
 
         Mockito.when(repository.findById(1000L)).thenReturn(Optional.empty());
         Mockito.verify(repository, Mockito.never()).deleteById(1000L);
