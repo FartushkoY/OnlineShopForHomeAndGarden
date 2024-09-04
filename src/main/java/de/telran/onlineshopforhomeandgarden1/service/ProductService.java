@@ -3,6 +3,7 @@ package de.telran.onlineshopforhomeandgarden1.service;
 import de.telran.onlineshopforhomeandgarden1.dto.request.ProductRequestDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.ProductResponseDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.ProductWithDiscountPriceResponseDto;
+import de.telran.onlineshopforhomeandgarden1.dto.response.ProductWithPriceResponseDto;
 import de.telran.onlineshopforhomeandgarden1.entity.CartItem;
 import de.telran.onlineshopforhomeandgarden1.entity.Favorite;
 import de.telran.onlineshopforhomeandgarden1.entity.OrderItem;
@@ -16,11 +17,13 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -131,6 +134,11 @@ public class ProductService {
         }
     }
 
+    public List<ProductWithPriceResponseDto> getTop10MostPurchasedProducts() {
+        List<Product> topTen =  repository.findTop10MostPurchasedProducts();
+        return productMapper.entityListToWithPriceResponseDto(topTen);
+    }
+
     public Optional<ProductWithDiscountPriceResponseDto> getProductOfTheDay() {
         Optional<Product> optional = repository.findProductOfTheDay();
         if (optional.isPresent()) {
@@ -139,6 +147,7 @@ public class ProductService {
             optional = repository.findRandomProduct();
             return optional.map(productMapper::entityToWithDiscountResponseDto);
         }
+
     }
 }
 

@@ -8,12 +8,11 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.ActiveProfiles;
-
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
-
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @DataJpaTest
 @ActiveProfiles("test")
@@ -64,11 +63,25 @@ class ProductRepositoryTest {
 
     }
 
+
+   @Test
+    void findTop10MostPurchasedProducts(){
+       List<Product> products = List.of(
+               repository.findById(15L).orElseThrow(), repository.findById(5L).orElseThrow(), repository.findById(7L).orElseThrow(),
+               repository.findById(12L).orElseThrow(), repository.findById(3L).orElseThrow(), repository.findById(2L).orElseThrow(),
+               repository.findById(1L).orElseThrow(), repository.findById(6L).orElseThrow(), repository.findById(9L).orElseThrow(),
+               repository.findById(11L).orElseThrow());
+       List<Product> top10MostPurchasedProducts = repository.findTop10MostPurchasedProducts();
+       assertEquals(products, top10MostPurchasedProducts);
+   }
+
+
     @Test
     void findProductOfTheDayTest() {
         List<Optional<Product>> results = List.of(repository.findById(10L), repository.findById(16L), repository.findById(17L));
         Optional<Product> productOfTheDay = repository.findProductOfTheDay();
         assertTrue(results.contains(productOfTheDay));
+
     }
 
 
@@ -78,4 +91,5 @@ class ProductRepositoryTest {
         Optional<Product> randomProduct = repository.findRandomProduct();
         assertTrue(products.contains(randomProduct.get()));
     }
+
 }

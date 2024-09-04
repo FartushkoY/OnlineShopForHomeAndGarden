@@ -4,6 +4,7 @@ package de.telran.onlineshopforhomeandgarden1.controller;
 import de.telran.onlineshopforhomeandgarden1.dto.request.ProductRequestDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.ProductResponseDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.ProductWithDiscountPriceResponseDto;
+import de.telran.onlineshopforhomeandgarden1.dto.response.ProductWithPriceResponseDto;
 import de.telran.onlineshopforhomeandgarden1.entity.Product;
 import de.telran.onlineshopforhomeandgarden1.service.ProductService;
 import jakarta.validation.Valid;
@@ -18,6 +19,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+
+import java.util.List;
 import java.math.BigDecimal;
 import java.util.Optional;
 
@@ -28,9 +31,11 @@ public class ProductController {
 
     private final ProductService service;
 
+
     @Autowired
     public ProductController(ProductService service) {
         this.service = service;
+
     }
 
     @GetMapping("/{id}")
@@ -98,6 +103,13 @@ public class ProductController {
 
     }
 
+
+    @GetMapping("/top10")
+    public List<ProductWithPriceResponseDto> getTop10MostPurchasedProducts() {
+        return service.getTop10MostPurchasedProducts();
+
+    }
+
     @GetMapping("/productOfTheDay")
     public ResponseEntity<ProductWithDiscountPriceResponseDto> getProductOfTheDay() {
         Optional<ProductWithDiscountPriceResponseDto> productOfTheDay = service.getProductOfTheDay();
@@ -106,7 +118,7 @@ public class ProductController {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-    }
 
+    }
 
 }
