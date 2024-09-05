@@ -2,6 +2,7 @@ package de.telran.onlineshopforhomeandgarden1.service;
 
 import de.telran.onlineshopforhomeandgarden1.dto.request.ProductRequestDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.ProductWithDiscountPriceResponseDto;
+import de.telran.onlineshopforhomeandgarden1.dto.response.ProductWithPriceResponseDto;
 import de.telran.onlineshopforhomeandgarden1.entity.Category;
 import de.telran.onlineshopforhomeandgarden1.entity.Favorite;
 import de.telran.onlineshopforhomeandgarden1.entity.Product;
@@ -226,12 +227,34 @@ public class ProductServiceTest {
         List<Product> productList = Arrays.asList( product1, product2, product3, product4, product5, product6, product7, product8, product9, product10 );
 
         Mockito.when(repository.findTop10MostPurchasedProducts()).thenReturn(productList);
-        List products = productService.getTop10MostPurchasedProducts();
+        List<ProductWithPriceResponseDto> products = productService.getTop10MostPurchasedProducts();
         assertEquals(products.size(), 10);
         Mockito.verify(repository).findTop10MostPurchasedProducts();
 
     }
 
+    @Test
+    public void getTop10FrequentlyCanceledProducts() {
+        Product product1 = new Product();
+        Product product2 = new Product();
+        Product product3 = new Product();
+        Product product4 = new Product();
+        Product product5 = new Product();
+        Product product6 = new Product();
+        Product product7 = new Product();
+        Product product8 = new Product();
+        Product product9 = new Product();
+        Product product10 = new Product();
+        List<Product> productList = Arrays.asList( product1, product2, product3, product4, product5, product6, product7, product8, product9, product10 );
+
+        Mockito.when(repository.findTop10FrequentlyCanceledProducts()).thenReturn(productList);
+        List<ProductWithPriceResponseDto> products = productService.getTop10FrequentlyCanceledProducts();
+        assertEquals(products.size(), 10);
+        Mockito.verify(repository).findTop10FrequentlyCanceledProducts();
+
+    }
+
+    @Test
     public void getProductOfTheDayTest() {
         Product product1 = new Product();
         product1.setId(1L);

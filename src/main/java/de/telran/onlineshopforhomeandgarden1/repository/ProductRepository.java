@@ -25,7 +25,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findAllByCategory(Category category);
 
 
-    @Query("SELECT oi.product FROM OrderItem oi GROUP BY oi.product ORDER BY SUM(oi.quantity) DESC limit 10")
+    @Query("SELECT oi.product FROM OrderItem oi JOIN oi.order o WHERE o.status != 'CANCELED' GROUP BY oi.product ORDER BY SUM(oi.quantity) DESC limit 10")
     List<Product> findTop10MostPurchasedProducts();
 
 
@@ -34,6 +34,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Query("select p from Product p order by rand() limit 1")
     Optional<Product> findRandomProduct();
+
+    @Query("SELECT oi.product FROM OrderItem oi JOIN oi.order o WHERE o.status = 'CANCELED' GROUP BY oi.product ORDER BY COUNT(oi) DESC limit 10")
+    List<Product> findTop10FrequentlyCanceledProducts();
 
 }
 
