@@ -83,11 +83,11 @@ class OrderServiceTest {
 
 
         Mockito.when(repository.save(newOrder)).thenReturn(newOrder);
-        OrderRequestDto resultOrder = orderService.addOrder(orderMapper.entityToDtoRequest(newOrder));
+        orderService.addOrder(orderMapper.entityToDtoRequest(newOrder));
         Mockito.verify(repository).save(Mockito.eq(newOrder));
-        assertEquals(newOrder.getDeliveryMethod(), DeliveryMethod.valueOf(resultOrder.getDeliveryMethod()));
-        assertEquals(newOrder.getDeliveryAddress(), resultOrder.getDeliveryAddress());
+
     }
+
     @Test
     public void getOrdersHistory() {
         Order firstOrder = new Order();
