@@ -15,9 +15,12 @@ import org.mockito.Mockito;
 import org.springframework.data.domain.*;
 
 import java.math.BigDecimal;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 
 
@@ -308,4 +311,13 @@ public class ProductServiceTest {
     }
 
 
+    @Test
+    public void getPendingProducts() {
+    Instant time = Instant.now();
+    time.minus(2, ChronoUnit.DAYS);
+    Mockito.when(repository.findPendingProductsMoreThanNDays(eq(time))).thenReturn(List.of());
+    productService.getPendingProducts(2);
+    Mockito.verify(repository).findPendingProductsMoreThanNDays(any(Instant.class));
+
+    }
 }

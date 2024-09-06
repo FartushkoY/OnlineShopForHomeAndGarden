@@ -76,7 +76,11 @@ values (1, 2, current_timestamp(), 'Friedrichstraße 123, 10117, Berlin, Germany
        (19, 7, current_timestamp(), 'Schlossstasse 45, 10719, Berlin, Germany', '+491707709466', 'STANDARD', 'CANCELED', current_timestamp()),
        (20, 8, current_timestamp(), 'Karslruherstrasse 11, 10243, Schwetzingen, Germany', '+491678044468', 'EXPRESS', 'CANCELED', current_timestamp()),
        (21, 7, current_timestamp(), 'Schlossstasse 45, 10719, Berlin, Germany', '+491707709466', 'STANDARD', 'CANCELED', current_timestamp()),
-       (22, 8, current_timestamp(), 'Karslruherstrasse 11, 10243, Schwetzingen, Germany', '+491678044468', 'EXPRESS', 'CANCELED', current_timestamp());
+       (22, 8, current_timestamp(), 'Karslruherstrasse 11, 10243, Schwetzingen, Germany', '+491678044468', 'EXPRESS', 'CANCELED', current_timestamp()),
+       (23, 8, '2024-08-30 12:30:49', 'Karslruherstrasse 11, 10243, Schwetzingen, Germany', '+491678044468', 'EXPRESS', 'PENDING', current_timestamp()),
+       (24, 7, '2024-09-03 12:30:49', 'Schlossstasse 45, 10719, Berlin, Germany', '+491707709466', 'STANDARD', 'PENDING', current_timestamp()),
+       (25, 8, '2024-09-02 12:40:49', 'Karslruherstrasse 11, 10243, Schwetzingen, Germany', '+491678044468', 'EXPRESS', 'PENDING', current_timestamp());
+
 
 insert into order_items (order_item_id, order_id, product_id, quantity, price_at_purchase)
 values (1, 1, 6, 5, 11.05),
@@ -107,4 +111,7 @@ values (1, 1, 6, 5, 11.05),
        (26, 21, 13, 2, 40.00),
        (27, 22, 5, 5, 12.00),
        (28, 22, 12, 3, 25.00),
-       (29, 22, 14, 4, 38.00);
+       (29, 22, 14, 4, 38.00),
+       (30, 23, 5, 1, 12.00),
+       (31, 24, 6, 1, 13.00),
+       (32, 25, 7, 1, 6.00);

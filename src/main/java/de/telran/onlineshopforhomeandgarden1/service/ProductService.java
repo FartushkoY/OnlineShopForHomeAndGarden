@@ -15,6 +15,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.math.BigDecimal;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
@@ -166,6 +168,12 @@ public class ProductService {
             return optional.map(productMapper::entityToWithDiscountResponseDto);
         }
 
+    }
+
+    public List<ProductWithPriceResponseDto> getPendingProducts(int days) {
+        Instant calculatedDate = Instant.now().minus(days, ChronoUnit.DAYS);
+        List<Product> pendingProducts = repository.findPendingProductsMoreThanNDays(calculatedDate);
+        return productMapper.entityListToWithPriceResponseDto(pendingProducts);
     }
 
 

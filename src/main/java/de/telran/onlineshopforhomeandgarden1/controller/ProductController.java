@@ -126,4 +126,14 @@ public class ProductController {
 
     }
 
+    @GetMapping("/pendingMoreThan/{days}")
+    public ResponseEntity<List<ProductWithPriceResponseDto>> getPendingProducts(@PathVariable int days) {
+        List<ProductWithPriceResponseDto> pendingProducts = service.getPendingProducts(days);
+        if (pendingProducts.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(pendingProducts, HttpStatus.OK);
+        }
+    }
+
 }
