@@ -33,8 +33,9 @@ class FavoriteControllerTest {
     public void getFavorites() throws Exception {
 
         Set<FavoriteResponseDto> favorites = new LinkedHashSet<>();
-        favorites.add(new FavoriteResponseDto(new UserResponseDto(1L,"David", "+491601601601", "david.mueller@gmail.com", Role.CUSTOMER ),new ProductResponseDto(1L, "Product 1", "Description 1", "Image 1")));
-        favorites.add(new FavoriteResponseDto(new UserResponseDto(1L,"David", "+491601601601", "david.mueller@gmail.com", Role.CUSTOMER),new ProductResponseDto(2L, "Product 2", "Description 2", "Image 2")));
+
+        favorites.add(new FavoriteResponseDto(new UserResponseDto(1l,"David","+491887018112","david.smidt@gmail.com", Role.CUSTOMER),new ProductResponseDto(1L, "Product 1", "Description 1", "Image 1")));
+        favorites.add(new FavoriteResponseDto(new UserResponseDto(1l,"David","+491887018112","david.smidt@gmail.com", Role.CUSTOMER),new ProductResponseDto(2L, "Product 2", "Description 2", "Image 2")));
 
         Mockito.when(service.getFavorites()).thenReturn(favorites);
 

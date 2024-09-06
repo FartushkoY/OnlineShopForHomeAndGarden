@@ -34,7 +34,7 @@ public class CategoryController {
     }
 
     @PostMapping
-    public ResponseEntity<CategoryRequestDto> addCategory(@RequestBody CategoryRequestDto category) {
+    public ResponseEntity<CategoryRequestDto> addCategory(@RequestBody @Valid CategoryRequestDto category) {
         try {
             CategoryRequestDto newCategory = service.addCategory(category);
             return new ResponseEntity<>(newCategory, HttpStatus.CREATED);
@@ -43,10 +43,11 @@ public class CategoryController {
         }
     }
 
-    @PutMapping
-    public ResponseEntity<CategoryRequestDto> updateCategory(@RequestBody @Valid CategoryRequestDto category) {
+    @PutMapping ("/{categoryId}")
+    public ResponseEntity<CategoryRequestDto> updateCategory(@PathVariable("categoryId") Long categoryId,
+                                                             @RequestBody @Valid CategoryRequestDto category) {
         try {
-            CategoryRequestDto updatedCategory = service.updateCategory(category);
+            CategoryRequestDto updatedCategory = service.updateCategory(categoryId, category);
             return new ResponseEntity<>(updatedCategory, updatedCategory != null ? HttpStatus.OK : HttpStatus.NOT_FOUND);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

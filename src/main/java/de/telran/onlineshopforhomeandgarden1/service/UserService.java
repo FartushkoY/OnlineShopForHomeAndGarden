@@ -29,7 +29,9 @@ public class UserService {
         if (userRequestDto.getRole() == null) {
             userRequestDto.setRole(String.valueOf(Role.CUSTOMER));
         }
+
         User user = mapper.requestDtoToEntity(userRequestDto);
+
         User saved = repository.save(user);
         logger.debug("User with id = {} created", saved.getId());
         return mapper.entityToRequestDto(saved);
@@ -39,6 +41,7 @@ public class UserService {
     public Optional<UserRequestDto> updateUser(Long id, UserRequestDto userRequestDto) {
         Optional<User> userOptional = repository.findById(id);
         if (userOptional.isPresent()) {
+
             User user = mapper.requestDtoToEntity(userRequestDto);
             user.setId(id);
             User updatedUser = repository.save(user);

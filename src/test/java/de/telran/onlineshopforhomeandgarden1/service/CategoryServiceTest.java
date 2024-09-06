@@ -59,16 +59,21 @@ class CategoryServiceTest {
         Category dbCategory = new Category();
         dbCategory.setId(88L);
         dbCategory.setName("Test Category");
-        dbCategory.setImageUrl("Test Image");
+        dbCategory.setImageUrl("Test Image-url");
 
         Category updatedCategory = new Category();
         updatedCategory.setId(88L);
-        updatedCategory.setName("Test Category1");
-        updatedCategory.setImageUrl("Test Image1");
+        updatedCategory.setName("New Category");
+        updatedCategory.setImageUrl("New Image-url");
+
+        CategoryRequestDto updatedCategoryDto = new CategoryRequestDto();
+        updatedCategoryDto.setId("88");
+        updatedCategoryDto.setName("New Category");
+        updatedCategoryDto.setImageUrl("New Image-url");
 
         Mockito.when(repository.findById(88L)).thenReturn(Optional.of(dbCategory));
         Mockito.when(repository.save(updatedCategory)).thenReturn(updatedCategory);
-        categoryService.updateCategory(categoryMapper.entityToRequestDto(updatedCategory));
+        categoryService.updateCategory(88L, updatedCategoryDto);
         Mockito.verify(repository).save(Mockito.eq(updatedCategory));
     }
 
@@ -77,7 +82,7 @@ class CategoryServiceTest {
         Category updatedCategory = new Category();
         updatedCategory.setId(88L);
         Mockito.when(repository.findById(88L)).thenReturn(Optional.empty());
-        CategoryRequestDto resultCategory = categoryService.updateCategory(categoryMapper.entityToRequestDto(updatedCategory));
+        CategoryRequestDto resultCategory = categoryService.updateCategory(88L, categoryMapper.entityToRequestDto(updatedCategory));
         assertNull(resultCategory);
     }
 
