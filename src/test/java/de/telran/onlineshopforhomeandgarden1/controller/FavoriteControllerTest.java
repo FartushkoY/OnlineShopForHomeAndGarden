@@ -3,6 +3,7 @@ package de.telran.onlineshopforhomeandgarden1.controller;
 import de.telran.onlineshopforhomeandgarden1.dto.response.FavoriteResponseDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.ProductResponseDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.UserResponseDto;
+import de.telran.onlineshopforhomeandgarden1.enums.Role;
 import de.telran.onlineshopforhomeandgarden1.service.FavoriteService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -32,8 +33,8 @@ class FavoriteControllerTest {
     public void getFavorites() throws Exception {
 
         Set<FavoriteResponseDto> favorites = new LinkedHashSet<>();
-        favorites.add(new FavoriteResponseDto(new UserResponseDto("David"),new ProductResponseDto(1L, "Product 1", "Description 1", "Image 1")));
-        favorites.add(new FavoriteResponseDto(new UserResponseDto("David"),new ProductResponseDto(2L, "Product 2", "Description 2", "Image 2")));
+        favorites.add(new FavoriteResponseDto(new UserResponseDto(1L,"David", "+491601601601", "david.mueller@gmail.com", Role.CUSTOMER ),new ProductResponseDto(1L, "Product 1", "Description 1", "Image 1")));
+        favorites.add(new FavoriteResponseDto(new UserResponseDto(1L,"David", "+491601601601", "david.mueller@gmail.com", Role.CUSTOMER),new ProductResponseDto(2L, "Product 2", "Description 2", "Image 2")));
 
         Mockito.when(service.getFavorites()).thenReturn(favorites);
 
