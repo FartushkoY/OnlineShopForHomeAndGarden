@@ -1,23 +1,15 @@
 package de.telran.onlineshopforhomeandgarden1.service;
 
 import de.telran.onlineshopforhomeandgarden1.dto.request.ProductRequestDto;
-import de.telran.onlineshopforhomeandgarden1.dto.response.ProductResponseDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.ProductWithDiscountPriceResponseDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.ProductWithPriceResponseDto;
-import de.telran.onlineshopforhomeandgarden1.entity.CartItem;
-import de.telran.onlineshopforhomeandgarden1.entity.Favorite;
-import de.telran.onlineshopforhomeandgarden1.entity.OrderItem;
-import de.telran.onlineshopforhomeandgarden1.entity.Product;
+import de.telran.onlineshopforhomeandgarden1.entity.*;
 import de.telran.onlineshopforhomeandgarden1.mapper.ProductMapper;
-import de.telran.onlineshopforhomeandgarden1.repository.CartItemRepository;
-import de.telran.onlineshopforhomeandgarden1.repository.FavoriteRepository;
-import de.telran.onlineshopforhomeandgarden1.repository.OrderItemRepository;
-import de.telran.onlineshopforhomeandgarden1.repository.ProductRepository;
+import de.telran.onlineshopforhomeandgarden1.repository.*;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -36,15 +28,17 @@ public class ProductService {
     private final FavoriteRepository favoriteRepository;
     private final CartItemRepository cartItemRepository;
     private final OrderItemRepository orderItemRepository;
+    private final CategoryRepository categoryRepository;
 
     private final ProductMapper productMapper;
 
     @Autowired
-    public ProductService(ProductRepository repository, FavoriteRepository favoriteRepository, CartItemRepository cartItemRepository, OrderItemRepository orderItemRepository, ProductMapper productMapper) {
+    public ProductService(ProductRepository repository, FavoriteRepository favoriteRepository, CartItemRepository cartItemRepository, OrderItemRepository orderItemRepository, CategoryRepository categoryRepository, ProductMapper productMapper) {
         this.repository = repository;
         this.favoriteRepository = favoriteRepository;
         this.cartItemRepository = cartItemRepository;
         this.orderItemRepository = orderItemRepository;
+        this.categoryRepository = categoryRepository;
         this.productMapper = productMapper;
     }
 
@@ -76,25 +70,44 @@ public class ProductService {
         } else maxPriceBigDecimal = BigDecimal.valueOf(maxPrice);
 
         Page<Product> products = repository.getAllWithFilters(categoryId, hasCategory, hasDiscount, minPriceBigDecimal, maxPriceBigDecimal, pageable);
-       logger.info("Products retrieved from DB: {}", products.getTotalElements());
+       logger.debug("Products retrieved from DB: {}", products.getTotalElements());
         return products.map(productMapper::entityToWithDiscountResponseDto);
     }
 
     public ProductRequestDto addProduct(ProductRequestDto productRequestDto) {
         Product product = productMapper.requestDtoToEntity(productRequestDto);
         Product created = repository.save(product);
-        logger.info("Product created with id {}", created.getId());
+        logger.debug("Product created with id {}", created.getId());
         return productMapper.entityToRequestDto(created);
     }
 
-    public ProductRequestDto updateProduct(ProductRequestDto product) {
-        Optional<Product> optional = repository.findById(product.getId());
+    @Transactional
+    public ProductRequestDto updateProduct(Long productId, ProductRequestDto productDto) {
+        Optional<Product> optional = repository.findById(productId);
         if (optional.isPresent()) {
-            Product updated = repository.save(productMapper.requestDtoToEntity(product));
-            logger.info("Product with id = {} updated", product.getId());
+
+            Product updated = optional.get();
+            if (productDto.getName() != null) {
+                updated.setName(productDto.getName());
+            }
+            if (productDto.getDescription() != null) {
+                updated.setDescription(productDto.getDescription());
+            }
+            if (productDto.getPrice() != null) {
+                updated.setPrice(productDto.getPrice());
+            }
+            if (productDto.getCategoryId() != null) {
+                updated.setCategory(categoryRepository.findById(Long.valueOf(productDto.getCategoryId())).get());
+            }
+            if (productDto.getImageUrl() != null) {
+                updated.setImageUrl(productDto.getImageUrl());
+            }
+
+            repository.save(updated);
+            logger.debug("Product with id = {} updated", productDto.getId());
             return productMapper.entityToRequestDto(updated);
         } else {
-            logger.info("Product with id {} not found", product.getId());
+            logger.debug("Product with id {} not found", productDto.getId());
             return null;
         }
     }
@@ -122,14 +135,14 @@ public class ProductService {
         if (optional.isPresent() && favorite.isEmpty() && orderItem.isEmpty() && cartItem.isEmpty()) {
             optional.get().setCategory(null);
             repository.deleteById(id);
-            logger.info("Product with id = {} deleted", id);
+            logger.debug("Product with id = {} deleted", id);
             return optional;
 
         } else if (optional.isPresent() && (!favorite.isEmpty() || !orderItem.isEmpty() || !cartItem.isEmpty())) {
-            logger.info("Product with id {} cannot be deleted", id);
+            logger.debug("Product with id {} cannot be deleted", id);
             return optional;
         } else {
-            logger.info("Product with id = {} not found", id);
+            logger.debug("Product with id = {} not found", id);
             return Optional.empty();
         }
     }

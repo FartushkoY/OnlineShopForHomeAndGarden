@@ -70,10 +70,10 @@ public class ProductController {
     }
 
 
-    @PutMapping
-    public ResponseEntity<ProductRequestDto> updateProduct(@RequestBody @Valid ProductRequestDto product) {
+    @PutMapping("/{productId}")
+    public ResponseEntity<ProductRequestDto> updateProduct(@PathVariable Long productId, @RequestBody @Valid ProductRequestDto product) {
         try {
-            ProductRequestDto updatedProduct = service.updateProduct(product);
+            ProductRequestDto updatedProduct = service.updateProduct(productId, product);
             return new ResponseEntity<>(updatedProduct, updatedProduct != null ? HttpStatus.OK : HttpStatus.NOT_FOUND);
         } catch (Exception e) {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
