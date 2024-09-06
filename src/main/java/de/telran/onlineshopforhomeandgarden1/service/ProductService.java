@@ -139,6 +139,11 @@ public class ProductService {
         return productMapper.entityListToWithPriceResponseDto(topTen);
     }
 
+    public List<ProductWithPriceResponseDto> getTop10FrequentlyCanceledProducts() {
+        List<Product> topTenCanceled = repository.findTop10FrequentlyCanceledProducts();
+        return productMapper.entityListToWithPriceResponseDto(topTenCanceled);
+    }
+
     public Optional<ProductWithDiscountPriceResponseDto> getProductOfTheDay() {
         Optional<Product> optional = repository.findProductOfTheDay();
         if (optional.isPresent()) {
@@ -149,5 +154,7 @@ public class ProductService {
         }
 
     }
+
+
 }
 

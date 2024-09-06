@@ -103,10 +103,15 @@ public class ProductController {
 
     }
 
-
     @GetMapping("/top10")
     public List<ProductWithPriceResponseDto> getTop10MostPurchasedProducts() {
         return service.getTop10MostPurchasedProducts();
+
+    }
+
+    @GetMapping("/top10Canceled")
+    public List<ProductWithPriceResponseDto> getTop10FrequentlyCanceledProducts() {
+        return service.getTop10FrequentlyCanceledProducts();
 
     }
 

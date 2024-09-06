@@ -67,13 +67,24 @@ class ProductRepositoryTest {
    @Test
     void findTop10MostPurchasedProducts(){
        List<Product> products = List.of(
-               repository.findById(15L).orElseThrow(), repository.findById(5L).orElseThrow(), repository.findById(7L).orElseThrow(),
-               repository.findById(12L).orElseThrow(), repository.findById(3L).orElseThrow(), repository.findById(2L).orElseThrow(),
-               repository.findById(1L).orElseThrow(), repository.findById(6L).orElseThrow(), repository.findById(9L).orElseThrow(),
-               repository.findById(11L).orElseThrow());
+               repository.findById(15L).orElseThrow(), repository.findById(13L).orElseThrow(), repository.findById(12L).orElseThrow(),
+               repository.findById(3L).orElseThrow(), repository.findById(2L).orElseThrow(), repository.findById(1L).orElseThrow(),
+               repository.findById(6L).orElseThrow(), repository.findById(9L).orElseThrow(), repository.findById(11L).orElseThrow(),
+               repository.findById(8L).orElseThrow());
        List<Product> top10MostPurchasedProducts = repository.findTop10MostPurchasedProducts();
        assertEquals(products, top10MostPurchasedProducts);
    }
+
+    @Test
+    void findTop10FrequentlyCanceledProducts(){
+        List<Product> products = List.of(
+                repository.findById(14L).orElseThrow(), repository.findById(8L).orElseThrow(), repository.findById(10L).orElseThrow(),
+                repository.findById(4L).orElseThrow(), repository.findById(5L).orElseThrow(), repository.findById(15L).orElseThrow(),
+                repository.findById(2L).orElseThrow(), repository.findById(11L).orElseThrow(), repository.findById(9L).orElseThrow(),
+                repository.findById(3L).orElseThrow());
+        List<Product> top10FrequentlyCanceledProducts = repository.findTop10FrequentlyCanceledProducts();
+        assertEquals(products, top10FrequentlyCanceledProducts);
+    }
 
 
     @Test

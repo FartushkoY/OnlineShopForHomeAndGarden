@@ -11,6 +11,7 @@ import de.telran.onlineshopforhomeandgarden1.repository.ProductRepository;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -44,6 +45,8 @@ public class CategoryService {
         return categoryMapper.entityToRequestDto(newCategory);
     }
 
+
+    @Transactional
     public CategoryRequestDto updateCategory(Long id, CategoryRequestDto categoryRequestDto) {
         Optional<Category> optional = repository.findById(id);
         if (optional.isPresent()) {
