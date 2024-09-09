@@ -26,7 +26,7 @@ public interface ProductMapper {
     @Mapping(target = "category.id", source = "categoryId")
     Product requestDtoToEntity(ProductRequestDto productDto);
 
-    @Mapping(target = "id", source = "product.id")
+
     @Mapping(target = "categoryId", source = "category.id")
     ProductRequestDto entityToRequestDto(Product product);
 
