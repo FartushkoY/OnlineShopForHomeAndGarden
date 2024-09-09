@@ -32,28 +32,28 @@ public class CartController {
     }
 
     @PostMapping
-    public ResponseEntity<CartRequestDto> addItemToCart(@RequestBody @Valid CartItemRequestDto cartItemRequestDto){
-        try{
-            CartRequestDto result = service.addCartItem(cartItemRequestDto);
+    public ResponseEntity<CartRequestDto> addItemToCart(@RequestBody @Valid CartItemRequestDto cartItemRequestDto) {
+        CartRequestDto result = service.addCartItem(cartItemRequestDto);
+        if (result != null) {
             return new ResponseEntity<>(result, HttpStatus.CREATED);
-        }catch (Exception e){
+        } else {
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
     }
 
     @PutMapping
-    public ResponseEntity<CartRequestDto> updateCartItem(@RequestBody @Valid CartItemRequestDto cartItemRequestDto){
-        try {
-            CartRequestDto cart = service.updateCartItemInCart(cartItemRequestDto);
+    public ResponseEntity<CartRequestDto> updateCartItem(@RequestBody @Valid CartItemRequestDto cartItemRequestDto) {
+        CartRequestDto cart = service.updateCartItemInCart(cartItemRequestDto);
+        if (cart != null) {
             return new ResponseEntity<>(cart, cart != null ? HttpStatus.OK : HttpStatus.NOT_FOUND);
-        }catch (Exception e){
-            return  new ResponseEntity<>((HttpStatus.BAD_REQUEST));
+        } else {
+            return new ResponseEntity<>((HttpStatus.BAD_REQUEST));
         }
     }
 
     @DeleteMapping
     public ResponseEntity<?> deleteCartItemInCart() {
-            service.deleteCartItemInCart();
-            return new ResponseEntity<>(HttpStatus.OK);
+        service.deleteCartItemInCart();
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }
