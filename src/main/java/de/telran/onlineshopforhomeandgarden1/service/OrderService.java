@@ -14,8 +14,10 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.math.BigDecimal;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class OrderService {
@@ -37,7 +39,14 @@ public class OrderService {
     public Set<OrderResponseDto> getOrdersHistory()  {
         Set<Order> orders = repository.findOrdersByUserId(this.getAuthenticatedUser().getId());
         logger.info("Retrieved {} orders for user ID {}", orders.size(), this.getAuthenticatedUser().getId());
-        return orderMapper.entityListToDto(orders);
+        return orders.stream().map(order -> {
+            OrderResponseDto dto = orderMapper.entityToDto(order);
+            BigDecimal total = order.getOrderItems().stream().map(item -> item.getPriceAtPurchase().multiply(new BigDecimal(item.getQuantity())))
+                    .reduce(BigDecimal.ZERO, BigDecimal::add);
+            dto.setTotal(total);
+            return dto;
+        }).collect(Collectors.toSet());
+
     }
 
     public Optional<OrderResponseDto> getOrderStatus(Long id) {
