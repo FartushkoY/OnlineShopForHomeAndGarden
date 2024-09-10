@@ -17,6 +17,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.data.web.SortDefault;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 
@@ -60,6 +61,7 @@ public class ProductController {
     }
 
     @PostMapping
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<ProductRequestDto> addProduct(@RequestBody @Valid ProductRequestDto productRequestDto) {
         try {
             ProductRequestDto createdProduct = service.addProduct(productRequestDto);
@@ -70,7 +72,9 @@ public class ProductController {
     }
 
 
-    @PutMapping("/{productId}")
+
+    @PutMapping
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<ProductRequestDto> updateProduct(@PathVariable Long productId, @RequestBody @Valid ProductRequestDto product) {
         try {
             ProductRequestDto updatedProduct = service.updateProduct(productId, product);
@@ -81,6 +85,7 @@ public class ProductController {
     }
 
     @PutMapping("/addDiscount/{id}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<ProductRequestDto> addDiscount(@PathVariable Long id,
                                                          @RequestParam @Min(value = 0, message = "{validation.product.price}")
                                                          BigDecimal discountPrice) {
@@ -93,6 +98,7 @@ public class ProductController {
     }
 
     @DeleteMapping("/{productId}")
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<?> deleteProduct(@PathVariable Long productId) {
         Optional<Product> deletedProduct = service.deleteProduct(productId);
         if (deletedProduct.isEmpty()) {
