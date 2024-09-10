@@ -8,9 +8,13 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.test.context.ActiveProfiles;
+
 import java.math.BigDecimal;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -21,7 +25,13 @@ class ProductRepositoryTest {
 
     @Autowired
     ProductRepository repository;
-    
+
+    @Autowired
+    OrderRepository orderRepository;
+
+    @Autowired
+    OrderItemRepository orderItemRepository;
+
 
     @Test
     void getAllWithFiltersTest() {
@@ -67,13 +77,24 @@ class ProductRepositoryTest {
    @Test
     void findTop10MostPurchasedProducts(){
        List<Product> products = List.of(
-               repository.findById(15L).orElseThrow(), repository.findById(5L).orElseThrow(), repository.findById(7L).orElseThrow(),
-               repository.findById(12L).orElseThrow(), repository.findById(3L).orElseThrow(), repository.findById(2L).orElseThrow(),
-               repository.findById(1L).orElseThrow(), repository.findById(6L).orElseThrow(), repository.findById(9L).orElseThrow(),
-               repository.findById(11L).orElseThrow());
+               repository.findById(15L).orElseThrow(), repository.findById(13L).orElseThrow(), repository.findById(12L).orElseThrow(),
+               repository.findById(3L).orElseThrow(), repository.findById(2L).orElseThrow(), repository.findById(1L).orElseThrow(),
+               repository.findById(6L).orElseThrow(), repository.findById(9L).orElseThrow(), repository.findById(11L).orElseThrow(),
+               repository.findById(8L).orElseThrow());
        List<Product> top10MostPurchasedProducts = repository.findTop10MostPurchasedProducts();
        assertEquals(products, top10MostPurchasedProducts);
    }
+
+    @Test
+    void findTop10FrequentlyCanceledProducts(){
+        List<Product> products = List.of(
+                repository.findById(14L).orElseThrow(), repository.findById(8L).orElseThrow(), repository.findById(10L).orElseThrow(),
+                repository.findById(4L).orElseThrow(), repository.findById(5L).orElseThrow(), repository.findById(15L).orElseThrow(),
+                repository.findById(2L).orElseThrow(), repository.findById(11L).orElseThrow(), repository.findById(9L).orElseThrow(),
+                repository.findById(3L).orElseThrow());
+        List<Product> top10FrequentlyCanceledProducts = repository.findTop10FrequentlyCanceledProducts();
+        assertEquals(products, top10FrequentlyCanceledProducts);
+    }
 
 
     @Test
@@ -92,4 +113,14 @@ class ProductRepositoryTest {
         assertTrue(products.contains(randomProduct.get()));
     }
 
+    @Test
+    void findPendingProductsMoreThanNDays() {
+        Instant calculatedDate = Instant.now().minus(0, ChronoUnit.DAYS);
+        List<Product> products = List.of(repository.findById(5L).orElseThrow(), repository.findById(6L).orElseThrow(), repository.findById(7L).orElseThrow());
+        List<Product> pendingProducts = repository.findPendingProductsMoreThanNDays(calculatedDate);
+        assertEquals(products, pendingProducts);
+    }
+
+
 }
+

@@ -1,16 +1,20 @@
 package de.telran.onlineshopforhomeandgarden1.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import de.telran.onlineshopforhomeandgarden1.config.SecurityConfig;
 import de.telran.onlineshopforhomeandgarden1.dto.request.UserRequestDto;
 import de.telran.onlineshopforhomeandgarden1.entity.User;
 import de.telran.onlineshopforhomeandgarden1.enums.Role;
+import de.telran.onlineshopforhomeandgarden1.security.JwtProvider;
 import de.telran.onlineshopforhomeandgarden1.service.UserService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.util.Optional;
@@ -24,6 +28,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 @WebMvcTest(UserController.class)
+@Import(SecurityConfig.class)
 class UserControllerTest {
 
     @MockBean
@@ -32,8 +37,11 @@ class UserControllerTest {
     private ObjectMapper mapper;
     @Autowired
     private MockMvc mockMvc;
+    @MockBean
+    private JwtProvider jwtProvider;
 
     @Test
+    @WithMockUser(username = "Test user", roles = {"CUSTOMER,ADMIN"})
     void saveUserIsSuccessful() throws Exception {
         UserRequestDto user = new UserRequestDto();
         user.setId(1L);
@@ -54,6 +62,7 @@ class UserControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "Test user", roles = {"CUSTOMER,ADMIN"})
     void saveUserIsUnsuccessful() throws Exception {
         UserRequestDto userRequestDto = new UserRequestDto();
         userRequestDto.setId(1L);
@@ -74,6 +83,7 @@ class UserControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "Test user", roles = {"CUSTOMER,ADMIN"})
     void updateUserIsSuccessful() throws Exception {
         UserRequestDto user = new UserRequestDto();
         user.setId(1L);
@@ -95,6 +105,7 @@ class UserControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "Test user", roles = {"CUSTOMER,ADMIN"})
     void updateUserIsUnsuccessful() throws Exception {
         UserRequestDto user = new UserRequestDto();
         user.setId(1L);
@@ -116,6 +127,7 @@ class UserControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "Test user", roles = {"CUSTOMER,ADMIN"})
     void updateUserIsImpossible() throws Exception {
         UserRequestDto user = new UserRequestDto();
         user.setId(1L);
@@ -136,6 +148,7 @@ class UserControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "Test user", roles = {"CUSTOMER,ADMIN"})
     void deleteUserIsSuccessful() throws Exception {
         User user = new User();
         user.setId(1L);
@@ -151,6 +164,7 @@ class UserControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "Test user", roles = {"CUSTOMER,ADMIN"})
     void deleteUserIsUnsuccessful() throws Exception {
         User user = new User();
         user.setId(1L);
