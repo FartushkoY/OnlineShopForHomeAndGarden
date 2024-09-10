@@ -1,25 +1,26 @@
 package de.telran.onlineshopforhomeandgarden1.service;
 
 import de.telran.onlineshopforhomeandgarden1.dto.request.CartRequestDto;
-import de.telran.onlineshopforhomeandgarden1.entity.Cart;
-import de.telran.onlineshopforhomeandgarden1.entity.CartItem;
-import de.telran.onlineshopforhomeandgarden1.entity.Product;
+import de.telran.onlineshopforhomeandgarden1.dto.response.CartResponseDto;
+import de.telran.onlineshopforhomeandgarden1.entity.*;
 import de.telran.onlineshopforhomeandgarden1.mapper.CartItemMapper;
 import de.telran.onlineshopforhomeandgarden1.mapper.CartMapper;
 import de.telran.onlineshopforhomeandgarden1.repository.CartItemRepository;
 import de.telran.onlineshopforhomeandgarden1.repository.CartRepository;
+import de.telran.onlineshopforhomeandgarden1.security.AuthService;
+import de.telran.onlineshopforhomeandgarden1.security.JwtAuthentication;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 import org.mockito.Mockito;
 
+import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Optional;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.ArgumentMatchers.anyLong;
 
 class CartServiceTest {
     private static CartService service;
@@ -27,6 +28,7 @@ class CartServiceTest {
     private static CartMapper cartMapper;
     private static CartItemRepository cartItemRepository;
     private static CartItemMapper cartItemMapper;
+    private static AuthService authService;
 
     @BeforeEach
     public void init() {
@@ -34,17 +36,54 @@ class CartServiceTest {
         cartMapper = Mappers.getMapper(CartMapper.class);
         cartItemRepository = Mockito.mock(CartItemRepository.class);
         cartItemMapper = Mappers.getMapper(CartItemMapper.class);
-        service = new CartService(cartRepository, cartMapper, cartItemRepository, cartItemMapper);
+        authService = Mockito.mock(AuthService.class);
+        service = new CartService(cartRepository, cartMapper, cartItemRepository, cartItemMapper, authService);
     }
 
     @Test
-    void getCartItems() {
-        service.getCartItems();
-        Mockito.verify(cartRepository).findCartsByUserId(8l);
+    void getCartItemsSuccessTest() {
+        JwtAuthentication mockAuthInfo = Mockito.mock(JwtAuthentication.class);
+        Mockito.when(mockAuthInfo.isAuthenticated()).thenReturn(true);
+        Mockito.when(mockAuthInfo.getLogin()).thenReturn("testuser@example.com");
+        Mockito.when(authService.getAuthInfo()).thenReturn(mockAuthInfo);
+
+        Cart cart = new Cart();
+        cart.setId(1L);
+        User user = new User();
+        user.setEmail(mockAuthInfo.getLogin());
+        cart.setUser(user);
+        Set<Cart> mockCarts = Set.of(cart);
+
+        Mockito.when(cartRepository.findCartsByUserEmail("testuser@example.com")).thenReturn(mockCarts);
+        Set<CartResponseDto> result = service.getCartItems();
+        Mockito.verify(cartRepository).findCartsByUserEmail("testuser@example.com");
+
+        assertNotNull(result);
+        assertEquals(1, result.size());
     }
 
     @Test
-    void addCartItem() {
+    void getCartItemsUnsuccessTest() {
+        JwtAuthentication mockAuthInfo = Mockito.mock(JwtAuthentication.class);
+        Mockito.when(mockAuthInfo.isAuthenticated()).thenReturn(false);
+        Mockito.when(mockAuthInfo.getLogin()).thenReturn("testuser@example.com");
+        Mockito.when(authService.getAuthInfo()).thenReturn(mockAuthInfo);
+
+        Set<CartResponseDto> result = service.getCartItems();
+
+        Mockito.verify(cartRepository, Mockito.never()).findCartsByUserEmail(Mockito.anyString());
+
+        assertNotNull(result);
+        assertTrue(result.isEmpty());
+    }
+
+    @Test
+    void addCartItemSuccessTest() {
+        JwtAuthentication mockAuthInfo = Mockito.mock(JwtAuthentication.class);
+        Mockito.when(mockAuthInfo.isAuthenticated()).thenReturn(true);
+        Mockito.when(mockAuthInfo.getLogin()).thenReturn("testuser@example.com");
+        Mockito.when(authService.getAuthInfo()).thenReturn(mockAuthInfo);
+
         Cart cart = new Cart();
         cart.setId(2L);
         Set<CartItem> cartItems = cart.getCartItems();
@@ -64,7 +103,7 @@ class CartServiceTest {
 
         cartItems.add(cartItem);
 
-        Mockito.when(cartRepository.findByUserId(anyLong())).thenReturn(cart);
+        Mockito.when(cartRepository.findByUserEmail(mockAuthInfo.getLogin())).thenReturn(cart);
         Mockito.when(cartRepository.save(cart)).thenReturn(cart);
         CartRequestDto cartRequestDto = service.addCartItem(cartItemMapper.entityToRequestDto(cartItem));
 
@@ -72,8 +111,14 @@ class CartServiceTest {
 
         assertEquals(cart.getCartItems().size(), 2);
     }
+
     @Test
     void addCartItemWhenItemExist() {
+        JwtAuthentication mockAuthInfo = Mockito.mock(JwtAuthentication.class);
+        Mockito.when(mockAuthInfo.isAuthenticated()).thenReturn(true);
+        Mockito.when(mockAuthInfo.getLogin()).thenReturn("testuser@example.com");
+        Mockito.when(authService.getAuthInfo()).thenReturn(mockAuthInfo);
+
         Cart cart = new Cart();
         cart.setId(2L);
 
@@ -91,7 +136,7 @@ class CartServiceTest {
         updatedCartItem.setProduct(product);
         updatedCartItem.setQuantity(3);
 
-        Mockito.when(cartRepository.findByUserId(anyLong())).thenReturn(cart);
+        Mockito.when(cartRepository.findByUserEmail(mockAuthInfo.getLogin())).thenReturn(cart);
         Mockito.when(cartRepository.save(any(Cart.class))).thenReturn(cart);
 
         CartRequestDto result = service.addCartItem(cartItemMapper.entityToRequestDto(updatedCartItem));
@@ -103,7 +148,31 @@ class CartServiceTest {
     }
 
     @Test
-    void updateCartItemInCart() {
+    void addCartItemUnsuccessTest(){
+        JwtAuthentication mockAuthInfo = Mockito.mock(JwtAuthentication.class);
+        Mockito.when(mockAuthInfo.isAuthenticated()).thenReturn(false);
+        Mockito.when(mockAuthInfo.getLogin()).thenReturn("testuser@example.com");
+        Mockito.when(authService.getAuthInfo()).thenReturn(mockAuthInfo);
+
+        CartItem cartItem = new CartItem();
+        Product product = new Product();
+        product.setId(1L);
+        cartItem.setProduct(product);
+        cartItem.setQuantity(2);
+
+        CartRequestDto result = service.addCartItem(cartItemMapper.entityToRequestDto(cartItem));
+
+        assertNull(result);
+        Mockito.verify(cartRepository, Mockito.never()).save(Mockito.any());
+    }
+
+    @Test
+    void updateCartItemsInCart() {
+        JwtAuthentication mockAuthInfo = Mockito.mock(JwtAuthentication.class);
+        Mockito.when(mockAuthInfo.isAuthenticated()).thenReturn(true);
+        Mockito.when(mockAuthInfo.getLogin()).thenReturn("testuser@example.com");
+        Mockito.when(authService.getAuthInfo()).thenReturn(mockAuthInfo);
+
         Cart cart = new Cart();
         cart.setId(2L);
         Set<CartItem> cartItems = cart.getCartItems();
@@ -124,7 +193,7 @@ class CartServiceTest {
         cartItems.clear();
         cartItems.add(updateCartItem);
 
-        Mockito.when(cartRepository.findByUserId(anyLong())).thenReturn(cart);
+        Mockito.when(cartRepository.findByUserEmail(mockAuthInfo.getLogin())).thenReturn(cart);
         Mockito.when(cartRepository.save(cart)).thenReturn(cart);
         CartRequestDto cartRequestDto = service.updateCartItemInCart(cartItemMapper.entityToRequestDto(updateCartItem));
 
@@ -137,7 +206,12 @@ class CartServiceTest {
     }
 
     @Test
-    void deleteCartItemInCartSuccessfully() {
+    void deleteCartItemsInCartSuccessfully() {
+        JwtAuthentication mockAuthInfo = Mockito.mock(JwtAuthentication.class);
+        Mockito.when(mockAuthInfo.isAuthenticated()).thenReturn(true);
+        Mockito.when(mockAuthInfo.getLogin()).thenReturn("testuser@example.com");
+        Mockito.when(authService.getAuthInfo()).thenReturn(mockAuthInfo);
+
         Cart cart = new Cart();
         cart.setId(1L);
         Set<CartItem> cartItems = new LinkedHashSet<>();
@@ -146,7 +220,7 @@ class CartServiceTest {
         cartItem.setId(1L);
         cartItems.add(cartItem);
 
-        Mockito.when(cartRepository.findByUserId(anyLong())).thenReturn(cart);
+        Mockito.when(cartRepository.findByUserEmail(mockAuthInfo.getLogin())).thenReturn(cart);
         Mockito.when(cartItemRepository.findAllByCartId(cart.getId())).thenReturn(cartItems);
 
         Optional<Cart> result = service.deleteCartItemInCart();
@@ -156,17 +230,44 @@ class CartServiceTest {
     }
 
     @Test
-    void deleteCartItemInCartWhenCartIsEmpty() {
+    void deleteCartItemsInCartWhenCartIsEmpty() {
+        JwtAuthentication mockAuthInfo = Mockito.mock(JwtAuthentication.class);
+        Mockito.when(mockAuthInfo.isAuthenticated()).thenReturn(true);
+        Mockito.when(mockAuthInfo.getLogin()).thenReturn("testuser@example.com");
+        Mockito.when(authService.getAuthInfo()).thenReturn(mockAuthInfo);
+
         Cart cart = new Cart();
         cart.setId(1L);
-        Set<CartItem> cartItems = new LinkedHashSet<>();
+        Set<CartItem> cartItems = Collections.EMPTY_SET;
 
-        Mockito.when(cartRepository.findByUserId(anyLong())).thenReturn(cart);
+        Mockito.when(cartRepository.findByUserEmail(mockAuthInfo.getLogin())).thenReturn(cart);
         Mockito.when(cartItemRepository.findAllByCartId(cart.getId())).thenReturn(cartItems);
 
         Optional<Cart> result = service.deleteCartItemInCart();
 
-        assertFalse(result.isPresent());
+        assertFalse(result.isEmpty());
+        assertEquals(result.get().getCartItems().size(), 0);
+        Mockito.verify(cartItemRepository, Mockito.never()).deleteAllByCart(cart);
+    }
+
+    @Test
+    void deleteCartItemsUnsuccessTest() {
+        JwtAuthentication mockAuthInfo = Mockito.mock(JwtAuthentication.class);
+        Mockito.when(mockAuthInfo.isAuthenticated()).thenReturn(false);
+        Mockito.when(mockAuthInfo.getLogin()).thenReturn("testuser@example.com");
+        Mockito.when(authService.getAuthInfo()).thenReturn(mockAuthInfo);
+
+        Cart cart = new Cart();
+        cart.setId(1L);
+        Set<CartItem> cartItems = Collections.EMPTY_SET;
+
+        Mockito.verify(cartRepository, Mockito.never()).findCartsByUserEmail(Mockito.anyString());
+
+        Mockito.when(cartItemRepository.findAllByCartId(cart.getId())).thenReturn(cartItems);
+
+        Optional<Cart> result = service.deleteCartItemInCart();
+
+        assertTrue(result.isEmpty());
         Mockito.verify(cartItemRepository, Mockito.never()).deleteAllByCart(cart);
     }
 

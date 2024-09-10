@@ -1,6 +1,5 @@
 package de.telran.onlineshopforhomeandgarden1.service;
 
-import de.telran.onlineshopforhomeandgarden1.dto.request.OrderRequestDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.OrderResponseDto;
 import de.telran.onlineshopforhomeandgarden1.entity.Order;
 import de.telran.onlineshopforhomeandgarden1.entity.User;
@@ -15,9 +14,12 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 import org.mockito.Mockito;
-import java.util.Optional;
-import java.util.Set;
 
+import java.math.BigDecimal;
+import java.time.*;
+import java.util.*;
+
+import static de.telran.onlineshopforhomeandgarden1.enums.Periods.*;
 import static org.junit.jupiter.api.Assertions.*;
 
 
@@ -29,7 +31,6 @@ class OrderServiceTest {
     private static UserService userService;
     private static AuthService authService;
     private static OrderMapper orderMapper;
-
 
 
     @BeforeEach
@@ -51,6 +52,7 @@ class OrderServiceTest {
 
         Mockito.when(userService.getUserByEmail("admin@gmail.com")).thenReturn(Optional.of(user));
     }
+
     @Test
     void getAll() {
         orderService.getOrdersHistory();
@@ -66,7 +68,7 @@ class OrderServiceTest {
         order.setDeliveryMethod(DeliveryMethod.EXPRESS);
 
         Mockito.when(repository.findById(orderId)).thenReturn(Optional.of(order));
-       OrderResponseDto result = orderService.getOrderStatus(orderId).get();
+        OrderResponseDto result = orderService.getOrderStatus(orderId).get();
 
         Mockito.verify(repository).findById(orderId);
         assertEquals(Status.PAID, result.getStatus());
@@ -75,7 +77,7 @@ class OrderServiceTest {
     }
 
     @Test
-   void getOrderStatusNull() {
+    void getOrderStatusNull() {
         Long orderId = 1L;
         Mockito.when(repository.findById(orderId)).thenReturn(Optional.empty());
         Optional<OrderResponseDto> result = orderService.getOrderStatus(orderId);
@@ -132,7 +134,7 @@ class OrderServiceTest {
     }
 
     @Test
-   public void deleteOrder() {
+    public void deleteOrder() {
         Long id = 55L;
         Order order = new Order();
         order.setId(id);
@@ -144,7 +146,7 @@ class OrderServiceTest {
         assertTrue(result.isPresent());
         assertEquals(order, result.get());
         Mockito.verify(repository).delete(Mockito.eq(order));
-        
+
     }
 
     @Test
@@ -154,5 +156,92 @@ class OrderServiceTest {
         Optional<Order> optional = orderService.deleteOrder(id);
         assertTrue(optional.isEmpty());
 
+    }
+
+    @Test
+    void getRevenueReportYearTest() {
+        LocalDate localDateStart = LocalDate.of(2023, 1, 1);
+        LocalDateTime localDateTimeStart = LocalDateTime.of(localDateStart, LocalTime.MIN);
+        Instant start = (localDateTimeStart.toInstant(ZoneOffset.UTC));
+
+        LocalDate localDateEnd = localDateStart.plusYears(1);
+        LocalDateTime localDateTimeEnd = LocalDateTime.of(localDateEnd, LocalTime.MIN);
+        Instant endYear = (localDateTimeEnd.toInstant(ZoneOffset.UTC));
+
+        Mockito.when(repository.getRevenueReportDetailedByYear(start, endYear)).thenReturn(new ArrayList<>());
+        Mockito.when(repository.getTotalResult(start, endYear)).thenReturn(BigDecimal.valueOf(23));
+        orderService.getRevenueReport(localDateStart, YEAR, 1, YEAR);
+        Mockito.verify(repository).getTotalResult(start, endYear);
+        Mockito.verify(repository).getRevenueReportDetailedByYear(start, endYear);
+    }
+
+    @Test
+    void getRevenueReportMonthTest() {
+        LocalDate localDateStart = LocalDate.of(2023, 1, 1);
+        LocalDateTime localDateTimeStart = LocalDateTime.of(localDateStart, LocalTime.MIN);
+        Instant start = (localDateTimeStart.toInstant(ZoneOffset.UTC));
+
+        LocalDate localDateEnd = localDateStart.plusMonths(2);
+        LocalDateTime localDateTimeEnd = LocalDateTime.of(localDateEnd, LocalTime.MIN);
+        Instant endMonth = (localDateTimeEnd.toInstant(ZoneOffset.UTC));
+
+        Mockito.when(repository.getRevenueReportDetailedByMonth(start, endMonth)).thenReturn(new ArrayList<>());
+        Mockito.when(repository.getTotalResult(start, endMonth)).thenReturn(BigDecimal.valueOf(23));
+        orderService.getRevenueReport(localDateStart, MONTH, 2, MONTH);
+        Mockito.verify(repository).getTotalResult(start, endMonth);
+        Mockito.verify(repository).getRevenueReportDetailedByMonth(start, endMonth);
+    }
+
+
+    @Test
+    void getRevenueReportWeekTest() {
+        LocalDate localDateStart = LocalDate.of(2023, 1, 1);
+        LocalDateTime localDateTimeStart = LocalDateTime.of(localDateStart, LocalTime.MIN);
+        Instant start = (localDateTimeStart.toInstant(ZoneOffset.UTC));
+
+        LocalDate localDateEnd = localDateStart.plusMonths(2);
+        LocalDateTime localDateTimeEnd = LocalDateTime.of(localDateEnd, LocalTime.MIN);
+        Instant endMonth = (localDateTimeEnd.toInstant(ZoneOffset.UTC));
+
+        Mockito.when(repository.getRevenueReportDetailedByWeek(start, endMonth)).thenReturn(new ArrayList<>());
+        Mockito.when(repository.getTotalResult(start, endMonth)).thenReturn(BigDecimal.valueOf(23));
+        orderService.getRevenueReport(localDateStart, MONTH, 2, WEEK);
+        Mockito.verify(repository).getTotalResult(start, endMonth);
+        Mockito.verify(repository).getRevenueReportDetailedByWeek(start, endMonth);
+    }
+
+
+    @Test
+    void getRevenueReportDayTest() {
+        LocalDate localDateStart = LocalDate.of(2023, 1, 1);
+        LocalDateTime localDateTimeStart = LocalDateTime.of(localDateStart, LocalTime.MIN);
+        Instant start = (localDateTimeStart.toInstant(ZoneOffset.UTC));
+
+        LocalDate localDateEnd = localDateStart.plusDays(10);
+        LocalDateTime localDateTimeEnd = LocalDateTime.of(localDateEnd, LocalTime.MIN);
+        Instant endDay = (localDateTimeEnd.toInstant(ZoneOffset.UTC));
+
+        Mockito.when(repository.getRevenueReportDetailedByDayOrHour(start, endDay, "%Y %m %d")).thenReturn(new ArrayList<>());
+        Mockito.when(repository.getTotalResult(start, endDay)).thenReturn(BigDecimal.valueOf(23));
+        orderService.getRevenueReport(localDateStart, DAY, 10, DAY);
+        Mockito.verify(repository).getTotalResult(start, endDay);
+        Mockito.verify(repository).getRevenueReportDetailedByDayOrHour(start, endDay, "%Y %m %d");
+    }
+
+    @Test
+    void getRevenueReportHourTest() {
+        LocalDate localDateStart = LocalDate.of(2023, 1, 1);
+        LocalDateTime localDateTimeStart = LocalDateTime.of(localDateStart, LocalTime.MIN);
+        Instant start = (localDateTimeStart.toInstant(ZoneOffset.UTC));
+
+        LocalDate localDateEnd = localDateStart.plusDays(10);
+        LocalDateTime localDateTimeEnd = LocalDateTime.of(localDateEnd, LocalTime.MIN);
+        Instant endDay = (localDateTimeEnd.toInstant(ZoneOffset.UTC));
+
+        Mockito.when(repository.getRevenueReportDetailedByDayOrHour(start, endDay, "%Y %m %d %H")).thenReturn(new ArrayList<>());
+        Mockito.when(repository.getTotalResult(start, endDay)).thenReturn(BigDecimal.valueOf(23));
+        orderService.getRevenueReport(localDateStart, DAY, 10, HOUR);
+        Mockito.verify(repository).getTotalResult(start, endDay);
+        Mockito.verify(repository).getRevenueReportDetailedByDayOrHour(start, endDay, "%Y %m %d %H");
     }
 }
