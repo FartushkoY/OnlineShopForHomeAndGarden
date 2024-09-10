@@ -1,3 +1,6 @@
+-- liquibase formatted sql
+-- changeset yevheniia:006
+
 insert into products (category_id, product_id, name, description, price, discount_price, image_url, created_at,
                       updated_at)
 values (4, 16, '222Greek Pot',
