@@ -8,9 +8,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -37,6 +39,10 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Query("SELECT oi.product FROM OrderItem oi JOIN oi.order o WHERE o.status = 'CANCELED' GROUP BY oi.product ORDER BY COUNT(oi) DESC limit 10")
     List<Product> findTop10FrequentlyCanceledProducts();
+
+    @Query("SELECT oi.product FROM OrderItem oi INNER JOIN oi.order o WHERE o.status ='PENDING' AND o.createdAt <= :calculatedDate GROUP BY oi.product ORDER BY SUM(oi.quantity) DESC")
+    List<Product> findPendingProductsMoreThanNDays(@Param("calculatedDate") Instant calculatedDate);
+
 
 }
 

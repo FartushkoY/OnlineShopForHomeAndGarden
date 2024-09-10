@@ -19,6 +19,7 @@ import java.math.BigDecimal;
 import java.time.*;
 import java.util.*;
 
+
 @Service
 public class OrderService {
 
@@ -39,7 +40,14 @@ public class OrderService {
     public Set<OrderResponseDto> getOrdersHistory() {
         Set<Order> orders = repository.findOrdersByUserId(this.getAuthenticatedUser().getId());
         logger.info("Retrieved {} orders for user ID {}", orders.size(), this.getAuthenticatedUser().getId());
-        return orderMapper.entityListToDto(orders);
+        return orders.stream().map(order -> {
+            OrderResponseDto dto = orderMapper.entityToDto(order);
+            BigDecimal total = order.getOrderItems().stream().map(item -> item.getPriceAtPurchase().multiply(new BigDecimal(item.getQuantity())))
+                    .reduce(BigDecimal.ZERO, BigDecimal::add);
+            dto.setTotal(total);
+            return dto;
+        }).collect(Collectors.toSet());
+
     }
 
     public Optional<OrderResponseDto> getOrderStatus(Long id) {

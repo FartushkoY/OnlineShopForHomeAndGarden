@@ -1,15 +1,19 @@
 package de.telran.onlineshopforhomeandgarden1.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import de.telran.onlineshopforhomeandgarden1.config.SecurityConfig;
 import de.telran.onlineshopforhomeandgarden1.dto.request.CategoryRequestDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.CategoryResponseDto;
 import de.telran.onlineshopforhomeandgarden1.entity.Category;
+import de.telran.onlineshopforhomeandgarden1.security.JwtProvider;
 import de.telran.onlineshopforhomeandgarden1.service.CategoryService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
@@ -27,6 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(controllers = CategoryController.class)
+@Import(SecurityConfig.class)
 class CategoryControllerTest {
 
     @MockBean
@@ -35,8 +40,12 @@ class CategoryControllerTest {
     @Autowired
     MockMvc mockMvc;
 
+    @MockBean
+    private JwtProvider jwtProvider;
+
 
     @Test
+    @WithMockUser(username = "Test user", roles = {"ADMIN"})
     public void getCategories() throws Exception {
         List<CategoryResponseDto> categories = Arrays.asList(new CategoryResponseDto("Category1", "Image1"),
                 new CategoryResponseDto("Category2", "Image2"));
@@ -51,6 +60,7 @@ class CategoryControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "Test user", roles = {"ADMIN"})
     public void addCategory() throws Exception {
 
         CategoryRequestDto newCategory = new CategoryRequestDto("1L", "Category1", "ImageCategory1");
@@ -66,6 +76,7 @@ class CategoryControllerTest {
 
     }
     @Test
+    @WithMockUser(username = "Test user", roles = {"ADMIN"})
     public void addCategoryBadRequest() throws Exception {
 
         CategoryRequestDto invalidCategory = new CategoryRequestDto(null, "", "ImageUrl");
@@ -77,6 +88,7 @@ class CategoryControllerTest {
 
 
     @Test
+    @WithMockUser(username = "Test user", roles = {"ADMIN"})
     public void updateCategory() throws Exception {
 
         CategoryRequestDto updatedCategory = new CategoryRequestDto("1L", "Category1", "ImageCategory1");
@@ -94,6 +106,7 @@ class CategoryControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "Test user", roles = {"ADMIN"})
     public void updateCategoryNotFound() throws Exception {
         Long categoryId = 1L;
         CategoryRequestDto category = new CategoryRequestDto(categoryId.toString(), "Test Category", "Test ImageUrl");
@@ -105,6 +118,7 @@ class CategoryControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "Test user", roles = {"ADMIN"})
     public void updateCategoryBadRequest() throws Exception {
         Long categoryId = 1L;
         CategoryRequestDto invalidCategory = new CategoryRequestDto(categoryId.toString(), "", null);
@@ -115,6 +129,7 @@ class CategoryControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "Test user", roles = {"ADMIN"})
     public void deleteCategory() throws Exception {
         Long categoryId = 1L;
 
@@ -126,6 +141,7 @@ class CategoryControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "Test user", roles = {"ADMIN"})
     public void deleteCategoryNotFound() throws Exception {
         Long categoryId = 1L;
 

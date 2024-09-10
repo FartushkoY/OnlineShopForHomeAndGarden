@@ -12,6 +12,6 @@ public interface FavoriteRepository extends JpaRepository<Favorite, Long> {
 
     Set<Favorite> findAllByProductId(Long id);
 
-    Set<Favorite> findFavoriteByUserId (Long userId);
+    Set<Favorite> findFavoriteByUserEmail (String email);
 
 }

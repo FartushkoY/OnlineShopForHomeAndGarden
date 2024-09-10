@@ -1,15 +1,19 @@
 package de.telran.onlineshopforhomeandgarden1.controller;
 
+import de.telran.onlineshopforhomeandgarden1.config.SecurityConfig;
 import de.telran.onlineshopforhomeandgarden1.dto.response.FavoriteResponseDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.ProductResponseDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.UserResponseDto;
 import de.telran.onlineshopforhomeandgarden1.enums.Role;
+import de.telran.onlineshopforhomeandgarden1.security.JwtProvider;
 import de.telran.onlineshopforhomeandgarden1.service.FavoriteService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers;
 
@@ -20,6 +24,7 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(controllers = FavoriteController.class)
+@Import(SecurityConfig.class)
 class FavoriteControllerTest {
 
     @MockBean
@@ -28,12 +33,14 @@ class FavoriteControllerTest {
     @Autowired
     MockMvc mockMvc;
 
+    @MockBean
+    private JwtProvider jwtProvider;
 
     @Test
+    @WithMockUser(username = "Test user", roles = {"CUSTOMER"})
     public void getFavorites() throws Exception {
 
         Set<FavoriteResponseDto> favorites = new LinkedHashSet<>();
-
         favorites.add(new FavoriteResponseDto(new UserResponseDto(1l,"David","+491887018112","david.smidt@gmail.com", Role.CUSTOMER),new ProductResponseDto(1L, "Product 1", "Description 1", "Image 1")));
         favorites.add(new FavoriteResponseDto(new UserResponseDto(1l,"David","+491887018112","david.smidt@gmail.com", Role.CUSTOMER),new ProductResponseDto(2L, "Product 2", "Description 2", "Image 2")));
 
