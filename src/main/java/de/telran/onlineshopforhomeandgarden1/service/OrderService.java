@@ -4,6 +4,7 @@ import de.telran.onlineshopforhomeandgarden1.dto.request.OrderRequestDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.OrderResponseDto;
 import de.telran.onlineshopforhomeandgarden1.entity.Order;
 import de.telran.onlineshopforhomeandgarden1.entity.User;
+import de.telran.onlineshopforhomeandgarden1.enums.Periods;
 import de.telran.onlineshopforhomeandgarden1.enums.Status;
 import de.telran.onlineshopforhomeandgarden1.exception.CannotDeleteOrderException;
 import de.telran.onlineshopforhomeandgarden1.mapper.OrderMapper;
@@ -14,8 +15,9 @@ import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-import java.util.Set;
+import java.math.BigDecimal;
+import java.time.*;
+import java.util.*;
 
 @Service
 public class OrderService {
@@ -34,7 +36,7 @@ public class OrderService {
         this.productRepository = productRepository;
     }
 
-    public Set<OrderResponseDto> getOrdersHistory()  {
+    public Set<OrderResponseDto> getOrdersHistory() {
         Set<Order> orders = repository.findOrdersByUserId(this.getAuthenticatedUser().getId());
         logger.info("Retrieved {} orders for user ID {}", orders.size(), this.getAuthenticatedUser().getId());
         return orderMapper.entityListToDto(orders);
@@ -74,7 +76,69 @@ public class OrderService {
             return order;
         } else {
             logger.info("Order with id = {} is not in PENDING status. Delete operation failed.", id);
-            throw new CannotDeleteOrderException ("Order with id = " + id + " is not in PENDING status");
+            throw new CannotDeleteOrderException("Order with id = " + id + " is not in PENDING status");
         }
+    }
+
+    public List<Object> getRevenueReport(LocalDate startDate, Periods period, Integer duration, Periods detailing) {
+        List<Object> detailingResult = new ArrayList<>();
+        LocalDateTime localDateTimeStart = LocalDateTime.of(startDate, LocalTime.MIN);
+        Instant instantStart = localDateTimeStart.toInstant(ZoneOffset.UTC);
+        LocalDate localDateEnd = LocalDate.now();
+        LocalDateTime localDateTimeEnd = LocalDateTime.now();
+        Instant instantEnd = Instant.now();
+        String detailingPeriod = "";
+        List<Object> result = new ArrayList<>();
+
+        switch (detailing) {
+            case HOUR:
+                detailingPeriod = "%Y %m %d %H";
+                break;
+            case DAY:
+                detailingPeriod = "%Y %m %d";
+                break;
+        }
+
+        if (period.equals(Periods.DAY)) {
+            localDateEnd = startDate.plusDays(duration);
+            instantEnd = getInstant(localDateEnd);
+            detailingResult = repository.getRevenueReportDetailedByDayOrHour(instantStart, instantEnd, detailingPeriod);
+        }
+
+        if (period.equals(Periods.YEAR)) {
+            localDateEnd = startDate.plusYears(duration);
+            instantEnd = getInstant(localDateEnd);
+        }
+
+        if (period.equals(Periods.MONTH)) {
+            localDateEnd = startDate.plusMonths(duration);
+            instantEnd = getInstant(localDateEnd);
+        }
+
+        if (period.equals(Periods.YEAR) || period.equals(Periods.MONTH)) {
+            switch (detailing) {
+                case WEEK:
+                    detailingResult = repository.getRevenueReportDetailedByWeek(instantStart, instantEnd);
+                    break;
+                case MONTH:
+                    detailingResult = repository.getRevenueReportDetailedByMonth(instantStart, instantEnd);
+                    break;
+                case YEAR:
+                    detailingResult = repository.getRevenueReportDetailedByYear(instantStart, instantEnd);
+                    break;
+                default:
+                    detailingResult = repository.getRevenueReportDetailedByDayOrHour(instantStart, instantEnd, detailingPeriod);
+            }
+        }
+        BigDecimal totalResult = repository.getTotalResult(instantStart, instantEnd);
+        result.add(totalResult);
+        result.add(detailingResult);
+
+        return result;
+    }
+
+
+    private Instant getInstant(LocalDate date) {
+        return LocalDateTime.of(date, LocalTime.MIN).toInstant(ZoneOffset.UTC);
     }
 }

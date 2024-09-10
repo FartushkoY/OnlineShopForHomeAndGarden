@@ -3,6 +3,7 @@ package de.telran.onlineshopforhomeandgarden1.controller;
 import de.telran.onlineshopforhomeandgarden1.dto.request.OrderRequestDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.OrderResponseDto;
 import de.telran.onlineshopforhomeandgarden1.entity.Order;
+import de.telran.onlineshopforhomeandgarden1.enums.Periods;
 import de.telran.onlineshopforhomeandgarden1.service.OrderService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -10,6 +11,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
@@ -37,6 +41,21 @@ public class OrderController {
         } else {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
+    }
+
+    @GetMapping("/revenueReport")
+    public List<Object> getRevenueReport(@RequestParam LocalDate startDate,
+                                             @RequestParam String period,
+                                             @RequestParam(required = false) Integer duration,
+                                             @RequestParam(required = false) String detailing) {
+
+        if (detailing == null) {
+            detailing = period;
+        }
+
+         return service.getRevenueReport(startDate, Periods.valueOf(period),  duration, Periods.valueOf(detailing));
+
+
     }
 
     @PostMapping
