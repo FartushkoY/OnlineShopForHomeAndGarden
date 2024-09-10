@@ -39,11 +39,10 @@ public class OrderController {
         }
     }
 
-
     @PostMapping
-    public ResponseEntity<OrderRequestDto> addOrder(@RequestBody @Valid OrderRequestDto orderRequestDto) {
-        OrderRequestDto created = service.addOrder(orderRequestDto);
-        return new ResponseEntity<>(created, HttpStatus.CREATED);
+    public ResponseEntity<Void> addOrder(@RequestBody @Valid OrderRequestDto orderRequestDto) {
+        service.addOrder(orderRequestDto);
+        return new ResponseEntity<>(HttpStatus.CREATED);
     }
 
     @DeleteMapping("/{id}")

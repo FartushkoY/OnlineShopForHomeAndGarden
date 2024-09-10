@@ -2,14 +2,12 @@ package de.telran.onlineshopforhomeandgarden1.service;
 
 import de.telran.onlineshopforhomeandgarden1.dto.request.ProductRequestDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.ProductWithDiscountPriceResponseDto;
+import de.telran.onlineshopforhomeandgarden1.dto.response.ProductWithPriceResponseDto;
 import de.telran.onlineshopforhomeandgarden1.entity.Category;
 import de.telran.onlineshopforhomeandgarden1.entity.Favorite;
 import de.telran.onlineshopforhomeandgarden1.entity.Product;
 import de.telran.onlineshopforhomeandgarden1.mapper.ProductMapper;
-import de.telran.onlineshopforhomeandgarden1.repository.CartItemRepository;
-import de.telran.onlineshopforhomeandgarden1.repository.FavoriteRepository;
-import de.telran.onlineshopforhomeandgarden1.repository.OrderItemRepository;
-import de.telran.onlineshopforhomeandgarden1.repository.ProductRepository;
+import de.telran.onlineshopforhomeandgarden1.repository.*;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
@@ -17,9 +15,12 @@ import org.mockito.Mockito;
 import org.springframework.data.domain.*;
 
 import java.math.BigDecimal;
+import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.ArgumentMatchers.eq;
 
 
@@ -30,6 +31,7 @@ public class ProductServiceTest {
     private static FavoriteRepository favoriteRepository;
     private static CartItemRepository cartItemRepository;
     private static OrderItemRepository orderItemRepository;
+    private static CategoryRepository categoryRepository;
     private static ProductMapper productMapper;
 
     @BeforeEach
@@ -38,8 +40,9 @@ public class ProductServiceTest {
         favoriteRepository = Mockito.mock(FavoriteRepository.class);
         cartItemRepository = Mockito.mock(CartItemRepository.class);
         orderItemRepository = Mockito.mock(OrderItemRepository.class);
+        categoryRepository = Mockito.mock(CategoryRepository.class);
         productMapper = Mappers.getMapper(ProductMapper.class);
-        productService = new ProductService(repository, favoriteRepository, cartItemRepository, orderItemRepository, productMapper);
+        productService = new ProductService(repository, favoriteRepository, cartItemRepository, orderItemRepository, categoryRepository, productMapper);
     }
 
     @Test
@@ -108,6 +111,10 @@ public class ProductServiceTest {
     public void updateProductTest() {
         Category category = new Category();
         category.setId(4L);
+
+        Category newCategory = new Category();
+        newCategory.setId(2L);
+
         Product oldProduct = new Product();
         oldProduct.setId(22L);
         oldProduct.setName("Test name");
@@ -117,19 +124,30 @@ public class ProductServiceTest {
         oldProduct.setImageUrl("https://raw.githubusercontent.com/tel-ran-de");
         oldProduct.setDiscountPrice(null);
 
+        ProductRequestDto updatedProductDto = new ProductRequestDto();
+        updatedProductDto.setId(22L);
+        updatedProductDto.setName("New test name");
+        updatedProductDto.setDescription("New test description");
+        updatedProductDto.setPrice(BigDecimal.valueOf(10));
+        updatedProductDto.setCategoryId("2");
+        updatedProductDto.setImageUrl("new image url");
+
         Product updatedProduct = new Product();
         updatedProduct.setId(22L);
         updatedProduct.setName("New test name");
         updatedProduct.setDescription("New test description");
         updatedProduct.setPrice(BigDecimal.valueOf(10));
-        updatedProduct.setCategory(category);
-        updatedProduct.setImageUrl("https://raw.githubusercontent.com/tel-ran-de");
+        updatedProduct.setCategory(newCategory);
+        updatedProduct.setImageUrl("new image url");
         updatedProduct.setDiscountPrice(null);
 
+        Long productId = 22L;
+
         Mockito.when(repository.findById(updatedProduct.getId())).thenReturn(Optional.of(oldProduct));
+        Mockito.when(categoryRepository.findById(Long.valueOf(updatedProductDto.getCategoryId()))).thenReturn(Optional.of(newCategory));
         Mockito.when(repository.save(updatedProduct)).thenReturn(updatedProduct);
-        productService.updateProduct(productMapper.entityToRequestDto(updatedProduct));
-        Mockito.verify(repository).save(eq(updatedProduct));
+        productService.updateProduct(productId, updatedProductDto);
+        Mockito.verify(repository).save(Mockito.eq(updatedProduct));
     }
 
     @Test
@@ -137,8 +155,10 @@ public class ProductServiceTest {
         Product updatedProduct = new Product();
         updatedProduct.setId(555L);
 
-        Mockito.when(repository.findById(updatedProduct.getId())).thenReturn(Optional.empty());
-        ProductRequestDto result = productService.updateProduct(productMapper.entityToRequestDto(updatedProduct));
+        Long productId = 22L;
+
+        Mockito.when(repository.findById(productId)).thenReturn(Optional.empty());
+        ProductRequestDto result = productService.updateProduct(productId, productMapper.entityToRequestDto(updatedProduct));
         assertNull(result);
     }
 
@@ -226,12 +246,34 @@ public class ProductServiceTest {
         List<Product> productList = Arrays.asList( product1, product2, product3, product4, product5, product6, product7, product8, product9, product10 );
 
         Mockito.when(repository.findTop10MostPurchasedProducts()).thenReturn(productList);
-        List products = productService.getTop10MostPurchasedProducts();
+        List<ProductWithPriceResponseDto> products = productService.getTop10MostPurchasedProducts();
         assertEquals(products.size(), 10);
         Mockito.verify(repository).findTop10MostPurchasedProducts();
 
     }
 
+    @Test
+    public void getTop10FrequentlyCanceledProducts() {
+        Product product1 = new Product();
+        Product product2 = new Product();
+        Product product3 = new Product();
+        Product product4 = new Product();
+        Product product5 = new Product();
+        Product product6 = new Product();
+        Product product7 = new Product();
+        Product product8 = new Product();
+        Product product9 = new Product();
+        Product product10 = new Product();
+        List<Product> productList = Arrays.asList( product1, product2, product3, product4, product5, product6, product7, product8, product9, product10 );
+
+        Mockito.when(repository.findTop10FrequentlyCanceledProducts()).thenReturn(productList);
+        List<ProductWithPriceResponseDto> products = productService.getTop10FrequentlyCanceledProducts();
+        assertEquals(products.size(), 10);
+        Mockito.verify(repository).findTop10FrequentlyCanceledProducts();
+
+    }
+
+    @Test
     public void getProductOfTheDayTest() {
         Product product1 = new Product();
         product1.setId(1L);
@@ -269,4 +311,13 @@ public class ProductServiceTest {
     }
 
 
+    @Test
+    public void getPendingProducts() {
+    Instant time = Instant.now();
+    time.minus(2, ChronoUnit.DAYS);
+    Mockito.when(repository.findPendingProductsMoreThanNDays(eq(time))).thenReturn(List.of());
+    productService.getPendingProducts(2);
+    Mockito.verify(repository).findPendingProductsMoreThanNDays(any(Instant.class));
+
+    }
 }

@@ -10,13 +10,13 @@ import org.springframework.stereotype.Service;
 @Service
 public class CartItemService {
     private static final Logger logger = LogManager.getLogger(CartItemService.class);
-//    private final CartItemRepository repository;
-//    private final CartItemMapper mapper;
-//
-//    @Autowired
-//    public CartItemService(CartItemRepository repository, CartItemMapper mapper) {
-//        this.repository = repository;
-//        this.mapper = mapper;
-//    }
+    private final CartItemRepository repository;
+    private final CartItemMapper mapper;
+
+    @Autowired
+    public CartItemService(CartItemRepository repository, CartItemMapper mapper) {
+        this.repository = repository;
+        this.mapper = mapper;
+    }
 
 }

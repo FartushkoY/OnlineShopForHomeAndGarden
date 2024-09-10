@@ -72,6 +72,7 @@ public class ProductController {
     }
 
 
+
     @PutMapping
     @PreAuthorize("hasRole('ROLE_ADMIN')")
     public ResponseEntity<ProductRequestDto> updateProduct(@PathVariable Long productId, @RequestBody @Valid ProductRequestDto product) {
@@ -108,10 +109,15 @@ public class ProductController {
 
     }
 
-
     @GetMapping("/top10")
     public List<ProductWithPriceResponseDto> getTop10MostPurchasedProducts() {
         return service.getTop10MostPurchasedProducts();
+
+    }
+
+    @GetMapping("/top10Canceled")
+    public List<ProductWithPriceResponseDto> getTop10FrequentlyCanceledProducts() {
+        return service.getTop10FrequentlyCanceledProducts();
 
     }
 
@@ -124,6 +130,16 @@ public class ProductController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
+    }
+
+    @GetMapping("/pendingMoreThan/{days}")
+    public ResponseEntity<List<ProductWithPriceResponseDto>> getPendingProducts(@PathVariable int days) {
+        List<ProductWithPriceResponseDto> pendingProducts = service.getPendingProducts(days);
+        if (pendingProducts.isEmpty()) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        } else {
+            return new ResponseEntity<>(pendingProducts, HttpStatus.OK);
+        }
     }
 
 }

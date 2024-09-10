@@ -41,4 +41,5 @@ public class User {
     @OneToMany(mappedBy = "user", cascade = CascadeType.REMOVE, fetch = FetchType.LAZY)
     private Set<Order> order = new LinkedHashSet<>();
 
+    private String refreshToken;
 }

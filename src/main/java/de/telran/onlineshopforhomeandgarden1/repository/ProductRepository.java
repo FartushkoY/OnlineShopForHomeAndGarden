@@ -8,9 +8,11 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.math.BigDecimal;
+import java.time.Instant;
 import java.util.List;
 import java.util.Optional;
 
@@ -25,7 +27,7 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findAllByCategory(Category category);
 
 
-    @Query("SELECT oi.product FROM OrderItem oi GROUP BY oi.product ORDER BY SUM(oi.quantity) DESC limit 10")
+    @Query("SELECT oi.product FROM OrderItem oi JOIN oi.order o WHERE o.status NOT IN (de.telran.onlineshopforhomeandgarden1.enums.Status.CANCELED, de.telran.onlineshopforhomeandgarden1.enums.Status.PENDING) GROUP BY oi.product ORDER BY SUM(oi.quantity) DESC LIMIT 10")
     List<Product> findTop10MostPurchasedProducts();
 
 
@@ -34,6 +36,13 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
 
     @Query("select p from Product p order by rand() limit 1")
     Optional<Product> findRandomProduct();
+
+    @Query("SELECT oi.product FROM OrderItem oi JOIN oi.order o WHERE o.status = 'CANCELED' GROUP BY oi.product ORDER BY COUNT(oi) DESC limit 10")
+    List<Product> findTop10FrequentlyCanceledProducts();
+
+    @Query("SELECT oi.product FROM OrderItem oi INNER JOIN oi.order o WHERE o.status ='PENDING' AND o.createdAt <= :calculatedDate GROUP BY oi.product ORDER BY SUM(oi.quantity) DESC")
+    List<Product> findPendingProductsMoreThanNDays(@Param("calculatedDate") Instant calculatedDate);
+
 
 }
 

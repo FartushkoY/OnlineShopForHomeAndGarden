@@ -11,7 +11,6 @@ import lombok.*;
 
 public class CategoryResponseDto {
 
-
     private String name;
 
     private String imageUrl;
