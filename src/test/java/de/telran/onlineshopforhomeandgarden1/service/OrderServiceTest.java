@@ -3,11 +3,14 @@ package de.telran.onlineshopforhomeandgarden1.service;
 import de.telran.onlineshopforhomeandgarden1.dto.request.OrderRequestDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.OrderResponseDto;
 import de.telran.onlineshopforhomeandgarden1.entity.Order;
+import de.telran.onlineshopforhomeandgarden1.entity.User;
 import de.telran.onlineshopforhomeandgarden1.enums.DeliveryMethod;
 import de.telran.onlineshopforhomeandgarden1.enums.Status;
 import de.telran.onlineshopforhomeandgarden1.mapper.OrderMapper;
 import de.telran.onlineshopforhomeandgarden1.repository.OrderRepository;
 import de.telran.onlineshopforhomeandgarden1.repository.ProductRepository;
+import de.telran.onlineshopforhomeandgarden1.security.AuthService;
+import de.telran.onlineshopforhomeandgarden1.security.JwtAuthentication;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
@@ -23,6 +26,8 @@ class OrderServiceTest {
     private static OrderService orderService;
     private static OrderRepository repository;
     private static ProductRepository productRepository;
+    private static UserService userService;
+    private static AuthService authService;
     private static OrderMapper orderMapper;
 
 
@@ -32,8 +37,19 @@ class OrderServiceTest {
         repository = Mockito.mock(OrderRepository.class);
         productRepository = Mockito.mock(ProductRepository.class);
         orderMapper = Mappers.getMapper(OrderMapper.class);
-        orderService = new OrderService(repository, orderMapper, productRepository);
+        userService = Mockito.mock(UserService.class);
+        authService = Mockito.mock(AuthService.class);
+        JwtAuthentication mockAuthInfo = Mockito.mock(JwtAuthentication.class);
+        Mockito.when(authService.getAuthInfo()).thenReturn(mockAuthInfo);
+        orderService = new OrderService(repository, orderMapper, productRepository, authService, userService);
 
+        Mockito.when(mockAuthInfo.getLogin()).thenReturn("admin@gmail.com");
+
+        User user = new User();
+        user.setId(1l);
+        user.setEmail("admin@gmail.com");
+
+        Mockito.when(userService.getUserByEmail("admin@gmail.com")).thenReturn(Optional.of(user));
     }
     @Test
     void getAll() {
@@ -53,7 +69,6 @@ class OrderServiceTest {
        OrderResponseDto result = orderService.getOrderStatus(orderId).get();
 
         Mockito.verify(repository).findById(orderId);
-//        assertEquals(orderId, result.getId());
         assertEquals(Status.PAID, result.getStatus());
         assertEquals(DeliveryMethod.EXPRESS, result.getDeliveryMethod());
 

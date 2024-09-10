@@ -13,7 +13,5 @@ import lombok.Setter;
 @NoArgsConstructor
 public class FavoriteResponseDto {
 
-    private UserResponseDto user;
-
     private ProductResponseDto product;
 }
