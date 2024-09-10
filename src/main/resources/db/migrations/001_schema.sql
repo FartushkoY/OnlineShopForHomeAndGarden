@@ -30,7 +30,8 @@ CREATE TABLE IF NOT EXISTS `users` (
 `name` VARCHAR(45) NOT NULL,
 `email` VARCHAR(45) NOT NULL,
 `phone_number` VARCHAR(13) NOT NULL,
-`password_hash` VARCHAR(45) NOT NULL,
+`password_hash` VARCHAR(255) NOT NULL,
+`refresh_token` VARCHAR(255),
 `role` ENUM ('CUSTOMER', 'ADMINISTRATOR') NOT NULL,
     PRIMARY KEY (`user_id`),
     UNIQUE INDEX `Email_UNIQUE` (`email` ASC) VISIBLE);

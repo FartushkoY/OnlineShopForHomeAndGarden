@@ -25,15 +25,15 @@ values  (1, 1,'Tulip', 'Elevate your garden with our exquisite Tulip planting ma
         (5, 14,'Rake', 'Maintain a pristine garden with our reliable Rake. Perfect for leaf and debris removal, it ensures a tidy outdoor space. Upgrade your gardening arsenal with this essential tool.', 38.00, 0.00, 'https://images.ctfassets.net/zma7thmmcinb/46JNtlvxFdhCD2XPHHziLc/31fe4425eff26086a7eb884a4384d85b/find-the-right-rake-plastic-rake.jpg', current_timestamp(), current_timestamp()),
         (5, 15,'Gardening scissors', 'Precision meets functionality with our Gardening Scissors. Trim and shape your garden with ease. Elevate your gardening skills with these sharp and durable scissors.', 20.00, 0.00, 'https://cdn.thewirecutter.com/wp-content/uploads/2015/06/pruningshears-2x1-.jpg?auto=webp&quality=75&crop=2:1&width=1024&dpr=2', current_timestamp(), current_timestamp());
 
-insert into users (user_id, name, email, phone_number, password_hash, role)
-values (1, 'John Doe', 'john.doe@example.com', '+491708009466', 'strawberry_123', 'CUSTOMER'),
-       (2, 'Jane Smith','jane.smith@example.com', '+491668019467','raspberry_456', 'CUSTOMER'),
-       (3, 'Alice Jones','alice.jones@example.com', '+491678019468', 'blueberry_789',  'CUSTOMER'),
-       (4, 'Masha Voytovych', 'mary.voytovych@gmail.com', '+491688019469', 'tomato_113', 'ADMINISTRATOR'),
-       (5, 'Iryna Kosiakovska', 'iryna@example.com', '+491658019460', 'potato_112', 'ADMINISTRATOR'),
-       (6, 'Yevgenia Fartushko','yevgenia@example.com', '+491648019471', 'cucumber_111', 'ADMINISTRATOR'),
-       (7, 'Michael Brown', 'michael.brown@example.com', '+491628029468', 'Tomato_789', 'CUSTOMER'),
-       (8, 'Emily Davis', 'emily.davis@example.com', '+491608039469', 'blacKberry_101', 'CUSTOMER');
+insert into users (user_id, name, email, phone_number, password_hash, role, refresh_token)
+values (1, 'John Doe', 'john.doe@example.com', '+491708009466', ' $2a$12$ZkOLIJH9xR0jeTi3YelB1uwHQupQJuuqhgwhE.lQ90zNfHBOy53oq', 'CUSTOMER', null),
+       (2, 'Jane Smith', 'jane.smith@example.com', '+491668019467', '$2a$12$wJIhvOy9kUIUUEptpXyXzeBxh0ZN61/v9rKCgM6XV/59cMgznOcXG', 'CUSTOMER', null),
+       (3, 'Alice Jones', 'alice.jones@example.com', '+491678019468', '$2a$12$VYRWC6Np01HnYyAvTiUa3uQdjSqmU4.aSdoToxek2R/0vDvhE.mri', 'CUSTOMER', null),
+       (4, 'Masha Voytovych', 'mary.voytovych@gmail.com', '+491688019469', '$2a$12$szp/Y0q.3HO4N6EdL0qrAeiUbHAH/ONJzWk.vsGjTnKujeoWCQ0GC', 'ADMINISTRATOR', null),
+       (5, 'Iryna Kosiakovska', 'iryna@example.com', '+491658019460', '$2a$12$UmK2TKq9URh21WY4yNfBX.5JYzKz6eMAgkFioDks5RRfpOoMV8hyW', 'ADMINISTRATOR', null),
+       (6, 'Yevgenia Fartushko', 'yevgenia@example.com', '+491648019471', '$2a$12$GWqZn6HoVnX8d0Jn.BHoxe3/0gVBxh5aWV3ApyFSp5x48ZARTUx7m', 'ADMINISTRATOR', null),
+       (7, 'Michael Brown', 'michael.brown@example.com', '+491628029468', ' $2a$12$JoSktOr4JA8ktxD/UZb/M.QIuxa87Y4M1S7an/A1CnXeSNoiBNvWa', 'CUSTOMER', null),
+       (8, 'Emily Davis', 'emily.davis@example.com', '+491608039469', '$2a$12$ZpZcThLJ3WwAMlKSyfe9weCGRnMot.SVKS9MX6a3yTjT/UQQPgPsG', 'CUSTOMER', null);
 
 insert into carts (cart_id, user_id)
 values (1, 1),

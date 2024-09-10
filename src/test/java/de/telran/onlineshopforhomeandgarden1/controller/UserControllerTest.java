@@ -1,6 +1,7 @@
 package de.telran.onlineshopforhomeandgarden1.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import de.telran.onlineshopforhomeandgarden1.config.SecurityConfig;
 import de.telran.onlineshopforhomeandgarden1.dto.request.UserRequestDto;
 import de.telran.onlineshopforhomeandgarden1.entity.User;
 import de.telran.onlineshopforhomeandgarden1.enums.Role;
@@ -10,6 +11,7 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
@@ -24,6 +26,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 
 @WebMvcTest(UserController.class)
+@Import(SecurityConfig.class)
 class UserControllerTest {
 
     @MockBean

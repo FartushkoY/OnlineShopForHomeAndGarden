@@ -1,6 +1,7 @@
 package de.telran.onlineshopforhomeandgarden1.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import de.telran.onlineshopforhomeandgarden1.config.SecurityConfig;
 import de.telran.onlineshopforhomeandgarden1.dto.request.CategoryRequestDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.CategoryResponseDto;
 import de.telran.onlineshopforhomeandgarden1.entity.Category;
@@ -10,6 +11,7 @@ import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
@@ -27,6 +29,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(controllers = CategoryController.class)
+@Import(SecurityConfig.class)
 class CategoryControllerTest {
 
     @MockBean
