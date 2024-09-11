@@ -73,7 +73,7 @@ public class CategoryService {
 
     @Transactional
     public void delete(Long id) {
-        Category category = repository.findById(id).orElseThrow(jakarta.persistence.EntityNotFoundException::new);
+        Category category = repository.findById(id).orElseThrow(EntityNotFoundException::new);
         List<Product> products = productRepository.findAllByCategory(category);
         logger.info("Found {} products associated with Category id = {}. Dissociating them.", products.size(), id);
         products.forEach(p -> p.setCategory(null));
