@@ -10,6 +10,7 @@ import de.telran.onlineshopforhomeandgarden1.exception.CannotDeleteOrderExceptio
 import de.telran.onlineshopforhomeandgarden1.mapper.OrderMapper;
 import de.telran.onlineshopforhomeandgarden1.repository.OrderRepository;
 import de.telran.onlineshopforhomeandgarden1.repository.ProductRepository;
+import de.telran.onlineshopforhomeandgarden1.security.AuthService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,18 +30,23 @@ public class OrderService {
     private final OrderRepository repository;
     private final OrderMapper orderMapper;
     private final ProductRepository productRepository;
+    private final AuthService authService;
+    private final UserService userService;
 
 
     @Autowired
-    public OrderService(OrderRepository repository, OrderMapper orderMapper, ProductRepository productRepository) {
+    public OrderService(OrderRepository repository, OrderMapper orderMapper, ProductRepository productRepository,AuthService authService, UserService userService) {
         this.repository = repository;
         this.orderMapper = orderMapper;
         this.productRepository = productRepository;
+        this.authService = authService;
+        this.userService = userService;
     }
 
-    public Set<OrderResponseDto> getOrdersHistory() {
-        Set<Order> orders = repository.findOrdersByUserId(this.getAuthenticatedUser().getId());
-        logger.info("Retrieved {} orders for user ID {}", orders.size(), this.getAuthenticatedUser().getId());
+
+    public Set<OrderResponseDto> getOrdersHistory()  {
+        Set<Order> orders = repository.findOrdersByUserId(findUser().getId());
+        logger.info("Retrieved {} orders for user ID {}", orders.size(), authService.getAuthInfo().getLogin());
         return orders.stream().map(order -> {
             OrderResponseDto dto = orderMapper.entityToDto(order);
             BigDecimal total = order.getOrderItems().stream().map(item -> item.getPriceAtPurchase().multiply(new BigDecimal(item.getQuantity())))
@@ -61,16 +67,10 @@ public class OrderService {
 
     public void addOrder(OrderRequestDto orderRequestDto) {
         Order order = orderMapper.dtoRequestToEntity(orderRequestDto);
-        order.setUser(this.getAuthenticatedUser());
+        order.setUser(findUser());
         repository.save(order);
-
     }
 
-    private User getAuthenticatedUser() {
-        User user = new User();
-        user.setId(1L);
-        return user;
-    }
 
     public Optional<Order> deleteOrder(Long id) {
         Optional<Order> order = repository.findById(id);
@@ -87,6 +87,13 @@ public class OrderService {
             logger.info("Order with id = {} is not in PENDING status. Delete operation failed.", id);
             throw new CannotDeleteOrderException("Order with id = " + id + " is not in PENDING status");
         }
+
+
+    }
+
+    private User findUser() {
+        String email = authService.getAuthInfo().getLogin();
+        return this.userService.getUserByEmail(email).get();
     }
 
     public List<Object> getRevenueReport(LocalDate startDate, Periods period, Integer duration, Periods detailing) {

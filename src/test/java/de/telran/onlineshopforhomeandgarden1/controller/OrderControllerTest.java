@@ -1,6 +1,7 @@
 package de.telran.onlineshopforhomeandgarden1.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import de.telran.onlineshopforhomeandgarden1.config.SecurityConfig;
 import de.telran.onlineshopforhomeandgarden1.dto.request.OrderItemRequestDto;
 import de.telran.onlineshopforhomeandgarden1.dto.request.OrderRequestDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.OrderItemResponseDto;
@@ -9,12 +10,15 @@ import de.telran.onlineshopforhomeandgarden1.dto.response.ProductResponseDto;
 import de.telran.onlineshopforhomeandgarden1.entity.Order;
 import de.telran.onlineshopforhomeandgarden1.enums.DeliveryMethod;
 import de.telran.onlineshopforhomeandgarden1.enums.Status;
+import de.telran.onlineshopforhomeandgarden1.security.JwtProvider;
 import de.telran.onlineshopforhomeandgarden1.service.OrderService;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.context.annotation.Import;
+import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.web.servlet.MockMvc;
 import java.math.BigDecimal;
 import java.time.Instant;
@@ -27,6 +31,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @WebMvcTest(controllers = OrderController.class)
+@Import(SecurityConfig.class)
 class OrderControllerTest {
 
     @MockBean
@@ -35,7 +40,11 @@ class OrderControllerTest {
     @Autowired
     MockMvc mockMvc;
 
+    @MockBean
+    private JwtProvider jwtProvider;
+
     @Test
+    @WithMockUser(username = "Test user", roles = {"CUSTOMER"})
     public void getOrdersHistory() throws Exception {
         Set<OrderResponseDto> orders = new LinkedHashSet<>();
         Set<OrderItemResponseDto> orderItems1 = new LinkedHashSet<>();
@@ -58,6 +67,7 @@ class OrderControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "Test user", roles = {"CUSTOMER"})
     public void getOrderStatus() throws Exception {
         Set<OrderItemResponseDto> orderItem = new LinkedHashSet<>();
         orderItem.add(new OrderItemResponseDto(2, BigDecimal.valueOf(7.00), new ProductResponseDto(1L, "Test Product", "Test Description", "Test Url")));
@@ -72,6 +82,7 @@ class OrderControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "Test user", roles = {"CUSTOMER"})
     public void getOrderStatusNotFound() throws Exception {
         Set<OrderItemResponseDto> orderItem = new LinkedHashSet<>();
         orderItem.add(new OrderItemResponseDto(2, BigDecimal.valueOf(7.00), new ProductResponseDto(1L, "Test Product", "Test Description", "Test Url")));
@@ -81,6 +92,7 @@ class OrderControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "Test user", roles = {"CUSTOMER"})
     public void addOrder() throws Exception {
         Set<OrderItemRequestDto> orderItem = new LinkedHashSet<>();
         orderItem.add(new OrderItemRequestDto(2, "3L"));
@@ -95,6 +107,7 @@ class OrderControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "Test user", roles = {"CUSTOMER"})
     public void deleteOrder() throws Exception {
         Long orderId = 4L;
         Mockito.when(service.deleteOrder(eq(orderId))).thenReturn(Optional.of(new Order()));
@@ -105,6 +118,7 @@ class OrderControllerTest {
     }
 
     @Test
+    @WithMockUser(username = "Test user", roles = {"CUSTOMER"})
     public void deleteOrderNotFound() throws Exception {
         Long orderId = 5L;
         Mockito.when(service.deleteOrder(eq(orderId))).thenReturn(Optional.empty());

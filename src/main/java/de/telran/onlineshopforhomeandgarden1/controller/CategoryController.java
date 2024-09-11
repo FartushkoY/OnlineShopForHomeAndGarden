@@ -35,7 +35,7 @@ public class CategoryController {
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     public ResponseEntity<CategoryRequestDto> addCategory(@RequestBody @Valid CategoryRequestDto category) {
         try {
             CategoryRequestDto newCategory = service.addCategory(category);
@@ -46,7 +46,7 @@ public class CategoryController {
     }
 
     @PutMapping ("/{categoryId}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     public ResponseEntity<CategoryRequestDto> updateCategory(@PathVariable("categoryId") Long categoryId,
                                                              @RequestBody @Valid CategoryRequestDto category) {
         try {
@@ -58,7 +58,7 @@ public class CategoryController {
     }
 
     @DeleteMapping("/{categoryId}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     public ResponseEntity<?> deleteCategory(@PathVariable Long categoryId) {
         Optional<Category> category = service.delete(categoryId);
         if (category.isPresent()) {
