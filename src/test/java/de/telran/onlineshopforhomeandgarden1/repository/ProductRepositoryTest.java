@@ -78,9 +78,9 @@ class ProductRepositoryTest {
     void findTop10MostPurchasedProducts(){
        List<Product> products = List.of(
                repository.findById(15L).orElseThrow(), repository.findById(13L).orElseThrow(), repository.findById(12L).orElseThrow(),
-               repository.findById(3L).orElseThrow(), repository.findById(2L).orElseThrow(), repository.findById(1L).orElseThrow(),
-               repository.findById(6L).orElseThrow(), repository.findById(9L).orElseThrow(), repository.findById(11L).orElseThrow(),
-               repository.findById(8L).orElseThrow());
+               repository.findById(3L).orElseThrow(), repository.findById(2L).orElseThrow(), repository.findById(6L).orElseThrow(),
+               repository.findById(1L).orElseThrow(), repository.findById(4L).orElseThrow(), repository.findById(9L).orElseThrow(),
+               repository.findById(11L).orElseThrow());
        List<Product> top10MostPurchasedProducts = repository.findTop10MostPurchasedProducts();
        assertEquals(products, top10MostPurchasedProducts);
    }
@@ -116,7 +116,7 @@ class ProductRepositoryTest {
     @Test
     void findPendingProductsMoreThanNDays() {
         Instant calculatedDate = Instant.now().minus(0, ChronoUnit.DAYS);
-        List<Product> products = List.of(repository.findById(5L).orElseThrow(), repository.findById(6L).orElseThrow(), repository.findById(7L).orElseThrow());
+        List<Product> products = List.of(repository.findById(6L).orElseThrow(), repository.findById(5L).orElseThrow(), repository.findById(4L).orElseThrow(),repository.findById(7L).orElseThrow());
         List<Product> pendingProducts = repository.findPendingProductsMoreThanNDays(calculatedDate);
         assertEquals(products, pendingProducts);
     }
