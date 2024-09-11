@@ -33,7 +33,7 @@ public class UserRequestDto {
     private String phoneNumber;
 
     @org.antlr.v4.runtime.misc.NotNull
-    @Length(max = 45, message = "{validation.user.passwordHash}")
+    @Length(max = 255, message = "{validation.user.passwordHash}")
     private String passwordHash;
 
     private String role;

@@ -59,7 +59,7 @@ public class AuthService {
             final String accessToken = jwtProvider.generateAccessToken(user);
             final String refreshToken = jwtProvider.generateRefreshToken(user);
             user.setRefreshToken(refreshToken);
-            userService.saveUser(userMapper.entityToRequestDto(user));
+            userService.save(user);
             return new JwtResponse(accessToken, refreshToken);
         } else {
             throw new AuthException("Wrong password");
