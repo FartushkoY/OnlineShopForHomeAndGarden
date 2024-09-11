@@ -8,12 +8,14 @@ import de.telran.onlineshopforhomeandgarden1.entity.Product;
 import de.telran.onlineshopforhomeandgarden1.mapper.CategoryMapper;
 import de.telran.onlineshopforhomeandgarden1.repository.CategoryRepository;
 import de.telran.onlineshopforhomeandgarden1.repository.ProductRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 @Service
@@ -40,27 +42,25 @@ public class CategoryService {
 
     public CategoryRequestDto addCategory(CategoryRequestDto categoryRequestDto) {
         Category category = categoryMapper.dtoToRequestEntity(categoryRequestDto);
-        Category newCategory = repository.save(category);
         logger.info("Category with id = {} created", category.getId());
+        Category newCategory = repository.save(category);
         return categoryMapper.entityToRequestDto(newCategory);
     }
 
 
-    @Transactional
+
     public CategoryRequestDto updateCategory(Long id, CategoryRequestDto categoryRequestDto) {
         Optional<Category> optional = repository.findById(id);
         if (optional.isPresent()) {
             logger.info("Category with id = {} found.", categoryRequestDto.getId());
             Category category = optional.get();
 
-            if (categoryRequestDto.getName() != null && !category.getName().equals(categoryRequestDto.getName())) {
+            if (categoryRequestDto.getName() != null) {
                 category.setName(categoryRequestDto.getName());
             }
-
-            if(categoryRequestDto.getImageUrl() !=null && !category.getImageUrl().equals(categoryRequestDto.getImageUrl())){
+            if (categoryRequestDto.getImageUrl() != null) {
                 category.setImageUrl(categoryRequestDto.getImageUrl());
             }
-
             Category updatedCategory = repository.save(category);
             logger.info("Category with id = {} updated successfully.", updatedCategory.getId());
             return categoryMapper.entityToRequestDto(updatedCategory);
@@ -70,19 +70,17 @@ public class CategoryService {
         }
     }
 
-    public Optional<Category> delete(Long id) {
-        Optional<Category> category = repository.findById(id);
-        if(category.isEmpty()) {
-            logger.warn("Category with id = {} not found. Delete operation failed.", id);
-            return Optional.empty();
-        }
-        List<Product> products = productRepository.findAllByCategory(category.get());
+
+    @Transactional
+    public void delete(Long id) {
+        Category category = repository.findById(id).orElseThrow(jakarta.persistence.EntityNotFoundException::new);
+        List<Product> products = productRepository.findAllByCategory(category);
         logger.info("Found {} products associated with Category id = {}. Dissociating them.", products.size(), id);
         products.forEach(p -> p.setCategory(null));
         productRepository.saveAll(products);
-        category.ifPresent(repository::delete);
-       logger.info ("Category with id = {} deleted successfully.", id);
-        return category;
+        logger.debug ("Category with id = {} deleted successfully.", id);
+        repository.delete(category);
+
 
     }
 }

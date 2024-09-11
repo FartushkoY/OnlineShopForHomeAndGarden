@@ -7,6 +7,7 @@ import de.telran.onlineshopforhomeandgarden1.dto.response.CategoryResponseDto;
 import de.telran.onlineshopforhomeandgarden1.entity.Category;
 import de.telran.onlineshopforhomeandgarden1.security.JwtProvider;
 import de.telran.onlineshopforhomeandgarden1.service.CategoryService;
+import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -45,7 +46,7 @@ class CategoryControllerTest {
 
 
     @Test
-    @WithMockUser(username = "Test user", roles = {"ADMIN"})
+    @WithMockUser(username = "Test user", roles = {"ADMINISTRATOR"})
     public void getCategories() throws Exception {
         List<CategoryResponseDto> categories = Arrays.asList(new CategoryResponseDto("Category1", "Image1"),
                 new CategoryResponseDto("Category2", "Image2"));
@@ -60,7 +61,7 @@ class CategoryControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "Test user", roles = {"ADMIN"})
+    @WithMockUser(username = "Test user", roles = {"ADMINISTRATOR"})
     public void addCategory() throws Exception {
 
         CategoryRequestDto newCategory = new CategoryRequestDto("1L", "Category1", "ImageCategory1");
@@ -76,7 +77,7 @@ class CategoryControllerTest {
 
     }
     @Test
-    @WithMockUser(username = "Test user", roles = {"ADMIN"})
+    @WithMockUser(username = "Test user", roles = {"ADMINISTRATOR"})
     public void addCategoryBadRequest() throws Exception {
 
         CategoryRequestDto invalidCategory = new CategoryRequestDto(null, "", "ImageUrl");
@@ -88,7 +89,7 @@ class CategoryControllerTest {
 
 
     @Test
-    @WithMockUser(username = "Test user", roles = {"ADMIN"})
+    @WithMockUser(username = "Test user", roles = {"ADMINISTRATOR"})
     public void updateCategory() throws Exception {
 
         CategoryRequestDto updatedCategory = new CategoryRequestDto("1L", "Category1", "ImageCategory1");
@@ -106,7 +107,7 @@ class CategoryControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "Test user", roles = {"ADMIN"})
+    @WithMockUser(username = "Test user", roles = {"ADMINISTRATOR"})
     public void updateCategoryNotFound() throws Exception {
         Long categoryId = 1L;
         CategoryRequestDto category = new CategoryRequestDto(categoryId.toString(), "Test Category", "Test ImageUrl");
@@ -118,7 +119,7 @@ class CategoryControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "Test user", roles = {"ADMIN"})
+    @WithMockUser(username = "Test user", roles = {"ADMINISTRATOR"})
     public void updateCategoryBadRequest() throws Exception {
         Long categoryId = 1L;
         CategoryRequestDto invalidCategory = new CategoryRequestDto(categoryId.toString(), "", null);
@@ -129,11 +130,11 @@ class CategoryControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "Test user", roles = {"ADMIN"})
+    @WithMockUser(username = "Test user", roles = {"ADMINISTRATOR"})
     public void deleteCategory() throws Exception {
         Long categoryId = 1L;
 
-        Mockito.when(service.delete(eq(categoryId))).thenReturn(Optional.of(new Category()));
+        Mockito.doNothing().when(service).delete(categoryId);
         mockMvc.perform(delete("/categories/{categoryId}", categoryId)).andDo(print())
                 .andExpect(status().isOk()).andReturn();
         Mockito.verify(service).delete(eq(categoryId));
@@ -141,11 +142,11 @@ class CategoryControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "Test user", roles = {"ADMIN"})
+    @WithMockUser(username = "Test user", roles = {"ADMINISTRATOR"})
     public void deleteCategoryNotFound() throws Exception {
         Long categoryId = 1L;
 
-        Mockito.when(service.delete(eq(categoryId))).thenReturn(Optional.empty());
+        Mockito.doThrow(new EntityNotFoundException("Category not found")).when(service).delete(eq(categoryId));
         mockMvc.perform(delete("/categories/{categoryId}", categoryId)).andDo(print())
                 .andExpect(status().isNotFound()).andReturn();
         Mockito.verify(service).delete(eq(categoryId));
