@@ -27,15 +27,12 @@ public class FavoriteService {
     }
 
     public Set<FavoriteResponseDto> getFavorites() {
-        if(authService.getAuthInfo().isAuthenticated()){
             Set<Favorite> favorites = favoriteRepository.findFavoriteByUserEmail(authService.getAuthInfo().getLogin());
             logger.debug("Found {} favorites", favorites.size());
             return favoriteMapper.entityListToDto(favorites);
-        } else {
-            logger.warn("Not authenticated");
-            return Collections.EMPTY_SET;
+
         }
 
     }
 
-}
+
