@@ -42,7 +42,7 @@ public class CategoryService {
 
     public CategoryRequestDto addCategory(CategoryRequestDto categoryRequestDto) {
         Category category = categoryMapper.dtoToRequestEntity(categoryRequestDto);
-        logger.info("Category with id = {} created", category.getId());
+        logger.debug("Category with id = {} created", category.getId());
         Category newCategory = repository.save(category);
         return categoryMapper.entityToRequestDto(newCategory);
     }
@@ -52,7 +52,7 @@ public class CategoryService {
     public CategoryRequestDto updateCategory(Long id, CategoryRequestDto categoryRequestDto) {
         Optional<Category> optional = repository.findById(id);
         if (optional.isPresent()) {
-            logger.info("Category with id = {} found.", categoryRequestDto.getId());
+            logger.debug("Category with id = {} found.", categoryRequestDto.getId());
             Category category = optional.get();
 
             if (categoryRequestDto.getName() != null) {
@@ -62,10 +62,10 @@ public class CategoryService {
                 category.setImageUrl(categoryRequestDto.getImageUrl());
             }
             Category updatedCategory = repository.save(category);
-            logger.info("Category with id = {} updated successfully.", updatedCategory.getId());
+            logger.debug("Category with id = {} updated successfully.", updatedCategory.getId());
             return categoryMapper.entityToRequestDto(updatedCategory);
         } else {
-            logger.warn("Category with id = {} not found. Update failed.", categoryRequestDto.getId());
+            logger.debug("Category with id = {} not found. Update failed.", categoryRequestDto.getId());
             return null;
         }
     }
@@ -75,12 +75,11 @@ public class CategoryService {
     public void delete(Long id) {
         Category category = repository.findById(id).orElseThrow(EntityNotFoundException::new);
         List<Product> products = productRepository.findAllByCategory(category);
-        logger.info("Found {} products associated with Category id = {}. Dissociating them.", products.size(), id);
+        logger.debug("Found {} products associated with Category id = {}. Dissociating them.", products.size(), id);
         products.forEach(p -> p.setCategory(null));
         productRepository.saveAll(products);
         logger.debug ("Category with id = {} deleted successfully.", id);
         repository.delete(category);
-
 
     }
 }
