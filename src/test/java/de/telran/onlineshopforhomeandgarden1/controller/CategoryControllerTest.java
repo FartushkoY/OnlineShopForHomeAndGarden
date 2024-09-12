@@ -47,7 +47,7 @@ class CategoryControllerTest {
 
     @Test
     @WithMockUser(username = "Test user", roles = {"ADMINISTRATOR"})
-    public void getCategories() throws Exception {
+    public void getCategoriesAdmin() throws Exception {
         List<CategoryResponseDto> categories = Arrays.asList(new CategoryResponseDto("Category1", "Image1"),
                 new CategoryResponseDto("Category2", "Image2"));
 
@@ -59,6 +59,22 @@ class CategoryControllerTest {
         Mockito.verify(service).getAll();
 
     }
+
+    @Test
+    @WithMockUser(username = "Test user", roles = {"CUSTOMER"})
+    public void getCategoriesCustomer() throws Exception {
+        List<CategoryResponseDto> categories = Arrays.asList(new CategoryResponseDto("Category1", "Image1"),
+                new CategoryResponseDto("Category2", "Image2"));
+
+        when(service.getAll()).thenReturn(categories);
+
+        mockMvc.perform(get("/categories").contentType("application/json"))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.length()").value(categories.size()));
+        Mockito.verify(service).getAll();
+
+    }
+
 
     @Test
     @WithMockUser(username = "Test user", roles = {"ADMINISTRATOR"})
