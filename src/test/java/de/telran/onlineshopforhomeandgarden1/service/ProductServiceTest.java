@@ -125,7 +125,6 @@ public class ProductServiceTest {
         oldProduct.setDiscountPrice(null);
 
         ProductRequestDto updatedProductDto = new ProductRequestDto();
-        updatedProductDto.setId(22L);
         updatedProductDto.setName("New test name");
         updatedProductDto.setDescription("New test description");
         updatedProductDto.setPrice(BigDecimal.valueOf(10));
