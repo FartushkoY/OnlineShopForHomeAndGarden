@@ -9,7 +9,9 @@ import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 
@@ -32,7 +34,7 @@ public class Order {
     private Instant createdAt;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private Set<OrderItem> orderItems = new LinkedHashSet<>();
+    private List<OrderItem> orderItems = new ArrayList<>();
 
     @Column(name = "delivery_address")
     private String deliveryAddress;

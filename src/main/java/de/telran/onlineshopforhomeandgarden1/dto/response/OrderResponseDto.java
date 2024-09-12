@@ -9,7 +9,9 @@ import lombok.Setter;
 
 import java.math.BigDecimal;
 import java.time.Instant;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Set;
 
 @Getter
@@ -22,7 +24,7 @@ public class OrderResponseDto {
 
     private Instant createdAt;
 
-    private Set<OrderItemResponseDto> orderItems = new LinkedHashSet<>();
+    private List<OrderItemResponseDto> orderItems =new ArrayList<>();
 
     private String deliveryAddress;
 

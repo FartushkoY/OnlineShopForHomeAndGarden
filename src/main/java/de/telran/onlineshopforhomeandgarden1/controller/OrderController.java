@@ -2,8 +2,8 @@ package de.telran.onlineshopforhomeandgarden1.controller;
 
 import de.telran.onlineshopforhomeandgarden1.dto.request.OrderRequestDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.OrderResponseDto;
-import de.telran.onlineshopforhomeandgarden1.entity.Order;
 import de.telran.onlineshopforhomeandgarden1.enums.Periods;
+import de.telran.onlineshopforhomeandgarden1.exception.CannotDeleteOrderException;
 import de.telran.onlineshopforhomeandgarden1.service.OrderService;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
+
 
 @RestController
 @RequestMapping("/orders")
@@ -31,7 +31,7 @@ public class OrderController {
 
     @GetMapping("/history")
     @PreAuthorize("hasRole('ROLE_CUSTOMER')")
-    public ResponseEntity <Set<OrderResponseDto>> getOrdersHistory() {
+    public ResponseEntity <List<OrderResponseDto>> getOrdersHistory() {
         return new ResponseEntity<>(service.getOrdersHistory(), HttpStatus.OK);
     }
 
@@ -58,8 +58,6 @@ public class OrderController {
         }
 
          return service.getRevenueReport(startDate, Periods.valueOf(period),  duration, Periods.valueOf(detailing));
-
-
     }
 
     @PostMapping
@@ -72,7 +70,14 @@ public class OrderController {
     @DeleteMapping("/{id}")
     @PreAuthorize("hasRole('ROLE_CUSTOMER')")
     public ResponseEntity<?> deleteOrder(@PathVariable Long id) {
-        Optional<Order> order = service.deleteOrder(id);
-        return new ResponseEntity<>(order.isPresent() ? HttpStatus.OK : HttpStatus.NOT_FOUND);
+        service.deleteOrder(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @ExceptionHandler(CannotDeleteOrderException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public ResponseEntity<String> handleOrderCannotDelete(CannotDeleteOrderException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 }
