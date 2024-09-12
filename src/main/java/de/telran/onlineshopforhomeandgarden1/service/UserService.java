@@ -41,7 +41,10 @@ public class UserService {
         User saved = repository.save(user);
         logger.debug("User with id = {} created", saved.getId());
         return mapper.entityToRequestDto(saved);
+    }
 
+    public void save(User user) {
+        repository.save(user);
     }
 
     public Optional<UserRequestDto> updateUser(Long id, UserRequestDto userRequestDto) {
