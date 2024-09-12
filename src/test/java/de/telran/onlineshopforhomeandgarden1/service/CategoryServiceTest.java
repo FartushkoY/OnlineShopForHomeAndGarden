@@ -6,6 +6,7 @@ import de.telran.onlineshopforhomeandgarden1.entity.Product;
 import de.telran.onlineshopforhomeandgarden1.mapper.CategoryMapper;
 import de.telran.onlineshopforhomeandgarden1.repository.CategoryRepository;
 import de.telran.onlineshopforhomeandgarden1.repository.ProductRepository;
+import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
@@ -13,9 +14,12 @@ import org.mockito.Mockito;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.never;
 
 
 class CategoryServiceTest {
@@ -107,14 +111,12 @@ class CategoryServiceTest {
     }
 
     @Test
-    public void deleteEmpty() {
+    public void deleteNotFound() {
         Long id = 66L;
-        Category category = new Category();
-        category.setId(id);
-
         Mockito.when(repository.findById(id)).thenReturn(Optional.empty());
-        Optional<Category> optional = categoryService.delete(id);
-        assertTrue(optional.isEmpty());
+         assertThrows(EntityNotFoundException.class, () -> {
+            categoryService.delete(id);
+        });
 
     }
-    }
+}

@@ -1,6 +1,7 @@
 package de.telran.onlineshopforhomeandgarden1.exceptionhandler;
 
 
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -15,6 +16,7 @@ import org.springframework.web.method.annotation.HandlerMethodValidationExceptio
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 
 @ControllerAdvice
 @Slf4j
@@ -60,6 +62,11 @@ public class GlobalExceptionHandler {
         return new ResponseEntity<>(errors, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(EntityNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ResponseEntity<String> handleEntityNotFoundException(EntityNotFoundException ex) {
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
 
     @ExceptionHandler(Exception.class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
@@ -67,7 +74,10 @@ public class GlobalExceptionHandler {
         log.error("Exception: ", ex);
         return new ResponseEntity<>("An unexpected error occurred. Try again later", HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+
 }
+
 
 
 

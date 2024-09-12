@@ -3,8 +3,8 @@ package de.telran.onlineshopforhomeandgarden1.controller;
 
 import de.telran.onlineshopforhomeandgarden1.dto.request.CategoryRequestDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.CategoryResponseDto;
-import de.telran.onlineshopforhomeandgarden1.entity.Category;
 import de.telran.onlineshopforhomeandgarden1.service.CategoryService;
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,7 +14,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
+
 
 @RestController
 @RequestMapping("/categories")
@@ -37,35 +37,23 @@ public class CategoryController {
     @PostMapping
     @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     public ResponseEntity<CategoryRequestDto> addCategory(@RequestBody @Valid CategoryRequestDto category) {
-        try {
             CategoryRequestDto newCategory = service.addCategory(category);
             return new ResponseEntity<>(newCategory, HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
     }
 
     @PutMapping ("/{categoryId}")
     @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     public ResponseEntity<CategoryRequestDto> updateCategory(@PathVariable("categoryId") Long categoryId,
                                                              @RequestBody @Valid CategoryRequestDto category) {
-        try {
             CategoryRequestDto updatedCategory = service.updateCategory(categoryId, category);
             return new ResponseEntity<>(updatedCategory, updatedCategory != null ? HttpStatus.OK : HttpStatus.NOT_FOUND);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
     }
 
     @DeleteMapping("/{categoryId}")
     @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     public ResponseEntity<?> deleteCategory(@PathVariable Long categoryId) {
-        Optional<Category> category = service.delete(categoryId);
-        if (category.isPresent()) {
+            service.delete(categoryId);
             return new ResponseEntity<>(HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
     }
 }
 
