@@ -87,7 +87,6 @@ public class ProductService {
     public ProductRequestDto updateProduct(Long productId, ProductRequestDto productDto) {
         Optional<Product> optional = repository.findById(productId);
         if (optional.isPresent()) {
-
             Product updated = optional.get();
             if (productDto.getName() != null) {
                 updated.setName(productDto.getName());
@@ -106,10 +105,10 @@ public class ProductService {
             }
 
             repository.save(updated);
-            logger.debug("Product with id = {} updated", productDto.getId());
+            logger.debug("Product with id = {} updated", productId);
             return productMapper.entityToRequestDto(updated);
         } else {
-            logger.debug("Product with id {} not found", productDto.getId());
+            logger.debug("Product with id {} not found", productId);
             return null;
         }
     }

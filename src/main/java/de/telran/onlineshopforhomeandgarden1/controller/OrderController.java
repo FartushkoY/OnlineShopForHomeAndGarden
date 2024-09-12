@@ -47,6 +47,7 @@ public class OrderController {
     }
 
     @GetMapping("/revenueReport")
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     public List<Object> getRevenueReport(@RequestParam LocalDate startDate,
                                              @RequestParam String period,
                                              @RequestParam(required = false) Integer duration,

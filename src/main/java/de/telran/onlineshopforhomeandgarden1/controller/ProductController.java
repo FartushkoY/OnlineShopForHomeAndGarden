@@ -61,7 +61,7 @@ public class ProductController {
     }
 
     @PostMapping
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     public ResponseEntity<ProductRequestDto> addProduct(@RequestBody @Valid ProductRequestDto productRequestDto) {
         try {
             ProductRequestDto createdProduct = service.addProduct(productRequestDto);
@@ -73,32 +73,32 @@ public class ProductController {
 
 
 
-    @PutMapping
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PutMapping("{productId}")
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     public ResponseEntity<ProductRequestDto> updateProduct(@PathVariable Long productId, @RequestBody @Valid ProductRequestDto product) {
-        try {
+//        try {
             ProductRequestDto updatedProduct = service.updateProduct(productId, product);
             return new ResponseEntity<>(updatedProduct, updatedProduct != null ? HttpStatus.OK : HttpStatus.NOT_FOUND);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+//        } catch (Exception e) {
+//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//        }
     }
 
     @PutMapping("/addDiscount/{id}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     public ResponseEntity<ProductRequestDto> addDiscount(@PathVariable Long id,
                                                          @RequestParam @Min(value = 0, message = "{validation.product.price}")
                                                          BigDecimal discountPrice) {
-        try {
+//        try {
             ProductRequestDto updatedProduct = service.addDiscount(id, discountPrice);
             return new ResponseEntity<>(updatedProduct, updatedProduct != null ? HttpStatus.OK : HttpStatus.NOT_FOUND);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+//        } catch (Exception e) {
+//            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+//        }
     }
 
     @DeleteMapping("/{productId}")
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     public ResponseEntity<?> deleteProduct(@PathVariable Long productId) {
         Optional<Product> deletedProduct = service.deleteProduct(productId);
         if (deletedProduct.isEmpty()) {
@@ -116,6 +116,7 @@ public class ProductController {
     }
 
     @GetMapping("/top10Canceled")
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     public List<ProductWithPriceResponseDto> getTop10FrequentlyCanceledProducts() {
         return service.getTop10FrequentlyCanceledProducts();
 
@@ -133,6 +134,7 @@ public class ProductController {
     }
 
     @GetMapping("/pendingMoreThan/{days}")
+    @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     public ResponseEntity<List<ProductWithPriceResponseDto>> getPendingProducts(@PathVariable int days) {
         List<ProductWithPriceResponseDto> pendingProducts = service.getPendingProducts(days);
         if (pendingProducts.isEmpty()) {
