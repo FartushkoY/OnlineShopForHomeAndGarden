@@ -50,7 +50,6 @@ public class UserService {
     public Optional<UserRequestDto> updateUser(Long id, UserRequestDto userRequestDto) {
         Optional<User> userOptional = repository.findById(id);
         if (userOptional.isPresent()) {
-
             User user = mapper.requestDtoToEntity(userRequestDto);
             user.setId(id);
             User updatedUser = repository.save(user);

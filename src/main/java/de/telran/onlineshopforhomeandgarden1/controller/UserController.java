@@ -8,6 +8,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,31 +29,25 @@ public class UserController {
 
     @PostMapping("/register")
     public ResponseEntity<UserRequestDto> saveUser(@RequestBody @Valid UserRequestDto userRequestDto) {
-        try {
-            UserRequestDto result = service.saveUser(userRequestDto);
-            return new ResponseEntity<>(result, HttpStatus.CREATED);
-        } catch (Exception e) {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+        UserRequestDto result = service.saveUser(userRequestDto);
+        return new ResponseEntity<>(result, HttpStatus.CREATED);
+
     }
 
     @PutMapping("/{userId}")
+    @PreAuthorize("hasAnyRole('ROLE_ADMINISTRATOR', 'ROLE_CUSTOMER')")
     public ResponseEntity<UserRequestDto> updateUser(@PathVariable("userId") Long userId, @RequestBody @Valid UserRequestDto userRequestDto) {
-        try {
-            Optional<UserRequestDto> user = service.updateUser(userId, userRequestDto);
-            if (user.isPresent()) {
-                UserRequestDto result = user.get();
-                return new ResponseEntity<>(result, HttpStatus.OK);
-            } else {
-                return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-            }
-        } catch (Exception e) {
-            return new ResponseEntity<>((HttpStatus.BAD_REQUEST));
+        Optional<UserRequestDto> user = service.updateUser(userId, userRequestDto);
+        if (user.isPresent()) {
+            UserRequestDto result = user.get();
+            return new ResponseEntity<>(result, HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
-
     }
 
     @DeleteMapping("/{userId}")
+    @PreAuthorize("hasAnyRole('ROLE_ADMINISTRATOR', 'ROLE_CUSTOMER')")
     public ResponseEntity<?> deleteUser(@PathVariable("userId") Long userId) {
         Optional<User> optional = service.removeUser(userId);
         if (optional.isPresent()) {

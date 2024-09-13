@@ -41,7 +41,6 @@ class UserControllerTest {
     private JwtProvider jwtProvider;
 
     @Test
-    @WithMockUser(username = "Test user", roles = {"CUSTOMER,ADMIN"})
     void saveUserIsSuccessful() throws Exception {
         UserRequestDto user = new UserRequestDto();
         user.setId(1L);
@@ -62,7 +61,6 @@ class UserControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "Test user", roles = {"CUSTOMER,ADMIN"})
     void saveUserIsUnsuccessful() throws Exception {
         UserRequestDto userRequestDto = new UserRequestDto();
         userRequestDto.setId(1L);
@@ -83,7 +81,7 @@ class UserControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "Test user", roles = {"CUSTOMER,ADMIN"})
+    @WithMockUser(username = "Test user", roles = {"CUSTOMER","ADMINISTRATOR"})
     void updateUserIsSuccessful() throws Exception {
         UserRequestDto user = new UserRequestDto();
         user.setId(1L);
@@ -92,7 +90,6 @@ class UserControllerTest {
         user.setPhoneNumber("+491715247368");
         user.setPasswordHash("testPasswordHash");
         user.setRole(String.valueOf(Role.CUSTOMER));
-
 
         when(service.updateUser(any(), any())).thenReturn(Optional.of(user));
 
@@ -105,7 +102,7 @@ class UserControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "Test user", roles = {"CUSTOMER,ADMIN"})
+    @WithMockUser(username = "Test user", roles = {"CUSTOMER","ADMINISTRATOR"})
     void updateUserIsUnsuccessful() throws Exception {
         UserRequestDto user = new UserRequestDto();
         user.setId(1L);
@@ -127,7 +124,7 @@ class UserControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "Test user", roles = {"CUSTOMER,ADMIN"})
+    @WithMockUser(username = "Test user", roles = {"CUSTOMER","ADMINISTRATOR"})
     void updateUserIsImpossible() throws Exception {
         UserRequestDto user = new UserRequestDto();
         user.setId(1L);
@@ -148,7 +145,7 @@ class UserControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "Test user", roles = {"CUSTOMER,ADMIN"})
+    @WithMockUser(username = "Test user", roles = {"CUSTOMER", "ADMINISTRATOR"})
     void deleteUserIsSuccessful() throws Exception {
         User user = new User();
         user.setId(1L);
@@ -164,7 +161,7 @@ class UserControllerTest {
     }
 
     @Test
-    @WithMockUser(username = "Test user", roles = {"CUSTOMER,ADMIN"})
+    @WithMockUser(username = "Test user", roles = {"CUSTOMER","ADMINISTRATOR"})
     void deleteUserIsUnsuccessful() throws Exception {
         User user = new User();
         user.setId(1L);
