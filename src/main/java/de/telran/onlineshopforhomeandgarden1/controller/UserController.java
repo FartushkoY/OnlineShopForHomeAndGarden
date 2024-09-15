@@ -3,6 +3,8 @@ package de.telran.onlineshopforhomeandgarden1.controller;
 import de.telran.onlineshopforhomeandgarden1.dto.request.UserRequestDto;
 import de.telran.onlineshopforhomeandgarden1.entity.User;
 import de.telran.onlineshopforhomeandgarden1.service.UserService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,6 +20,7 @@ import java.util.Optional;
 @RequestMapping("/users")
 @Validated
 @Slf4j
+@Tag(name = "User Controller", description = "Operations related to user")
 public class UserController {
     private final UserService service;
 
@@ -28,6 +31,7 @@ public class UserController {
 
 
     @PostMapping("/register")
+    @Operation(summary = "Register a new customer")
     public ResponseEntity<UserRequestDto> saveUser(@RequestBody @Valid UserRequestDto userRequestDto) {
         UserRequestDto result = service.saveUser(userRequestDto);
         return new ResponseEntity<>(result, HttpStatus.CREATED);
@@ -36,6 +40,7 @@ public class UserController {
 
     @PutMapping("/{userId}")
     @PreAuthorize("hasAnyRole('ROLE_ADMINISTRATOR', 'ROLE_CUSTOMER')")
+    @Operation(summary = "Update profile of the authenticated customer identified by his/her ID")
     public ResponseEntity<UserRequestDto> updateUser(@PathVariable("userId") Long userId, @RequestBody @Valid UserRequestDto userRequestDto) {
         Optional<UserRequestDto> user = service.updateUser(userId, userRequestDto);
         if (user.isPresent()) {
@@ -48,6 +53,7 @@ public class UserController {
 
     @DeleteMapping("/{userId}")
     @PreAuthorize("hasAnyRole('ROLE_ADMINISTRATOR', 'ROLE_CUSTOMER')")
+    @Operation(summary = "Delete the customer identified by his/her ID")
     public ResponseEntity<?> deleteUser(@PathVariable("userId") Long userId) {
         Optional<User> optional = service.removeUser(userId);
         if (optional.isPresent()) {

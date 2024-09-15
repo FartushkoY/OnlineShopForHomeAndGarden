@@ -4,6 +4,8 @@ import de.telran.onlineshopforhomeandgarden1.dto.request.CartItemRequestDto;
 import de.telran.onlineshopforhomeandgarden1.dto.request.CartRequestDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.CartResponseDto;
 import de.telran.onlineshopforhomeandgarden1.service.CartService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +20,9 @@ import java.util.Set;
 @RequestMapping("/cart")
 @Validated
 @Slf4j
+@Tag(name = "Cart Controller", description = "Operations related to customer cart")
 public class CartController {
+
     private final CartService service;
 
     @Autowired
@@ -27,11 +31,13 @@ public class CartController {
     }
 
     @GetMapping
+    @Operation(summary = "Retrieve all items in the customer's cart")
     public ResponseEntity<Set<CartResponseDto>> getItemsInCart() {
         return new ResponseEntity<>(service.getCartItems(), HttpStatus.OK);
     }
 
     @PostMapping
+    @Operation(summary = "Add an item to the customer's cart")
     public ResponseEntity<CartRequestDto> addItemToCart(@RequestBody @Valid CartItemRequestDto cartItemRequestDto) {
         CartRequestDto result = service.addCartItem(cartItemRequestDto);
         if (result != null) {
@@ -42,6 +48,7 @@ public class CartController {
     }
 
     @PutMapping
+    @Operation(summary = "Update quantity of an item in the customer's cart")
     public ResponseEntity<CartRequestDto> updateCartItem(@RequestBody @Valid CartItemRequestDto cartItemRequestDto) {
         CartRequestDto cart = service.updateCartItemInCart(cartItemRequestDto);
         if (cart != null) {
@@ -52,6 +59,7 @@ public class CartController {
     }
 
     @DeleteMapping
+    @Operation(summary ="Delete an item in the customer's cart")
     public ResponseEntity<?> deleteCartItemInCart() {
         service.deleteCartItemInCart();
         return new ResponseEntity<>(HttpStatus.OK);
