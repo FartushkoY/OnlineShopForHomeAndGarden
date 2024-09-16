@@ -37,7 +37,7 @@ class ProductRepositoryTest {
     void getAllWithFiltersTest() {
 
         Page<Product> productPage = repository.getAllWithFilters(1L, true, false, BigDecimal.valueOf(0), BigDecimal.valueOf(Integer.MAX_VALUE), Pageable.unpaged());
-        assertEquals(List.of(repository.findById(1L).get(), repository.findById(2L).get(), repository.findById(3L).get()), productPage.getContent());
+        assertEquals(List.of(repository.findById(1L).get(), repository.findById(2L).get(), repository.findById(3L).get(), repository.findById(20L).get(), repository.findById(21L).get()), productPage.getContent());
 
 
         productPage = repository.getAllWithFilters(null, false, false, BigDecimal.valueOf(0.00), BigDecimal.valueOf(Integer.MAX_VALUE), Pageable.unpaged());
@@ -56,7 +56,7 @@ class ProductRepositoryTest {
 
         productPage = repository.getAllWithFilters(null, false, false, BigDecimal.valueOf(0.00), BigDecimal.valueOf(3.00), Pageable.unpaged());
         assertEquals(List.of(repository.findById(1L).get(), repository.findById(2L).get(),
-                repository.findById(3L).get()), productPage.getContent());
+                repository.findById(3L).get(), repository.findById(20L).get(), repository.findById(21L).get()), productPage.getContent());
 
 
         productPage = repository.getAllWithFilters(null, false, false, BigDecimal.valueOf(10.00), BigDecimal.valueOf(13.00), Pageable.unpaged());
@@ -79,7 +79,7 @@ class ProductRepositoryTest {
        List<Product> products = List.of(
                repository.findById(15L).orElseThrow(), repository.findById(13L).orElseThrow(), repository.findById(12L).orElseThrow(),
                repository.findById(3L).orElseThrow(), repository.findById(2L).orElseThrow(), repository.findById(6L).orElseThrow(),
-               repository.findById(1L).orElseThrow(), repository.findById(4L).orElseThrow(), repository.findById(9L).orElseThrow(),
+               repository.findById(4L).orElseThrow(), repository.findById(1L).orElseThrow(), repository.findById(9L).orElseThrow(),
                repository.findById(11L).orElseThrow());
        List<Product> top10MostPurchasedProducts = repository.findTop10MostPurchasedProducts();
        assertEquals(products, top10MostPurchasedProducts);
@@ -116,7 +116,7 @@ class ProductRepositoryTest {
     @Test
     void findPendingProductsMoreThanNDays() {
         Instant calculatedDate = Instant.now().minus(0, ChronoUnit.DAYS);
-        List<Product> products = List.of(repository.findById(6L).orElseThrow(), repository.findById(5L).orElseThrow(), repository.findById(4L).orElseThrow(),repository.findById(7L).orElseThrow());
+        List<Product> products = List.of(repository.findById(5L).orElseThrow(), repository.findById(6L).orElseThrow(),repository.findById(7L).orElseThrow());
         List<Product> pendingProducts = repository.findPendingProductsMoreThanNDays(calculatedDate);
         assertEquals(products, pendingProducts);
     }

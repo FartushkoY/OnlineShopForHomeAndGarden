@@ -202,12 +202,10 @@ class OrderServiceTest {
     @Test
     void getRevenueReportYearTest() {
         LocalDate localDateStart = LocalDate.of(2023, 1, 1);
-        LocalDateTime localDateTimeStart = LocalDateTime.of(localDateStart, LocalTime.MIN);
-        Instant start = (localDateTimeStart.toInstant(ZoneOffset.UTC));
+        Instant start = localDateStart.atStartOfDay(ZoneId.of("CET")).toInstant();
 
         LocalDate localDateEnd = localDateStart.plusYears(1);
-        LocalDateTime localDateTimeEnd = LocalDateTime.of(localDateEnd, LocalTime.MIN);
-        Instant endYear = (localDateTimeEnd.toInstant(ZoneOffset.UTC));
+        Instant endYear = localDateEnd.atStartOfDay(ZoneId.of("CET")).toInstant();
 
         Mockito.when(repository.getRevenueReportDetailedByYear(start, endYear)).thenReturn(new ArrayList<>());
         Mockito.when(repository.getTotalResult(start, endYear)).thenReturn(BigDecimal.valueOf(23));
@@ -219,12 +217,10 @@ class OrderServiceTest {
     @Test
     void getRevenueReportMonthTest() {
         LocalDate localDateStart = LocalDate.of(2023, 1, 1);
-        LocalDateTime localDateTimeStart = LocalDateTime.of(localDateStart, LocalTime.MIN);
-        Instant start = (localDateTimeStart.toInstant(ZoneOffset.UTC));
+        Instant start = localDateStart.atStartOfDay(ZoneId.of("CET")).toInstant();
 
         LocalDate localDateEnd = localDateStart.plusMonths(2);
-        LocalDateTime localDateTimeEnd = LocalDateTime.of(localDateEnd, LocalTime.MIN);
-        Instant endMonth = (localDateTimeEnd.toInstant(ZoneOffset.UTC));
+        Instant endMonth = localDateEnd.atStartOfDay(ZoneId.of("CET")).toInstant();
 
         Mockito.when(repository.getRevenueReportDetailedByMonth(start, endMonth)).thenReturn(new ArrayList<>());
         Mockito.when(repository.getTotalResult(start, endMonth)).thenReturn(BigDecimal.valueOf(23));
@@ -237,12 +233,10 @@ class OrderServiceTest {
     @Test
     void getRevenueReportWeekTest() {
         LocalDate localDateStart = LocalDate.of(2023, 1, 1);
-        LocalDateTime localDateTimeStart = LocalDateTime.of(localDateStart, LocalTime.MIN);
-        Instant start = (localDateTimeStart.toInstant(ZoneOffset.UTC));
+        Instant start = localDateStart.atStartOfDay(ZoneId.of("CET")).toInstant();
 
         LocalDate localDateEnd = localDateStart.plusMonths(2);
-        LocalDateTime localDateTimeEnd = LocalDateTime.of(localDateEnd, LocalTime.MIN);
-        Instant endMonth = (localDateTimeEnd.toInstant(ZoneOffset.UTC));
+        Instant endMonth = localDateEnd.atStartOfDay(ZoneId.of("CET")).toInstant();
 
         Mockito.when(repository.getRevenueReportDetailedByWeek(start, endMonth)).thenReturn(new ArrayList<>());
         Mockito.when(repository.getTotalResult(start, endMonth)).thenReturn(BigDecimal.valueOf(23));
@@ -255,12 +249,10 @@ class OrderServiceTest {
     @Test
     void getRevenueReportDayTest() {
         LocalDate localDateStart = LocalDate.of(2023, 1, 1);
-        LocalDateTime localDateTimeStart = LocalDateTime.of(localDateStart, LocalTime.MIN);
-        Instant start = (localDateTimeStart.toInstant(ZoneOffset.UTC));
+        Instant start = localDateStart.atStartOfDay(ZoneId.of("CET")).toInstant();
 
         LocalDate localDateEnd = localDateStart.plusDays(10);
-        LocalDateTime localDateTimeEnd = LocalDateTime.of(localDateEnd, LocalTime.MIN);
-        Instant endDay = (localDateTimeEnd.toInstant(ZoneOffset.UTC));
+        Instant endDay = localDateEnd.atStartOfDay(ZoneId.of("CET")).toInstant();
 
         Mockito.when(repository.getRevenueReportDetailedByDayOrHour(start, endDay, "%Y %m %d")).thenReturn(new ArrayList<>());
         Mockito.when(repository.getTotalResult(start, endDay)).thenReturn(BigDecimal.valueOf(23));
@@ -272,12 +264,10 @@ class OrderServiceTest {
     @Test
     void getRevenueReportHourTest() {
         LocalDate localDateStart = LocalDate.of(2023, 1, 1);
-        LocalDateTime localDateTimeStart = LocalDateTime.of(localDateStart, LocalTime.MIN);
-        Instant start = (localDateTimeStart.toInstant(ZoneOffset.UTC));
+        Instant start = localDateStart.atStartOfDay(ZoneId.of("CET")).toInstant();
 
         LocalDate localDateEnd = localDateStart.plusDays(10);
-        LocalDateTime localDateTimeEnd = LocalDateTime.of(localDateEnd, LocalTime.MIN);
-        Instant endDay = (localDateTimeEnd.toInstant(ZoneOffset.UTC));
+        Instant endDay = localDateEnd.atStartOfDay(ZoneId.of("CET")).toInstant();
 
         Mockito.when(repository.getRevenueReportDetailedByDayOrHour(start, endDay, "%Y %m %d %H")).thenReturn(new ArrayList<>());
         Mockito.when(repository.getTotalResult(start, endDay)).thenReturn(BigDecimal.valueOf(23));
