@@ -12,10 +12,10 @@ import org.springframework.stereotype.Component;
 import java.util.Set;
 import java.util.concurrent.TimeUnit;
 
-//@Component
-//@Slf4j
-//public class DeliveryStatusScheduler {
-//
+@Component
+@Slf4j
+public class DeliveryStatusScheduler {
+
 //    private final OrderRepository orderRepository;
 //
 //    @Autowired
@@ -49,8 +49,8 @@ import java.util.concurrent.TimeUnit;
 //            }
 //
 //        }
-//    }
-//
-//
-//
-//
+    }
+
+
+
+

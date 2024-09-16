@@ -26,22 +26,6 @@ import static org.springframework.security.config.http.SessionCreationPolicy.STA
 @EnableMethodSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig {
-
-//    @Bean
-//    public UserDetailsService users() {
-//        UserDetails user = User.builder()
-//                .username("tom")
-//                .password(encoder().encode("password"))
-//                .roles("USER")
-//                .build();
-//        UserDetails admin = User.builder()
-//                .username("admin")
-//                .password(encoder().encode("password"))
-//                .roles("USER", "ADMIN")
-//                .build();
-//        return new InMemoryUserDetailsManager(user, admin);
-//    }
-
     @Bean
     public PasswordEncoder encoder() {
         return new BCryptPasswordEncoder();
@@ -76,7 +60,8 @@ public class SecurityConfig {
                                         "/swagger-ui.html",
                                         "/api/v1/auth/**",
                                         "/v3/api-docs/**",
-                                        "/swagger-ui/**"
+                                        "/swagger-ui/**",
+                                        "/users/register"
                                 ).permitAll()
                                 .anyRequest().authenticated()
                 ).addFilterAfter(jwtFilter, UsernamePasswordAuthenticationFilter.class).build();
