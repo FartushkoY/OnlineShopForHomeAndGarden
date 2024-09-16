@@ -140,7 +140,7 @@ public class AuthService {
                 final String newRefreshToken = jwtProvider.generateRefreshToken(user);
                 // Update the stored refresh token for the user
                 user.setRefreshToken(newRefreshToken);
-                userService.saveUser(userMapper.entityToRequestDto(user));
+                userService.save(user);
                 // Return a JwtResponse with the new access and refresh tokens
                 return new JwtResponse(accessToken, newRefreshToken);
             }
