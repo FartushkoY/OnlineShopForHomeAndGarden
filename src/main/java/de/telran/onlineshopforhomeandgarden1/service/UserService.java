@@ -51,7 +51,6 @@ public class UserService {
         Optional<User> userOptional = repository.findById(id);
         if (userOptional.isPresent()) {
             User updated = userOptional.get();
-            updated.setId(id);
             if (userRequestDto.getName() != null) {
                 updated.setName(userRequestDto.getName());
             }
