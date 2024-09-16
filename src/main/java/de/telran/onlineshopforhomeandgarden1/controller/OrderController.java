@@ -2,8 +2,8 @@ package de.telran.onlineshopforhomeandgarden1.controller;
 
 import de.telran.onlineshopforhomeandgarden1.dto.request.OrderRequestDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.OrderResponseDto;
-import de.telran.onlineshopforhomeandgarden1.entity.Order;
 import de.telran.onlineshopforhomeandgarden1.enums.Periods;
+import de.telran.onlineshopforhomeandgarden1.exception.CannotDeleteOrderException;
 import de.telran.onlineshopforhomeandgarden1.service.OrderService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
+
 
 @RestController
 @RequestMapping("/orders")
@@ -34,7 +34,7 @@ public class OrderController {
     @GetMapping("/history")
     @Operation(summary = "Retrieve all orders for the authenticated customer")
     @PreAuthorize("hasRole('ROLE_CUSTOMER')")
-    public ResponseEntity <Set<OrderResponseDto>> getOrdersHistory() {
+    public ResponseEntity <List<OrderResponseDto>> getOrdersHistory() {
         return new ResponseEntity<>(service.getOrdersHistory(), HttpStatus.OK);
     }
 
@@ -62,8 +62,6 @@ public class OrderController {
             detailing = period;
         }
          return service.getRevenueReport(startDate, Periods.valueOf(period),  duration, Periods.valueOf(detailing));
-
-
     }
 
     @PostMapping
@@ -78,7 +76,14 @@ public class OrderController {
     @Operation(summary = "Delete an existing order of the authenticated customer identified by its ID")
     @PreAuthorize("hasRole('ROLE_CUSTOMER')")
     public ResponseEntity<?> deleteOrder(@PathVariable Long id) {
-        Optional<Order> order = service.deleteOrder(id);
-        return new ResponseEntity<>(order.isPresent() ? HttpStatus.OK : HttpStatus.NOT_FOUND);
+        service.deleteOrder(id);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+    @ExceptionHandler(CannotDeleteOrderException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    @ResponseBody
+    public ResponseEntity<String> handleOrderCannotDelete(CannotDeleteOrderException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }
 }

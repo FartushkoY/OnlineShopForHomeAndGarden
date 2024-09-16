@@ -3,8 +3,6 @@ package de.telran.onlineshopforhomeandgarden1.controller;
 import de.telran.onlineshopforhomeandgarden1.config.SecurityConfig;
 import de.telran.onlineshopforhomeandgarden1.dto.response.FavoriteResponseDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.ProductResponseDto;
-import de.telran.onlineshopforhomeandgarden1.dto.response.UserResponseDto;
-import de.telran.onlineshopforhomeandgarden1.enums.Role;
 import de.telran.onlineshopforhomeandgarden1.security.JwtProvider;
 import de.telran.onlineshopforhomeandgarden1.service.FavoriteService;
 import org.junit.jupiter.api.Test;

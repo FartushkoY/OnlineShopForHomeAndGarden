@@ -11,7 +11,7 @@ import static org.springframework.data.web.config.EnableSpringDataWebSupport.Pag
 
 
 @SpringBootApplication
-@EnableScheduling
+//@EnableScheduling
 public class OnlineShopForHomeAndGarden1Application {
 
     public static void main(String[] args) {
