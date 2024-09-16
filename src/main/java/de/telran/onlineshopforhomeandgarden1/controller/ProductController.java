@@ -7,6 +7,8 @@ import de.telran.onlineshopforhomeandgarden1.dto.response.ProductWithDiscountPri
 import de.telran.onlineshopforhomeandgarden1.dto.response.ProductWithPriceResponseDto;
 import de.telran.onlineshopforhomeandgarden1.entity.Product;
 import de.telran.onlineshopforhomeandgarden1.service.ProductService;
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Min;
 import lombok.extern.slf4j.Slf4j;
@@ -28,6 +30,7 @@ import java.util.Optional;
 @RestController
 @Slf4j
 @RequestMapping("/products")
+@Tag(name = "Product Controller", description = "Operations related to product")
 public class ProductController {
 
     private final ProductService service;
@@ -40,6 +43,7 @@ public class ProductController {
     }
 
     @GetMapping("/{id}")
+    @Operation(summary = "Retrieve a specific product by its ID")
     public ResponseEntity<ProductWithDiscountPriceResponseDto> getProductById(@PathVariable Long id) {
         Optional<ProductWithDiscountPriceResponseDto> productDto = service.getProductById(id);
         if (productDto.isPresent()) {
@@ -50,6 +54,8 @@ public class ProductController {
     }
 
     @GetMapping
+    @Operation(summary = "Retrieve products by filter",
+               description = "Fetches a paginated list of products based on optional filters such as category, discount status, and price range. Results are sorted by name by default.")
     public Page<ProductWithDiscountPriceResponseDto> getProducts(@RequestParam(required = false) Long categoryId,
                                                                  @RequestParam(required = false) Boolean hasDiscount,
                                                                  @RequestParam(required = false) Integer minPrice,
@@ -61,6 +67,8 @@ public class ProductController {
     }
 
     @PostMapping
+    @Operation(summary ="Add a new product with the required details",
+               description = "Creates a new product.Only administrators are authorised to perform this action.")
     @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     public ResponseEntity<ProductRequestDto> addProduct(@RequestBody @Valid ProductRequestDto productRequestDto) {
         try {
@@ -74,6 +82,8 @@ public class ProductController {
 
 
     @PutMapping("{productId}")
+    @Operation(summary ="Update the details of an existing product identified by its ID",
+               description = "Modifies the product details.Only administrators are authorised to perform this action.")
     @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     public ResponseEntity<ProductRequestDto> updateProduct(@PathVariable Long productId, @RequestBody @Valid ProductRequestDto product) {
 //        try {
@@ -85,6 +95,8 @@ public class ProductController {
     }
 
     @PutMapping("/addDiscount/{id}")
+    @Operation(summary ="Apply a discount to a product identified by its ID",
+               description = "Set a discount price for the product. Only administrators are authorised to perform this action.")
     @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     public ResponseEntity<ProductRequestDto> addDiscount(@PathVariable Long id,
                                                          @RequestParam @Min(value = 0, message = "{validation.product.price}")
@@ -98,6 +110,8 @@ public class ProductController {
     }
 
     @DeleteMapping("/{productId}")
+    @Operation(summary ="Delete an existing product identified by its ID",
+               description = "Removes the product. Only administrators are authorised to perform this action.")
     @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     public ResponseEntity<?> deleteProduct(@PathVariable Long productId) {
         Optional<Product> deletedProduct = service.deleteProduct(productId);
@@ -110,12 +124,15 @@ public class ProductController {
     }
 
     @GetMapping("/top10")
+    @Operation(summary ="Retrieve Top 10 most purchased products")
     public List<ProductWithPriceResponseDto> getTop10MostPurchasedProducts() {
         return service.getTop10MostPurchasedProducts();
 
     }
 
     @GetMapping("/top10Canceled")
+    @Operation(summary ="Retrieve Top 10 canceled products",
+               description = "Returns a list of Top 10 canceled products. Only administrators are authorised to perform this action.")
     @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     public List<ProductWithPriceResponseDto> getTop10FrequentlyCanceledProducts() {
         return service.getTop10FrequentlyCanceledProducts();
@@ -123,6 +140,8 @@ public class ProductController {
     }
 
     @GetMapping("/productOfTheDay")
+    @Operation(summary ="Retrieve the product of the day",
+               description = "Finds the product of the day with a discount. If multiple products are available, a random product is selected.")
     public ResponseEntity<ProductWithDiscountPriceResponseDto> getProductOfTheDay() {
         Optional<ProductWithDiscountPriceResponseDto> productOfTheDay = service.getProductOfTheDay();
         if (productOfTheDay.isPresent()) {
@@ -134,6 +153,8 @@ public class ProductController {
     }
 
     @GetMapping("/pendingMoreThan/{days}")
+    @Operation(summary ="Retrieve products pending for more than a specified number of days",
+               description = "Returns a list of products that have been pending for longer than the specified number of days. The products are filtered based on their pending status and the specified time period. Only administrators are authorised to perform this action.")
     @PreAuthorize("hasRole('ROLE_ADMINISTRATOR')")
     public ResponseEntity<List<ProductWithPriceResponseDto>> getPendingProducts(@PathVariable int days) {
         List<ProductWithPriceResponseDto> pendingProducts = service.getPendingProducts(days);
