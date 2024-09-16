@@ -17,6 +17,7 @@ import java.util.concurrent.TimeUnit;
 @Slf4j
 public class DeliveryStatusScheduler {
 
+
     private final OrderRepository orderRepository;
 
     @Autowired
@@ -51,4 +52,5 @@ public class DeliveryStatusScheduler {
 
      }
    }
+
 

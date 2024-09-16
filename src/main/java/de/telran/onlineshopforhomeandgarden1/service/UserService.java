@@ -50,12 +50,25 @@ public class UserService {
     public Optional<UserRequestDto> updateUser(Long id, UserRequestDto userRequestDto) {
         Optional<User> userOptional = repository.findById(id);
         if (userOptional.isPresent()) {
-
-            User user = mapper.requestDtoToEntity(userRequestDto);
-            user.setId(id);
-            User updatedUser = repository.save(user);
+            User updated = userOptional.get();
+            if (userRequestDto.getName() != null) {
+                updated.setName(userRequestDto.getName());
+            }
+            if (userRequestDto.getEmail() != null) {
+                updated.setEmail(userRequestDto.getEmail());
+            }
+            if (userRequestDto.getPhoneNumber() != null) {
+                updated.setPhoneNumber(userRequestDto.getPhoneNumber());
+            }
+            if (userRequestDto.getRole() != null) {
+                updated.setRole(Role.valueOf(userRequestDto.getRole()));
+            }
+            if (userRequestDto.getPasswordHash() != null) {
+                updated.setPasswordHash(userRequestDto.getPasswordHash());
+            }
+            repository.save(updated);
             logger.debug("User with id = {} updated", id);
-            return Optional.of(mapper.entityToRequestDto(updatedUser));
+            return Optional.of(mapper.entityToRequestDto(updated));
         } else {
             logger.debug("User with id = {} not found", id);
             return Optional.empty();
