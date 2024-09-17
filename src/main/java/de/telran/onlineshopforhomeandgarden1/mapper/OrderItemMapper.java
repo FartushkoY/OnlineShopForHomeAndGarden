@@ -3,6 +3,7 @@ package de.telran.onlineshopforhomeandgarden1.mapper;
 import de.telran.onlineshopforhomeandgarden1.dto.response.OrderItemResponseDto;
 import de.telran.onlineshopforhomeandgarden1.entity.OrderItem;
 import org.mapstruct.*;
+
 import java.util.List;
 
 
@@ -10,7 +11,7 @@ import java.util.List;
 public interface OrderItemMapper {
 
     OrderItemResponseDto entityToDto(OrderItem orderItem);
-    List<OrderItemResponseDto> entityListToDto(List<OrderItem> orderItems);
 
-    }
+    List<OrderItemResponseDto> entityListToDto(List<OrderItem> orderItems);
+}
 

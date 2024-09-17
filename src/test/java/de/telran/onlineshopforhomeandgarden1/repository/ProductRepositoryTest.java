@@ -29,9 +29,6 @@ class ProductRepositoryTest {
     @Autowired
     OrderRepository orderRepository;
 
-    @Autowired
-    OrderItemRepository orderItemRepository;
-
 
     @Test
     void getAllWithFiltersTest() {
@@ -70,7 +67,6 @@ class ProductRepositoryTest {
 
         productPage = repository.getAllWithFilters(null, false, true, BigDecimal.valueOf(30.00), BigDecimal.valueOf(35.00), Pageable.unpaged());
         assertEquals(List.of(repository.findById(10L).get(), repository.findById(16L).get(), repository.findById(17L).get()), productPage.getContent());
-
     }
 
 
@@ -84,6 +80,7 @@ class ProductRepositoryTest {
        List<Product> top10MostPurchasedProducts = repository.findTop10MostPurchasedProducts();
        assertEquals(products, top10MostPurchasedProducts);
    }
+
 
     @Test
     void findTop10FrequentlyCanceledProducts(){
@@ -102,7 +99,6 @@ class ProductRepositoryTest {
         List<Optional<Product>> results = List.of(repository.findById(10L), repository.findById(16L), repository.findById(17L));
         Optional<Product> productOfTheDay = repository.findProductOfTheDay();
         assertTrue(results.contains(productOfTheDay));
-
     }
 
 
@@ -113,6 +109,7 @@ class ProductRepositoryTest {
         assertTrue(products.contains(randomProduct.get()));
     }
 
+
     @Test
     void findPendingProductsMoreThanNDays() {
         Instant calculatedDate = Instant.now().minus(0, ChronoUnit.DAYS);
@@ -120,7 +117,5 @@ class ProductRepositoryTest {
         List<Product> pendingProducts = repository.findPendingProductsMoreThanNDays(calculatedDate);
         assertEquals(products, pendingProducts);
     }
-
-
 }
 
