@@ -13,16 +13,13 @@ import java.util.List;
 @Mapper(componentModel = "spring")
 public interface CategoryMapper {
 
+    Category dtoToRequestEntity(CategoryRequestDto categoryRequestDto);
 
-
-    Category dtoToRequestEntity (CategoryRequestDto categoryRequestDto);
-
-    CategoryRequestDto entityToRequestDto (Category category);
+    CategoryRequestDto entityToRequestDto(Category category);
 
     Category dtoToEntity(CategoryResponseDto categoryDto);
 
     CategoryResponseDto entityToDto(Category category);
-
 
     List<CategoryResponseDto> entityListToDto(List<Category> categories);
 }

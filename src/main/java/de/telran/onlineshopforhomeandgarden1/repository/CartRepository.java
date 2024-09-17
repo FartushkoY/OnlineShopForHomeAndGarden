@@ -10,5 +10,6 @@ import java.util.Set;
 @Repository
 public interface CartRepository extends JpaRepository<Cart,Long> {
     Cart findByUserEmail(String email);
+
     Set<Cart> findCartsByUserEmail(String email);
 }

@@ -38,6 +38,7 @@ public class OrderController {
         return new ResponseEntity<>(service.getOrdersHistory(), HttpStatus.OK);
     }
 
+
     @GetMapping("/{orderId}")
     @Operation(summary = "Retrieve a specific order by its ID for the authenticated customer")
     @PreAuthorize("hasRole('ROLE_CUSTOMER')")
@@ -49,6 +50,7 @@ public class OrderController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
     }
+
 
     @GetMapping("/revenueReport")
     @Operation(summary="Retrieve a revenue report for a specific period",
@@ -64,6 +66,7 @@ public class OrderController {
          return service.getRevenueReport(startDate, Periods.valueOf(period),  duration, Periods.valueOf(detailing));
     }
 
+
     @PostMapping
     @Operation(summary = "Add a new order for the authenticated customer")
     @PreAuthorize("hasRole('ROLE_CUSTOMER')")
@@ -71,6 +74,7 @@ public class OrderController {
         service.addOrder(orderRequestDto);
         return new ResponseEntity<>(HttpStatus.CREATED);
     }
+
 
     @DeleteMapping("/{id}")
     @Operation(summary = "Delete an existing order of the authenticated customer identified by its ID")
@@ -80,9 +84,9 @@ public class OrderController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
+
     @ExceptionHandler(CannotDeleteOrderException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ResponseBody
     public ResponseEntity<String> handleOrderCannotDelete(CannotDeleteOrderException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.BAD_REQUEST);
     }

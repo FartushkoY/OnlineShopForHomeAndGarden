@@ -61,7 +61,8 @@ public class SecurityConfig {
                                         "/api/v1/auth/**",
                                         "/v3/api-docs/**",
                                         "/swagger-ui/**",
-                                        "/users/register"
+                                        "/users/register",
+                                        "/products/**"
                                 ).permitAll()
                                 .anyRequest().authenticated()
                 ).addFilterAfter(jwtFilter, UsernamePasswordAuthenticationFilter.class).build();

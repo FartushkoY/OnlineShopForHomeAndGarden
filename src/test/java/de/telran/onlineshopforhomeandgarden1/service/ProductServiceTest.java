@@ -3,15 +3,16 @@ package de.telran.onlineshopforhomeandgarden1.service;
 import de.telran.onlineshopforhomeandgarden1.dto.request.ProductRequestDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.ProductWithDiscountPriceResponseDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.ProductWithPriceResponseDto;
-import de.telran.onlineshopforhomeandgarden1.entity.Category;
-import de.telran.onlineshopforhomeandgarden1.entity.Favorite;
-import de.telran.onlineshopforhomeandgarden1.entity.Product;
+import de.telran.onlineshopforhomeandgarden1.entity.*;
+import de.telran.onlineshopforhomeandgarden1.exception.CannotDeleteProductException;
 import de.telran.onlineshopforhomeandgarden1.mapper.ProductMapper;
 import de.telran.onlineshopforhomeandgarden1.repository.*;
+import jakarta.persistence.EntityNotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mapstruct.factory.Mappers;
 import org.mockito.Mockito;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.*;
 
 import java.math.BigDecimal;
@@ -28,21 +29,15 @@ public class ProductServiceTest {
 
     private static ProductService productService;
     private static ProductRepository repository;
-    private static FavoriteRepository favoriteRepository;
-    private static CartItemRepository cartItemRepository;
-    private static OrderItemRepository orderItemRepository;
     private static CategoryRepository categoryRepository;
     private static ProductMapper productMapper;
 
     @BeforeEach
     public void init() {
         repository = Mockito.mock(ProductRepository.class);
-        favoriteRepository = Mockito.mock(FavoriteRepository.class);
-        cartItemRepository = Mockito.mock(CartItemRepository.class);
-        orderItemRepository = Mockito.mock(OrderItemRepository.class);
         categoryRepository = Mockito.mock(CategoryRepository.class);
         productMapper = Mappers.getMapper(ProductMapper.class);
-        productService = new ProductService(repository, favoriteRepository, cartItemRepository, orderItemRepository, categoryRepository, productMapper);
+        productService = new ProductService(repository, categoryRepository, productMapper);
     }
 
     @Test
@@ -142,11 +137,15 @@ public class ProductServiceTest {
 
         Long productId = 22L;
 
-        Mockito.when(repository.findById(updatedProduct.getId())).thenReturn(Optional.of(oldProduct));
-        Mockito.when(categoryRepository.findById(Long.valueOf(updatedProductDto.getCategoryId()))).thenReturn(Optional.of(newCategory));
+        Mockito.when(repository.findById(productId)).thenReturn(Optional.of(oldProduct));
+        Mockito.when(categoryRepository.getReferenceById(Long.valueOf(updatedProductDto.getCategoryId()))).thenReturn(category);
         Mockito.when(repository.save(updatedProduct)).thenReturn(updatedProduct);
         productService.updateProduct(productId, updatedProductDto);
-        Mockito.verify(repository).save(Mockito.eq(updatedProduct));
+        Mockito.verify(repository).save(Mockito.any(Product.class));
+        assertEquals("New test name", updatedProduct.getName());
+        assertEquals("New test description", updatedProduct.getDescription());
+        assertEquals(newCategory, updatedProduct.getCategory());
+        assertEquals("new image url", updatedProduct.getImageUrl());
     }
 
     @Test
@@ -207,27 +206,29 @@ public class ProductServiceTest {
     @Test
     public void deleteProductCannotBeDeletedTest() {
         Product product = new Product();
-        product.setId(4L);
+        product.setId(8L);
 
         Favorite favorite = new Favorite();
         favorite.setId(1L);
         favorite.setProduct(product);
 
-        Set<Favorite> favorites = new LinkedHashSet<>();
-        favorites.add(favorite);
+        Mockito.when(repository.findById(product.getId())).thenReturn(Optional.of(product));
+        Mockito.doThrow(new DataIntegrityViolationException("Product cannot be deleted")).when(repository).deleteById(8L);
 
-        Mockito.when(favoriteRepository.findAllByProductId(product.getId())).thenReturn(favorites);
-        productService.deleteProduct(product.getId());
-        Mockito.verify(repository, Mockito.times(0)).deleteById(product.getId());
+        assertThrows(CannotDeleteProductException.class, () -> productService.deleteProduct(8L));
+
+        Mockito.verify(repository).deleteById(8L);
+        Mockito.verify(repository).findById(8L);
     }
+
 
     @Test
     public void deleteProductNotFoundTest() {
         Product product = new Product();
         product.setId(4L);
 
-        productService.deleteProduct(10L);
-        Mockito.verify(repository, Mockito.never()).deleteById(10L);
+        assertThrows(EntityNotFoundException.class, () -> productService.deleteProduct(10L));
+        Mockito.verify(repository, Mockito.never()).deleteById(product.getId());
     }
 
     @Test

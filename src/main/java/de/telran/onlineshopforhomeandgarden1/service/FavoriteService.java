@@ -20,19 +20,17 @@ public class FavoriteService {
     private final FavoriteMapper favoriteMapper;
     private final AuthService authService;
 
-    public FavoriteService(FavoriteRepository favoriteRepository, FavoriteMapper favoriteMapper,  AuthService authService) {
+    public FavoriteService(FavoriteRepository favoriteRepository, FavoriteMapper favoriteMapper, AuthService authService) {
         this.favoriteRepository = favoriteRepository;
         this.favoriteMapper = favoriteMapper;
         this.authService = authService;
     }
 
     public Set<FavoriteResponseDto> getFavorites() {
-            Set<Favorite> favorites = favoriteRepository.findFavoriteByUserEmail(authService.getAuthInfo().getLogin());
-            logger.debug("Found {} favorites", favorites.size());
-            return favoriteMapper.entityListToDto(favorites);
-
-        }
-
+        Set<Favorite> favorites = favoriteRepository.findFavoriteByUserEmail(authService.getAuthInfo().getLogin());
+        logger.debug("Found {} favorites", favorites.size());
+        return favoriteMapper.entityListToDto(favorites);
     }
+}
 
 
