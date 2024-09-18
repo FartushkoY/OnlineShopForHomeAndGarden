@@ -14,6 +14,8 @@ import java.time.Instant;
 @NoArgsConstructor
 public class ProductWithDiscountPriceResponseDto {
 
+    private Long id;
+
     private String name;
 
     private String description;
