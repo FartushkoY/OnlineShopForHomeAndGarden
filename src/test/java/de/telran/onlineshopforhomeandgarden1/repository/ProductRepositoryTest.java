@@ -29,7 +29,6 @@ class ProductRepositoryTest {
     @Autowired
     OrderRepository orderRepository;
 
-
     @Test
     void getAllWithFiltersTest() {
 
@@ -71,7 +70,7 @@ class ProductRepositoryTest {
 
 
    @Test
-    void findTop10MostPurchasedProducts(){
+    void findTop10MostPurchasedProductsTest(){
        List<Product> products = List.of(
                repository.findById(15L).orElseThrow(), repository.findById(13L).orElseThrow(), repository.findById(12L).orElseThrow(),
                repository.findById(3L).orElseThrow(), repository.findById(2L).orElseThrow(), repository.findById(6L).orElseThrow(),
@@ -83,7 +82,7 @@ class ProductRepositoryTest {
 
 
     @Test
-    void findTop10FrequentlyCanceledProducts(){
+    void findTop10FrequentlyCanceledProductsTest(){
         List<Product> products = List.of(
                 repository.findById(14L).orElseThrow(), repository.findById(8L).orElseThrow(), repository.findById(10L).orElseThrow(),
                 repository.findById(4L).orElseThrow(), repository.findById(5L).orElseThrow(), repository.findById(15L).orElseThrow(),
@@ -103,7 +102,7 @@ class ProductRepositoryTest {
 
 
     @Test
-    void findRandomProduct() {
+    void findRandomProductTest() {
         List<Product> products = repository.findAll();
         Optional<Product> randomProduct = repository.findRandomProduct();
         assertTrue(products.contains(randomProduct.get()));
@@ -111,7 +110,7 @@ class ProductRepositoryTest {
 
 
     @Test
-    void findPendingProductsMoreThanNDays() {
+    void findPendingProductsMoreThanNDaysTest() {
         Instant calculatedDate = Instant.now().minus(0, ChronoUnit.DAYS);
         List<Product> products = List.of(repository.findById(5L).orElseThrow(), repository.findById(6L).orElseThrow(),repository.findById(7L).orElseThrow());
         List<Product> pendingProducts = repository.findPendingProductsMoreThanNDays(calculatedDate);
