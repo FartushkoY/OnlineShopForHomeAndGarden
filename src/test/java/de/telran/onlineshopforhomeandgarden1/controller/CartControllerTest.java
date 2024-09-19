@@ -3,8 +3,10 @@ package de.telran.onlineshopforhomeandgarden1.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.telran.onlineshopforhomeandgarden1.config.SecurityConfig;
 import de.telran.onlineshopforhomeandgarden1.dto.request.CartItemRequestDto;
-import de.telran.onlineshopforhomeandgarden1.dto.request.CartRequestDto;
+import de.telran.onlineshopforhomeandgarden1.dto.response.CartItemResponseDto;
+import de.telran.onlineshopforhomeandgarden1.dto.response.CartResponseDto;
 import de.telran.onlineshopforhomeandgarden1.entity.Product;
+import de.telran.onlineshopforhomeandgarden1.mapper.CartItemMapper;
 import de.telran.onlineshopforhomeandgarden1.security.JwtProvider;
 import de.telran.onlineshopforhomeandgarden1.service.CartService;
 import org.junit.jupiter.api.Test;
@@ -32,6 +34,9 @@ class CartControllerTest {
     @MockBean
     private CartService cartService;
 
+    @MockBean
+    private CartItemMapper cartItemMapper;
+
     @Autowired
     private ObjectMapper mapper;
 
@@ -55,11 +60,13 @@ class CartControllerTest {
         CartItemRequestDto cartItem = new CartItemRequestDto();
         cartItem.setProductId(String.valueOf(1L));
         cartItem.setQuantity(3);
-        CartRequestDto cart = new CartRequestDto();
+        CartResponseDto cart = new CartResponseDto();
         cart.setId(2L);
-        cart.setUserId(String.valueOf(1L));
-        Set<CartItemRequestDto> items = cart.getItems();
-        items.add(cartItem);
+        cart.setId(1L);
+        CartItemResponseDto cartItemResponseDto = cartItemMapper.requestDtoToResponseDto(cartItem);
+
+        Set<CartItemResponseDto> items = cart.getCartItems();
+        items.add(cartItemResponseDto);
 
         Mockito.when(cartService.addCartItem(any(CartItemRequestDto.class))).thenReturn(cart);
 
@@ -70,7 +77,7 @@ class CartControllerTest {
 
         Mockito.verify(cartService).addCartItem(any(CartItemRequestDto.class));
 
-        assertEquals(cart.getItems().size(),1);
+        assertEquals(cart.getCartItems().size(),1);
         assertNotNull(cartItem);
     }
 
@@ -80,19 +87,21 @@ class CartControllerTest {
         CartItemRequestDto cartItem = new CartItemRequestDto();
         cartItem.setProductId(String.valueOf(1L));
         cartItem.setQuantity(3);
-        CartRequestDto cart = new CartRequestDto();
+        CartResponseDto cart = new CartResponseDto();
         cart.setId(2L);
-        cart.setUserId(String.valueOf(1L));
-        Set<CartItemRequestDto> items = cart.getItems();
-        items.add(cartItem);
+        cart.setId(1L);
+        CartItemResponseDto cartItemResponseDto = cartItemMapper.requestDtoToResponseDto(cartItem);
+        Set<CartItemResponseDto> items = cart.getCartItems();
+        items.add(cartItemResponseDto);
 
         CartItemRequestDto updatedCartItem = new CartItemRequestDto();
         updatedCartItem.setProductId(String.valueOf(1L));
         updatedCartItem.setQuantity(15);
 
+        CartItemResponseDto updatedResponseDto = cartItemMapper.requestDtoToResponseDto(updatedCartItem);
         assertEquals(cartItem.getProductId(), updatedCartItem.getProductId());
         items.clear();
-        items.add(updatedCartItem);
+        items.add(updatedResponseDto);
 
         Mockito.when(cartService.updateCartItemInCart(any(CartItemRequestDto.class))).thenReturn(cart);
 
@@ -102,7 +111,7 @@ class CartControllerTest {
                 .andExpect(status().isOk());
 
         Mockito.verify(cartService).updateCartItemInCart(any(CartItemRequestDto.class));
-        assertEquals(cart.getItems().size(),1);
+        assertEquals(cart.getCartItems().size(),1);
         assertNotNull(cartItem);
 
     }

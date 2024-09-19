@@ -43,6 +43,7 @@ class UserServiceTest {
         user.setId(1L);
         user.setName("Test Name");
         user.setEmail("test@test.eu");
+        user.setPasswordHash("TestPassHash123");
         user.setPhoneNumber("+491715207968");
         user.setRole(Role.valueOf("ADMINISTRATOR"));
         Cart cart = new Cart();
@@ -65,6 +66,7 @@ class UserServiceTest {
         user.setEmail("test@test.eu");
         user.setPhoneNumber("+491715207968");
         user.setRole(Role.valueOf("CUSTOMER"));
+        user.setPasswordHash("TestPassHash123");
         Cart cart = new Cart();
         cart.setId(1L);
         user.setCart(cart);
@@ -86,6 +88,7 @@ class UserServiceTest {
         user.setEmail("test@test.eu");
         user.setPhoneNumber("+491715207968");
         user.setRole(null);
+        user.setPasswordHash("TestPassHash123");
         Mockito.when(repository.save(any(User.class))).thenReturn(user);
 
         UserRequestDto userRequestDto = mapper.entityToRequestDto(user);
@@ -143,5 +146,32 @@ class UserServiceTest {
 
         Mockito.when(repository.findById(1000L)).thenReturn(Optional.empty());
         Mockito.verify(repository, Mockito.never()).deleteById(1000L);
+    }
+
+    @Test
+    void getUserByEmail() {
+        User user = new User();
+        user.setId(2L);
+        user.setEmail("Test@test.eu");
+
+        Mockito.when(repository.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
+        service.getUserByEmail(user.getEmail());
+        Mockito.verify(repository).findByEmail(user.getEmail());
+    }
+
+    @Test
+    void save() {
+        User user = new User();
+        user.setId(2L);
+        user.setName("Test Name");
+        user.setEmail("test@test.eu");
+        user.setPasswordHash("TestPassHash123");
+        user.setPhoneNumber("+491715207968");
+        user.setRole(null);
+
+
+        Mockito.when(repository.findByEmail(user.getEmail())).thenReturn(Optional.of(user));
+        service.save(user);
+        Mockito.verify(repository).save(user);
     }
 }

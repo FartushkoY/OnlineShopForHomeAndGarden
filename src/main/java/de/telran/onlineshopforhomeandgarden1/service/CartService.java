@@ -1,7 +1,6 @@
 package de.telran.onlineshopforhomeandgarden1.service;
 
 import de.telran.onlineshopforhomeandgarden1.dto.request.CartItemRequestDto;
-import de.telran.onlineshopforhomeandgarden1.dto.request.CartRequestDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.CartResponseDto;
 import de.telran.onlineshopforhomeandgarden1.entity.Cart;
 import de.telran.onlineshopforhomeandgarden1.entity.CartItem;
@@ -44,7 +43,7 @@ public class CartService {
     }
 
     @Transactional
-    public CartRequestDto addCartItem(CartItemRequestDto cartItemRequestDto) {
+    public CartResponseDto addCartItem(CartItemRequestDto cartItemRequestDto) {
         Cart cart = repository.findByUserEmail(authService.getAuthInfo().getLogin());
 
         Set<CartItem> cartItems = cart.getCartItems();
@@ -58,8 +57,8 @@ public class CartService {
             itemExists.setQuantity(itemExists.getQuantity() + cartItemRequestDto.getQuantity());
             logger.debug("Updated quantity of existing product in cart for productId = {}", newCartItem.getProduct().getId());
         } else {
-            newCartItem.setQuantity(cartItemRequestDto.getQuantity());
             newCartItem.setCart(cart);
+            cartItemRepository.save(newCartItem);
             cartItems.add(newCartItem);
             logger.debug("Added new product to cart for productId = {}", newCartItem.getProduct().getId());
         }
@@ -67,10 +66,10 @@ public class CartService {
 
         Cart saved = repository.save(cart);
         logger.debug("Cart with id = {} added product = {} and quantity = {}.", saved.getId(), newCartItem.getProduct(), newCartItem.getQuantity());
-        return mapper.entityToRequestDto(saved);
+        return mapper.entityToResponseDto(saved);
     }
 
-    public CartRequestDto updateCartItemInCart(CartItemRequestDto cartItemRequestDto) {
+    public CartResponseDto updateCartItemInCart(CartItemRequestDto cartItemRequestDto) {
         Cart cart = repository.findByUserEmail(authService.getAuthInfo().getLogin());
         Set<CartItem> cartItems = cart.getCartItems();
         CartItem newCartItem = cartItemMapper.requestDtoToEntity(cartItemRequestDto);
@@ -83,7 +82,7 @@ public class CartService {
                 saved.getId(),
                 saved.getCartItems().iterator().next().getProduct(),
                 saved.getCartItems().iterator().next().getQuantity());
-        return mapper.entityToRequestDto(saved);
+        return mapper.entityToResponseDto(saved);
 
     }
 

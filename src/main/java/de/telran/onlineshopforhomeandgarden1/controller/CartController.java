@@ -36,16 +36,16 @@ public class CartController {
     @PostMapping
     @Operation(summary = "Add an item to the customer's cart")
     @PreAuthorize("hasRole('ROLE_CUSTOMER')")
-    public ResponseEntity<CartRequestDto> addItemToCart(@RequestBody @Valid CartItemRequestDto cartItemRequestDto) {
-        CartRequestDto result = service.addCartItem(cartItemRequestDto);
+    public ResponseEntity<CartResponseDto> addItemToCart(@RequestBody @Valid CartItemRequestDto cartItemRequestDto) {
+        CartResponseDto result = service.addCartItem(cartItemRequestDto);
         return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 
     @PutMapping
     @Operation(summary = "Update quantity of an item in the customer's cart")
     @PreAuthorize("hasRole('ROLE_CUSTOMER')")
-    public ResponseEntity<CartRequestDto> updateCartItem(@RequestBody @Valid CartItemRequestDto cartItemRequestDto) {
-        CartRequestDto cart = service.updateCartItemInCart(cartItemRequestDto);
+    public ResponseEntity<CartResponseDto> updateCartItem(@RequestBody @Valid CartItemRequestDto cartItemRequestDto) {
+        CartResponseDto cart = service.updateCartItemInCart(cartItemRequestDto);
         if (cart != null) {
             return new ResponseEntity<>(cart, HttpStatus.OK);
         } else {
