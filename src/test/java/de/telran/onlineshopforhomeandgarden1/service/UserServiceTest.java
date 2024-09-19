@@ -1,9 +1,11 @@
 package de.telran.onlineshopforhomeandgarden1.service;
 
 import de.telran.onlineshopforhomeandgarden1.dto.request.UserRequestDto;
+import de.telran.onlineshopforhomeandgarden1.entity.Cart;
 import de.telran.onlineshopforhomeandgarden1.entity.User;
 import de.telran.onlineshopforhomeandgarden1.enums.Role;
 import de.telran.onlineshopforhomeandgarden1.mapper.UserMapper;
+import de.telran.onlineshopforhomeandgarden1.repository.CartRepository;
 import de.telran.onlineshopforhomeandgarden1.repository.UserRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -24,13 +26,15 @@ class UserServiceTest {
     private static UserRepository repository;
     private static UserMapper mapper;
     private static PasswordEncoder encoder;
+    private static CartRepository cartRepository;
 
     @BeforeEach
     public void init() {
         repository = Mockito.mock(UserRepository.class);
         mapper = Mappers.getMapper(UserMapper.class);
         encoder = new BCryptPasswordEncoder();
-        service = new UserService(repository, mapper, encoder);
+        cartRepository = Mockito.mock(CartRepository.class);
+        service = new UserService(repository, mapper, encoder,cartRepository);
     }
 
     @Test
@@ -41,14 +45,16 @@ class UserServiceTest {
         user.setEmail("test@test.eu");
         user.setPhoneNumber("+491715207968");
         user.setRole(Role.valueOf("ADMINISTRATOR"));
-        user.setPasswordHash("TestPassHash123");
+        Cart cart = new Cart();
+        cart.setId(2L);
+        user.setCart(cart);
 
-        Mockito.when(repository.save(Mockito.any(User.class)))
-                .thenAnswer(invocation -> invocation.getArgument(0));
-        service.saveUser(mapper.entityToRequestDto(user));
+        Mockito.when(repository.save(Mockito.any(User.class))).thenReturn(user);
+        UserRequestDto userRequestDto = mapper.entityToRequestDto(user);
+        userRequestDto.setPassword("TestPassHash123");
+        service.saveUser(userRequestDto);
         Mockito.verify(repository).save(Mockito.any(User.class));
         assertEquals(user.getRole(), Role.ADMINISTRATOR);
-        assertEquals("TestPassHash123", user.getPasswordHash());
     }
 
     @Test
@@ -59,14 +65,17 @@ class UserServiceTest {
         user.setEmail("test@test.eu");
         user.setPhoneNumber("+491715207968");
         user.setRole(Role.valueOf("CUSTOMER"));
-        user.setPasswordHash("TestPassHash123");
+        Cart cart = new Cart();
+        cart.setId(1L);
+        user.setCart(cart);
 
-        Mockito.when(repository.save(Mockito.any(User.class)))
-                .thenAnswer(invocation -> invocation.getArgument(0));
-        service.saveUser(mapper.entityToRequestDto(user));
+        Mockito.when(repository.save(Mockito.any(User.class))).thenReturn(user);
+        UserRequestDto requestDto = mapper.entityToRequestDto(user);
+        requestDto.setPassword("TestPass");
+        service.saveUser(requestDto);
         Mockito.verify(repository).save(Mockito.any(User.class));
+
         assertEquals(user.getRole(), Role.CUSTOMER);
-        assertEquals("TestPassHash123", user.getPasswordHash());
     }
 
     @Test
@@ -76,16 +85,12 @@ class UserServiceTest {
         user.setName("Test Name");
         user.setEmail("test@test.eu");
         user.setPhoneNumber("+491715207968");
-        user.setPasswordHash("TestPassHash123");
         user.setRole(null);
-        Mockito.when(repository.save(any(User.class)))
-                .thenAnswer(invocation -> {
-                    User savedUser = invocation.getArgument(0);
-                    savedUser.setId(1L);
-                    return savedUser;
-                });
+        Mockito.when(repository.save(any(User.class))).thenReturn(user);
 
-        service.saveUser(mapper.entityToRequestDto(user));
+        UserRequestDto userRequestDto = mapper.entityToRequestDto(user);
+        userRequestDto.setPassword("TestPassHash123");
+        service.saveUser(userRequestDto);
         user.setRole(Role.CUSTOMER);
 
         Mockito.verify(repository,Mockito.times(1)).save(any(User.class));

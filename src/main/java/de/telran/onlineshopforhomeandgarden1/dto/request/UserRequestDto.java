@@ -32,9 +32,9 @@ public class UserRequestDto {
     @Pattern(regexp = "[+49\\d]{13}", message = "{validation.user.phoneNumber}")
     private String phoneNumber;
 
-    @org.antlr.v4.runtime.misc.NotNull
-    @Length(max = 255, message = "{validation.user.passwordHash}")
-    private String passwordHash;
+    @NotNull
+    @Length(max = 45, message = "{validation.user.password}")
+    private String password;
 
     private String role;
 
