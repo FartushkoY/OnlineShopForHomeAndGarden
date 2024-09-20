@@ -50,11 +50,10 @@ public class CartService {
         CartItem newCartItem = cartItemMapper.requestDtoToEntity(cartItemRequestDto);
 
         CartItem itemExists = cartItems.stream().filter(cartItem -> cartItem.getProduct().getId()
-                        .equals(newCartItem.getProduct().getId())).findFirst()
-                .orElse(null);
+                        .equals(newCartItem.getProduct().getId())).findFirst().orElse(null);
 
         if (itemExists != null) {
-            itemExists.setQuantity(itemExists.getQuantity() + cartItemRequestDto.getQuantity());
+            itemExists.setQuantity(itemExists.getQuantity() + newCartItem.getQuantity());
             logger.debug("Updated quantity of existing product in cart for productId = {}", newCartItem.getProduct().getId());
         } else {
             newCartItem.setCart(cart);
@@ -62,7 +61,6 @@ public class CartService {
             cartItems.add(newCartItem);
             logger.debug("Added new product to cart for productId = {}", newCartItem.getProduct().getId());
         }
-
 
         Cart saved = repository.save(cart);
         logger.debug("Cart with id = {} added product = {} and quantity = {}.", saved.getId(), newCartItem.getProduct(), newCartItem.getQuantity());
