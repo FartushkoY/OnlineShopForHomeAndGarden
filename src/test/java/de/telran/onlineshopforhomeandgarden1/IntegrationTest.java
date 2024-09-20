@@ -77,7 +77,8 @@ public class IntegrationTest {
                         .contentType("application/json")
                         .content(objectMapper.writeValueAsString(createdCategory)))
                 .andExpect(status().isOk())
-                .andExpect(jsonPath("$.name").value("Updated category"));
+                .andExpect(jsonPath("$.name").value("Updated category"))
+                .andExpect(jsonPath("$.imageUrl").value("http://telrun.de/test1"));
 
         ProductRequestDto newProduct = new ProductRequestDto(null, "Test product", "Product description", BigDecimal.valueOf(Double.parseDouble("10.00")), categoryId.toString(), "Test description");
         MvcResult productResult = mockMvc.perform(post("/products")
