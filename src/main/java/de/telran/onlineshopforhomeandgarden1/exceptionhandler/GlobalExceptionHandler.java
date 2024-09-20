@@ -18,7 +18,6 @@ import org.springframework.web.method.annotation.HandlerMethodValidationExceptio
 
 import java.util.HashMap;
 import java.util.Map;
-import java.util.NoSuchElementException;
 
 @ControllerAdvice
 @Slf4j

@@ -102,7 +102,6 @@ public class OrderService {
         }
     }
 
-
     private User findUser() {
         String email = authService.getAuthInfo().getLogin();
         return this.userService.getUserByEmail(email).get();
