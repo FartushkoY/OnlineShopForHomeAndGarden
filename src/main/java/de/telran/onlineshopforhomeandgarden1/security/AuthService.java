@@ -13,6 +13,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 /**
  * Service class for handling authentication-related operations.
  * <p>
@@ -157,6 +159,11 @@ public class AuthService {
      */
     public JwtAuthentication getAuthInfo() {
         return (JwtAuthentication) SecurityContextHolder.getContext().getAuthentication();
+    }
+
+    public Optional<User> getCurrentUser() {
+        String email = this.getAuthInfo().getLogin();
+        return this.userService.getUserByEmail(email);
     }
 
 }

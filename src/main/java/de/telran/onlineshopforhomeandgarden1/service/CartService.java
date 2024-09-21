@@ -58,9 +58,7 @@ public class CartService {
 
             if (cart == null) {
                 cart = new Cart();
-                User user = new User();
-                user.setEmail(authService.getAuthInfo().getLogin());
-                cart.setUser(user);
+                cart.setUser(authService.getCurrentUser().get());
                 cart.setCartItems(new LinkedHashSet<>());
                 logger.debug("Creating new cart");
             }

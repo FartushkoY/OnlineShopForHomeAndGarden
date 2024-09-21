@@ -48,8 +48,8 @@ class CategoryControllerTest {
     @Test
     @WithMockUser(username = "Test user", roles = {"ADMINISTRATOR"})
     public void getCategoriesAdmin() throws Exception {
-        List<CategoryResponseDto> categories = Arrays.asList(new CategoryResponseDto("Category1", "Image1"),
-                new CategoryResponseDto("Category2", "Image2"));
+        List<CategoryResponseDto> categories = Arrays.asList(new CategoryResponseDto(1L,"Category1", "Image1"),
+                new CategoryResponseDto(1L,"Category2", "Image2"));
 
         when(service.getAll()).thenReturn(categories);
 
@@ -63,8 +63,8 @@ class CategoryControllerTest {
     @Test
     @WithMockUser(username = "Test user", roles = {"CUSTOMER"})
     public void getCategoriesCustomer() throws Exception {
-        List<CategoryResponseDto> categories = Arrays.asList(new CategoryResponseDto("Category1", "Image1"),
-                new CategoryResponseDto("Category2", "Image2"));
+        List<CategoryResponseDto> categories = Arrays.asList(new CategoryResponseDto(1L,"Category1", "Image1"),
+                new CategoryResponseDto(1L,"Category2", "Image2"));
 
         when(service.getAll()).thenReturn(categories);
 
