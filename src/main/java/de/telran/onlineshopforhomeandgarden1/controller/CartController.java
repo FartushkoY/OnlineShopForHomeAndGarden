@@ -7,7 +7,6 @@ import de.telran.onlineshopforhomeandgarden1.dto.response.CartResponseDto;
 import de.telran.onlineshopforhomeandgarden1.exception.IllegalOperationInCartException;
 import de.telran.onlineshopforhomeandgarden1.service.CartService;
 import io.swagger.v3.oas.annotations.Operation;
-import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,9 +20,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/cart")
 @Validated
 @Slf4j
-@Tag(name = "Cart Controller", description = "Operations related to customer cart")
 public class CartController {
-
     private final CartService service;
 
     @Autowired
@@ -38,11 +35,11 @@ public class CartController {
         return new ResponseEntity<>(service.getCartItems(), HttpStatus.OK);
     }
 
-    @PostMapping
+   @PostMapping
     @Operation(summary = "Add an item to the customer's cart")
     @PreAuthorize("hasRole('ROLE_CUSTOMER')")
-    public ResponseEntity<CartRequestDto> addItemToCart(@RequestBody @Valid CartItemRequestDto cartItemRequestDto) {
-        CartRequestDto result = service.addCartItem(cartItemRequestDto);
+    public ResponseEntity<CartResponseDto> addItemToCart(@RequestBody @Valid CartItemRequestDto cartItemRequestDto) {
+        CartResponseDto result = service.addCartItem(cartItemRequestDto);
         return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 
@@ -50,9 +47,8 @@ public class CartController {
     @PreAuthorize("hasRole('ROLE_CUSTOMER')")
     @Operation(summary = "Update quantity of an item in the customer's cart")
     public ResponseEntity<CartItemResponseDto> updateCartItem(@RequestParam Long cartItemId, Integer quantity) {
-
-            CartItemResponseDto cartItemInCart = service.updateCartItemInCart(cartItemId, quantity);
-            return new ResponseEntity<>(cartItemInCart, HttpStatus.OK);
+        CartItemResponseDto cartItemInCart = service.updateCartItemInCart(cartItemId, quantity);
+        return new ResponseEntity<>(cartItemInCart, HttpStatus.OK);
     }
 
     @ExceptionHandler(IllegalOperationInCartException.class)
@@ -61,8 +57,6 @@ public class CartController {
     public ResponseEntity<String> handleIllegalOperationInCartException(IllegalOperationInCartException ex) {
         return new ResponseEntity<>(ex.getMessage(), HttpStatus.FORBIDDEN);
     }
-
-
 
     @DeleteMapping
     @Operation(summary ="Delete an item in the customer's cart")

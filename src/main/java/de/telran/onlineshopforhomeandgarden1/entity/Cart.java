@@ -11,6 +11,7 @@ import java.util.Set;
 @Setter
 @AllArgsConstructor
 @NoArgsConstructor
+@EqualsAndHashCode(exclude = {"user", "cartItems"})
 @Entity
 @Table(name = "carts")
 public class Cart {

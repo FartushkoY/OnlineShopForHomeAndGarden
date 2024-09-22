@@ -6,7 +6,6 @@ import de.telran.onlineshopforhomeandgarden1.dto.response.CategoryResponseDto;
 import de.telran.onlineshopforhomeandgarden1.service.CategoryService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;

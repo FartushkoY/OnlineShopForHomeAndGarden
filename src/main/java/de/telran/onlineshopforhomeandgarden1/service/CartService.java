@@ -1,10 +1,8 @@
 package de.telran.onlineshopforhomeandgarden1.service;
 
 import de.telran.onlineshopforhomeandgarden1.dto.request.CartItemRequestDto;
-import de.telran.onlineshopforhomeandgarden1.dto.request.CartRequestDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.CartItemResponseDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.CartResponseDto;
-import de.telran.onlineshopforhomeandgarden1.exception.IllegalOperationInCartException;
 import de.telran.onlineshopforhomeandgarden1.entity.Cart;
 import de.telran.onlineshopforhomeandgarden1.entity.CartItem;
 import de.telran.onlineshopforhomeandgarden1.mapper.CartItemMapper;
@@ -47,29 +45,28 @@ public class CartService {
     }
 
     @Transactional
-    public CartRequestDto addCartItem(CartItemRequestDto cartItemRequestDto) {
+    public CartResponseDto addCartItem(CartItemRequestDto cartItemRequestDto) {
         Cart cart = repository.findByUserEmail(authService.getAuthInfo().getLogin());
 
         Set<CartItem> cartItems = cart.getCartItems();
         CartItem newCartItem = cartItemMapper.requestDtoToEntity(cartItemRequestDto);
 
         CartItem itemExists = cartItems.stream().filter(cartItem -> cartItem.getProduct().getId()
-                        .equals(newCartItem.getProduct().getId())).findFirst()
-                .orElse(null);
+                .equals(newCartItem.getProduct().getId())).findFirst().orElse(null);
 
         if (itemExists != null) {
-            itemExists.setQuantity(itemExists.getQuantity() + cartItemRequestDto.getQuantity());
+            itemExists.setQuantity(itemExists.getQuantity() + newCartItem.getQuantity());
             logger.debug("Updated quantity of existing product in cart for productId = {}", newCartItem.getProduct().getId());
         } else {
-            newCartItem.setQuantity(cartItemRequestDto.getQuantity());
             newCartItem.setCart(cart);
+            cartItemRepository.save(newCartItem);
             cartItems.add(newCartItem);
             logger.debug("Added new product to cart for productId = {}", newCartItem.getProduct().getId());
         }
 
         Cart saved = repository.save(cart);
         logger.debug("Cart with id = {} added product = {} and quantity = {}.", saved.getId(), newCartItem.getProduct(), newCartItem.getQuantity());
-        return mapper.entityToRequestDto(saved);
+        return mapper.entityToResponseDto(saved);
     }
 
     public CartItemResponseDto updateCartItemInCart(Long cartItemId, Integer quantity) {
@@ -86,7 +83,6 @@ public class CartService {
             throw new IllegalOperationInCartException("CartItem with id = " + cartItemId + " not in cart with id = " + cart.getId());
         }
     }
-
 
     public void deleteCartItemsInCart() {
         Cart cart = repository.findByUserEmail(authService.getAuthInfo().getLogin());

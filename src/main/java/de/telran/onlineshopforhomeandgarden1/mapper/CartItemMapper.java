@@ -6,24 +6,15 @@ import de.telran.onlineshopforhomeandgarden1.entity.CartItem;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-import java.util.List;
-import java.util.Set;
-
 @Mapper(componentModel = "spring")
 public interface CartItemMapper {
-
     @Mapping(target = "product.id", source = "productId")
     CartItem requestDtoToEntity(CartItemRequestDto cartItemRequestDto);
 
     @Mapping(target = "productId", source = "product.id")
     CartItemRequestDto entityToRequestDto (CartItem cartItem);
 
-    Set<CartItemRequestDto> entityListToRequestDto(List<CartItem> cartItem);
-
-    CartItem responseDtoToEntity(CartItemResponseDto cartItemDto);
-
     CartItemResponseDto entityToResponseDto(CartItem cartItem);
 
-    Set<CartItemResponseDto> entityListToResponseDto(List<CartItem> cartItem);
-
+    CartItemResponseDto requestDtoToResponseDto(CartItemRequestDto cartItemRequestDto);
 }
