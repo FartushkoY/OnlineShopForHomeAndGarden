@@ -3,8 +3,10 @@ package de.telran.onlineshopforhomeandgarden1.controller;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.telran.onlineshopforhomeandgarden1.config.SecurityConfig;
 import de.telran.onlineshopforhomeandgarden1.dto.request.CartItemRequestDto;
+import de.telran.onlineshopforhomeandgarden1.dto.request.CartRequestDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.CartItemResponseDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.CartResponseDto;
+import de.telran.onlineshopforhomeandgarden1.dto.response.ProductResponseDto;
 import de.telran.onlineshopforhomeandgarden1.entity.Product;
 import de.telran.onlineshopforhomeandgarden1.mapper.CartItemMapper;
 import de.telran.onlineshopforhomeandgarden1.security.JwtProvider;
@@ -84,56 +86,43 @@ class CartControllerTest {
     @Test
     @WithMockUser(username = "Test user", roles = {"CUSTOMER"})
     void updateCartItemIsSuccessful() throws Exception {
-        CartItemRequestDto cartItem = new CartItemRequestDto();
-        cartItem.setProductId(String.valueOf(1L));
-        cartItem.setQuantity(3);
-        CartResponseDto cart = new CartResponseDto();
-        cart.setId(2L);
-        cart.setId(1L);
-        CartItemResponseDto cartItemResponseDto = cartItemMapper.requestDtoToResponseDto(cartItem);
-        Set<CartItemResponseDto> items = cart.getCartItems();
-        items.add(cartItemResponseDto);
+        ProductResponseDto product = new ProductResponseDto();
+        product.setId(1L);
 
-        CartItemRequestDto updatedCartItem = new CartItemRequestDto();
-        updatedCartItem.setProductId(String.valueOf(1L));
-        updatedCartItem.setQuantity(15);
+        CartItemRequestDto cartItem1 = new CartItemRequestDto();
+        cartItem1.setProductId(String.valueOf(product.getId()));
+        cartItem1.setQuantity(1);
 
-        CartItemResponseDto updatedResponseDto = cartItemMapper.requestDtoToResponseDto(updatedCartItem);
-        assertEquals(cartItem.getProductId(), updatedCartItem.getProductId());
-        items.clear();
-        items.add(updatedResponseDto);
+        CartRequestDto cart1 = new CartRequestDto();
+        cart1.setId(1L);
+        Set<CartItemRequestDto> cartItems1 = cart1.getItems();
+        cartItems1.add(cartItem1);
 
-        Mockito.when(cartService.updateCartItemInCart(any(CartItemRequestDto.class))).thenReturn(cart);
+        CartItemRequestDto cartItem2 = new CartItemRequestDto();
+        cartItem2.setProductId(String.valueOf(product.getId()));
+        cartItem2.setQuantity(12);
+
+        Long cartItemId = 1L;
+
+        CartItemResponseDto cartItemResponse = new CartItemResponseDto();
+        cartItemResponse.setProduct(product);
+        cartItemResponse.setQuantity(cartItem2.getQuantity());
+
+        Mockito.when(cartService.updateCartItemInCart(cartItemId, cartItem2.getQuantity()))
+                .thenReturn(cartItemResponse);
 
         mockMvc.perform(put("/cart")
-                        .contentType("application/json")
-                        .content(mapper.writeValueAsString(cart)))
+                        .param("cartItemId", String.valueOf(cartItemId))
+                        .param("quantity", String.valueOf(cartItem2.getQuantity()))
+                        .contentType("application/json"))
                 .andExpect(status().isOk());
 
-        Mockito.verify(cartService).updateCartItemInCart(any(CartItemRequestDto.class));
-        assertEquals(cart.getCartItems().size(),1);
-        assertNotNull(cartItem);
+        Mockito.verify(cartService).updateCartItemInCart(any(Long.class), any(Integer.class));
 
+        assertEquals(1, cart1.getItems().size());
+        assertEquals(12, cartItem2.getQuantity());
     }
 
-    @Test
-    @WithMockUser(username = "Test user", roles = {"CUSTOMER"})
-    void updateCartItemIsFailed() throws Exception{
-        CartItemRequestDto cartItem = new CartItemRequestDto();
-        Product product = new Product();
-        product.setId(1L);
-        cartItem.setProductId(String.valueOf(product.getId()));
-        cartItem.setQuantity(2);
-
-        Mockito.when(cartService.updateCartItemInCart(Mockito.any(CartItemRequestDto.class))).thenReturn(null);
-
-        mockMvc.perform(put("/cart")
-                        .contentType("application/json")
-                        .content(mapper.writeValueAsString(cartItem)))
-                .andExpect(status().isNotFound());
-
-        Mockito.verify(cartService).updateCartItemInCart(Mockito.any(CartItemRequestDto.class));
-    }
 
     @Test
     @WithMockUser(username = "Test user", roles = {"CUSTOMER"})

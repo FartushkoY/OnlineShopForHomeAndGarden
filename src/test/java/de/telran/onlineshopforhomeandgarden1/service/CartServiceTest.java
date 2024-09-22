@@ -3,6 +3,7 @@ package de.telran.onlineshopforhomeandgarden1.service;
 import de.telran.onlineshopforhomeandgarden1.dto.response.CartItemResponseDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.CartResponseDto;
 import de.telran.onlineshopforhomeandgarden1.entity.*;
+import de.telran.onlineshopforhomeandgarden1.exception.IllegalOperationInCartException;
 import de.telran.onlineshopforhomeandgarden1.mapper.CartItemMapper;
 import de.telran.onlineshopforhomeandgarden1.mapper.CartMapper;
 import de.telran.onlineshopforhomeandgarden1.repository.CartItemRepository;
@@ -173,6 +174,7 @@ class CartServiceTest {
         Mockito.verify(cartItemRepository).save(any());
         assertEquals(cartItemResponseDto.getQuantity(), 5);
     }
+
     @Test
     void updateCartItemsInCartNotFoundTest() {
         Product product1 = new Product();
