@@ -79,7 +79,7 @@ public class UserService {
                 updated.setRole(Role.valueOf(userRequestDto.getRole()));
             }
             if (userRequestDto.getPassword() != null) {
-                updated.setPasswordHash(userRequestDto.getPassword());
+                updated.setPasswordHash(encoder.encode(userRequestDto.getPassword()));
             }
             repository.save(updated);
             logger.debug("User with id = {} updated", id);
