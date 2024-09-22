@@ -11,6 +11,8 @@ import lombok.*;
 
 public class CategoryResponseDto {
 
+    Long id;
+
     private String name;
 
     private String imageUrl;

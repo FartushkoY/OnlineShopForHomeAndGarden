@@ -42,7 +42,7 @@ public class CartService {
         return mapper.entityToResponseDto(cart);
     }
 
-    @Transactional
+   @Transactional
     public CartResponseDto addCartItem(CartItemRequestDto cartItemRequestDto) {
         Cart cart = repository.findByUserEmail(authService.getAuthInfo().getLogin());
 
@@ -50,7 +50,7 @@ public class CartService {
         CartItem newCartItem = cartItemMapper.requestDtoToEntity(cartItemRequestDto);
 
         CartItem itemExists = cartItems.stream().filter(cartItem -> cartItem.getProduct().getId()
-                        .equals(newCartItem.getProduct().getId())).findFirst().orElse(null);
+                .equals(newCartItem.getProduct().getId())).findFirst().orElse(null);
 
         if (itemExists != null) {
             itemExists.setQuantity(itemExists.getQuantity() + newCartItem.getQuantity());
