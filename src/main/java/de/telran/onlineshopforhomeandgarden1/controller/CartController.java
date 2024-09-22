@@ -2,7 +2,9 @@ package de.telran.onlineshopforhomeandgarden1.controller;
 
 import de.telran.onlineshopforhomeandgarden1.dto.request.CartItemRequestDto;
 import de.telran.onlineshopforhomeandgarden1.dto.request.CartRequestDto;
+import de.telran.onlineshopforhomeandgarden1.dto.response.CartItemResponseDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.CartResponseDto;
+import de.telran.onlineshopforhomeandgarden1.exception.IllegalOperationInCartException;
 import de.telran.onlineshopforhomeandgarden1.service.CartService;
 import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
@@ -43,14 +45,16 @@ public class CartController {
 
     @PutMapping
     @Operation(summary = "Update quantity of an item in the customer's cart")
-    @PreAuthorize("hasRole('ROLE_CUSTOMER')")
-    public ResponseEntity<CartResponseDto> updateCartItem(@RequestBody @Valid CartItemRequestDto cartItemRequestDto) {
-        CartResponseDto cart = service.updateCartItemInCart(cartItemRequestDto);
-        if (cart != null) {
-            return new ResponseEntity<>(cart, HttpStatus.OK);
-        } else {
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        }
+    public ResponseEntity<CartItemResponseDto> updateCartItem(@RequestParam Long cartItemId, Integer quantity) {
+        CartItemResponseDto cartItemInCart = service.updateCartItemInCart(cartItemId, quantity);
+        return new ResponseEntity<>(cartItemInCart, HttpStatus.OK);
+    }
+
+    @ExceptionHandler(IllegalOperationInCartException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    @ResponseBody
+    public ResponseEntity<String> handleIllegalOperationInCartException(IllegalOperationInCartException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.FORBIDDEN);
     }
 
     @DeleteMapping
