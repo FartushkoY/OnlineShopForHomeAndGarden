@@ -5,6 +5,7 @@ import lombok.*;
 
 @Getter
 @Setter
+@EqualsAndHashCode(exclude = {"product", "cart"})
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
