@@ -7,7 +7,6 @@ import de.telran.onlineshopforhomeandgarden1.dto.request.CartRequestDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.CartItemResponseDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.CartResponseDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.ProductResponseDto;
-import de.telran.onlineshopforhomeandgarden1.entity.Product;
 import de.telran.onlineshopforhomeandgarden1.mapper.CartItemMapper;
 import de.telran.onlineshopforhomeandgarden1.security.JwtProvider;
 import de.telran.onlineshopforhomeandgarden1.service.CartService;
