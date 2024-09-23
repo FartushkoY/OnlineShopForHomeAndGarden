@@ -41,7 +41,7 @@ public class UserController {
     @PutMapping("/{userId}")
     @PreAuthorize("hasAnyRole('ROLE_ADMINISTRATOR', 'ROLE_CUSTOMER')")
     @Operation(summary = "Update profile of the authenticated customer identified by his/her ID")
-    public ResponseEntity<UserRequestDto> updateUser(@PathVariable("userId") Long userId, @RequestBody @Valid UserRequestDto userRequestDto) {
+    public ResponseEntity<UserRequestDto> updateUser(@PathVariable("userId") Long userId, @RequestBody UserRequestDto userRequestDto) {
         Optional<UserRequestDto> user = service.updateUser(userId, userRequestDto);
         if (user.isPresent()) {
             UserRequestDto result = user.get();

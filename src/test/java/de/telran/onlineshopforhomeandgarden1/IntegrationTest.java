@@ -3,6 +3,7 @@ package de.telran.onlineshopforhomeandgarden1;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.telran.onlineshopforhomeandgarden1.dto.request.*;
+import de.telran.onlineshopforhomeandgarden1.dto.response.CartResponseDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.CategoryResponseDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.OrderResponseDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.ProductWithDiscountPriceResponseDto;
@@ -23,6 +24,8 @@ import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.hibernate.validator.internal.util.Contracts.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -138,7 +141,6 @@ public class IntegrationTest {
 
     @Order(2)
     @Test
-
     public void testCustomerOperations() throws Exception {
         WithMockJwtAuthentication withMockJwtAuthentication = new WithMockJwtAuthentication();
         withMockJwtAuthentication.beforeTestMethod(null);
@@ -152,13 +154,19 @@ public class IntegrationTest {
         UserRequestDto registeredUser = objectMapper.readValue(response, UserRequestDto.class);
         Long userId = registeredUser.getId();
 
+        assertNotNull(userId);
+        assertEquals("Mr Customer", registeredUser.getName());
+        assertEquals("test@qmail.com", registeredUser.getEmail());
+
         registeredUser.setPhoneNumber("+491669413322");
+        registeredUser.setPassword("ananas344!");
 
         mockMvc.perform(put("/users/" + userId)
                         .contentType("application/json")
                         .content(objectMapper.writeValueAsString(registeredUser)))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$.phoneNumber").value("+491669413322"));
+
 
         MvcResult categoriesResult = mockMvc.perform(get("/categories").contentType("application/json"))
                 .andExpect(status().isOk()).andReturn();
@@ -190,18 +198,19 @@ public class IntegrationTest {
                 .andExpect(status().isCreated()).andReturn();
 
         String addItemContent = addItemResult.getResponse().getContentAsString();
-        CartRequestDto addedItem = objectMapper.readValue(addItemContent, CartRequestDto.class);
+        CartResponseDto addedItem = objectMapper.readValue(addItemContent, CartResponseDto.class);
         mockMvc.perform(get("/cart")
                         .contentType("application/json"))
                 .andExpect(status().isOk());
 
 
-//        CartItemRequestDto updatedCartItem = new CartItemRequestDto(productRequestDto.getId().toString(), 5);
-//        mockMvc.perform(put("/cart")
-//                        .contentType("application/json")
-//                        .content(objectMapper.writeValueAsString(updatedCartItem)))
-//                .andExpect(status().isOk());
-////                .andExpect(jsonPath("$.quantity").value(5));
+        CartItemRequestDto updatedCartItem = new CartItemRequestDto(productOfTheDay.getId().toString(), 5);
+        mockMvc.perform(put("/cart").param("cartItemId", addedItem.getId().toString())
+                .param("quantity", "5")
+                        .contentType("application/json")
+                        .content(objectMapper.writeValueAsString(updatedCartItem)))
+                .andExpect(status().isOk())
+                .andExpect(jsonPath("$.quantity").value(5));
 
 
         OrderItemRequestDto oi1 = new OrderItemRequestDto(2, productOfTheDay.getId().toString());
