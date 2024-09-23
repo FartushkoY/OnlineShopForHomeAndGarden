@@ -14,6 +14,5 @@ import java.util.Set;
 @NoArgsConstructor
 public class CartResponseDto {
     private Long id;
-    private UserResponseDto user;
     private Set<CartItemResponseDto> cartItems = new LinkedHashSet<>();
 }
