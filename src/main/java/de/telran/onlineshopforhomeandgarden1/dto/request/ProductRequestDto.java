@@ -14,6 +14,8 @@ import java.math.BigDecimal;
 @AllArgsConstructor
 public class ProductRequestDto {
 
+    Long id;
+
     @NotNull(message = "{validation.product.name}")
     @Length(max = 90, message = "{validation.product.name}")
     private String name;
@@ -30,5 +32,7 @@ public class ProductRequestDto {
 
     @NotNull(message = "{validation.product.imageUrl}")
     private String imageUrl;
+
+
 
 }

@@ -1,7 +1,5 @@
 package de.telran.onlineshopforhomeandgarden1.mapper;
 
-import de.telran.onlineshopforhomeandgarden1.dto.request.CategoryRequestDto;
-import de.telran.onlineshopforhomeandgarden1.dto.ProductDto;
 import de.telran.onlineshopforhomeandgarden1.dto.request.ProductRequestDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.ProductResponseDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.ProductWithDiscountPriceResponseDto;
@@ -11,32 +9,20 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
 import java.util.List;
-import java.util.Set;
 
 @Mapper(componentModel = "spring")
 public interface ProductMapper {
-
-    Product dtoToEntity(ProductDto productDto);
-
-    ProductDto entityToDto(Product product);
-
-   Set<ProductDto> entityListToDto(Set<Product> products);
 
     //    RequestDto
     @Mapping(target = "category.id", source = "categoryId")
     Product requestDtoToEntity(ProductRequestDto productDto);
 
-
     @Mapping(target = "categoryId", source = "category.id")
     ProductRequestDto entityToRequestDto(Product product);
 
-    //    Response
-    ProductResponseDto entityToResponseDto(Product product);
 
+    //    Response
     ProductWithDiscountPriceResponseDto entityToWithDiscountResponseDto(Product product);
 
     List <ProductWithPriceResponseDto> entityListToWithPriceResponseDto(List<Product> products);
-
-    List<ProductResponseDto> entityListToResponseDto(List<Product> products);
-
 }

@@ -8,8 +8,6 @@ import de.telran.onlineshopforhomeandgarden1.security.AuthService;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Service;
-
-import java.util.Collections;
 import java.util.Set;
 
 @Service
@@ -20,19 +18,17 @@ public class FavoriteService {
     private final FavoriteMapper favoriteMapper;
     private final AuthService authService;
 
-    public FavoriteService(FavoriteRepository favoriteRepository, FavoriteMapper favoriteMapper,  AuthService authService) {
+    public FavoriteService(FavoriteRepository favoriteRepository, FavoriteMapper favoriteMapper, AuthService authService) {
         this.favoriteRepository = favoriteRepository;
         this.favoriteMapper = favoriteMapper;
         this.authService = authService;
     }
 
     public Set<FavoriteResponseDto> getFavorites() {
-            Set<Favorite> favorites = favoriteRepository.findFavoriteByUserEmail(authService.getAuthInfo().getLogin());
-            logger.debug("Found {} favorites", favorites.size());
-            return favoriteMapper.entityListToDto(favorites);
-
-        }
-
+        Set<Favorite> favorites = favoriteRepository.findFavoriteByUserEmail(authService.getAuthInfo().getLogin());
+        logger.debug("Found {} favorites", favorites.size());
+        return favoriteMapper.entityListToDto(favorites);
     }
+}
 
 

@@ -11,7 +11,6 @@ import java.util.Set;
 
 @Repository
 public interface CartItemRepository extends JpaRepository<CartItem,Long> {
-    Set<CartItem> findAllByProductId(Long id);
     Set<CartItem> findAllByCartId(Long id);
 
     @Transactional

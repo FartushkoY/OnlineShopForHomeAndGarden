@@ -2,17 +2,19 @@ package de.telran.onlineshopforhomeandgarden1.controller;
 
 import de.telran.onlineshopforhomeandgarden1.dto.request.CartItemRequestDto;
 import de.telran.onlineshopforhomeandgarden1.dto.request.CartRequestDto;
+import de.telran.onlineshopforhomeandgarden1.dto.response.CartItemResponseDto;
 import de.telran.onlineshopforhomeandgarden1.dto.response.CartResponseDto;
+import de.telran.onlineshopforhomeandgarden1.exception.IllegalOperationInCartException;
 import de.telran.onlineshopforhomeandgarden1.service.CartService;
+import io.swagger.v3.oas.annotations.Operation;
 import jakarta.validation.Valid;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Set;
 
 @RestController
 @RequestMapping("/cart")
@@ -27,33 +29,39 @@ public class CartController {
     }
 
     @GetMapping
-    public ResponseEntity<Set<CartResponseDto>> getItemsInCart() {
+    @Operation(summary = "Retrieve all items in the customer's cart")
+    @PreAuthorize("hasRole('ROLE_CUSTOMER')")
+    public ResponseEntity<CartResponseDto> getItemsInCart() {
         return new ResponseEntity<>(service.getCartItems(), HttpStatus.OK);
     }
 
     @PostMapping
-    public ResponseEntity<CartRequestDto> addItemToCart(@RequestBody @Valid CartItemRequestDto cartItemRequestDto) {
-        CartRequestDto result = service.addCartItem(cartItemRequestDto);
-        if (result != null) {
-            return new ResponseEntity<>(result, HttpStatus.CREATED);
-        } else {
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+    @Operation(summary = "Add an item to the customer's cart")
+    @PreAuthorize("hasRole('ROLE_CUSTOMER')")
+    public ResponseEntity<CartResponseDto> addItemToCart(@RequestBody @Valid CartItemRequestDto cartItemRequestDto) {
+        CartResponseDto result = service.addCartItem(cartItemRequestDto);
+        return new ResponseEntity<>(result, HttpStatus.CREATED);
     }
 
     @PutMapping
-    public ResponseEntity<CartRequestDto> updateCartItem(@RequestBody @Valid CartItemRequestDto cartItemRequestDto) {
-        CartRequestDto cart = service.updateCartItemInCart(cartItemRequestDto);
-        if (cart != null) {
-            return new ResponseEntity<>(cart, cart != null ? HttpStatus.OK : HttpStatus.NOT_FOUND);
-        } else {
-            return new ResponseEntity<>((HttpStatus.BAD_REQUEST));
-        }
+    @Operation(summary = "Update quantity of an item in the customer's cart")
+    public ResponseEntity<CartItemResponseDto> updateCartItem(@RequestParam Long cartItemId, Integer quantity) {
+        CartItemResponseDto cartItemInCart = service.updateCartItemInCart(cartItemId, quantity);
+        return new ResponseEntity<>(cartItemInCart, HttpStatus.OK);
+    }
+
+    @ExceptionHandler(IllegalOperationInCartException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    @ResponseBody
+    public ResponseEntity<String> handleIllegalOperationInCartException(IllegalOperationInCartException ex) {
+        return new ResponseEntity<>(ex.getMessage(), HttpStatus.FORBIDDEN);
     }
 
     @DeleteMapping
-    public ResponseEntity<?> deleteCartItemInCart() {
-        service.deleteCartItemInCart();
+    @Operation(summary ="Delete an item in the customer's cart")
+    @PreAuthorize("hasRole('ROLE_CUSTOMER')")
+    public ResponseEntity<?> deleteCartItemsInCart() {
+        service.deleteCartItemsInCart();
         return new ResponseEntity<>(HttpStatus.OK);
     }
 }

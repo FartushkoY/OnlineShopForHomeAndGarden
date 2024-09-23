@@ -11,6 +11,7 @@ import lombok.Setter;
 import org.hibernate.validator.constraints.Length;
 
 
+import java.util.List;
 import java.util.Set;
 @Getter
 @Setter
@@ -28,7 +29,7 @@ public class OrderRequestDto {
     private String deliveryMethod;
 
     @Valid
-    private Set<OrderItemRequestDto> items;
+    private List<OrderItemRequestDto> items;
 
 
 }

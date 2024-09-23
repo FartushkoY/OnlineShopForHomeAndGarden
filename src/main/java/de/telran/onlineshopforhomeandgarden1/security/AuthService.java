@@ -13,6 +13,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Optional;
+
 /**
  * Service class for handling authentication-related operations.
  * <p>
@@ -140,7 +142,7 @@ public class AuthService {
                 final String newRefreshToken = jwtProvider.generateRefreshToken(user);
                 // Update the stored refresh token for the user
                 user.setRefreshToken(newRefreshToken);
-                userService.saveUser(userMapper.entityToRequestDto(user));
+                userService.save(user);
                 // Return a JwtResponse with the new access and refresh tokens
                 return new JwtResponse(accessToken, newRefreshToken);
             }
@@ -157,6 +159,11 @@ public class AuthService {
      */
     public JwtAuthentication getAuthInfo() {
         return (JwtAuthentication) SecurityContextHolder.getContext().getAuthentication();
+    }
+
+    public Optional<User> getCurrentUser() {
+        String email = this.getAuthInfo().getLogin();
+        return this.userService.getUserByEmail(email);
     }
 
 }
